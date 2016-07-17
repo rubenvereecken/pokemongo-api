@@ -58,7 +58,6 @@ class PogoSession(object):
         if url is None:
             url = self.endpoint
         rawResponse = self.session.post(url, data=req.SerializeToString())
-        # print rawResponse.content
         response = response_pb2.Response()
         response.ParseFromString(rawResponse.content)
         return response
@@ -85,6 +84,6 @@ class PogoSession(object):
         payload = [msg]
         res = self.wrapAndRequest(payload)
         profile = pokemon_pb2.ClientProfile()
+
         profile.ParseFromString(res.payload[0].data)
-        print profile
         return profile

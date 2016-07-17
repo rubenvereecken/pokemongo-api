@@ -8,7 +8,7 @@ import location
 
 def setupLogger():
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -42,6 +42,6 @@ if __name__ == '__main__':
 
     if session: # do stuff
         profile = session.getProfile()
-        print profile
+        logging.info(profile)
     else:
         logging.critical('Session not created successfully')
