@@ -2,17 +2,19 @@ import requests
 import logging
 import sys
 
-from proto import request_pb2
+from proto import request_pb2, response_pb2
+import api
+import location
 
 API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
 
 class PogoSession(object):
-    def __init__(self, session, authProvider, accessToken, location=None):
+    def __init__(self, session, authProvider, accessToken, loc):
         self.session = session
         self.authProvider = authProvider
         self.accessToken = accessToken
-        self.location = location
-        self.endpoint = createApiEndpoint()
+        self.location = loc
+        self.endpoint = self.createApiEndpoint()
 
 
     def __str__(self):
@@ -24,27 +26,27 @@ class PogoSession(object):
         self.location = loc
         
     def createApiEndpoint(self):
-        messages = []
-        msg = request_pb2.Message()
-        msg.type = request_pb2.Message.Type.REQUEST_ENDPOINT
-        messages.append(msg)
-        req = self.wrapInRequest(messages);
+        payload = []
+        msg = request_pb2.Request.Payload()
+        msg.type = request_pb2.Request.Payload.Type.Value('REQUEST_ENDPOINT')
+        payload.append(msg)
+        req = self.wrapInRequest(payload);
         res = self.request(req)
         if res is None:
             logging.critical('Servers seem to be busy. Exiting.')
             sys.exit(-1)
-        return res.api_url
+        return res.endpoint
         
 
-    def wrapInRequest(self, messages):
+    def wrapInRequest(self, payload):
         req = request_pb2.Request()
-        req.messages.extend(messages)
-        req.type = request_pb2.Request.Type.TWO
-        req.rpc_id = getRPCId()
+        req.payload.extend(payload)
+        req.type = request_pb2.Request.Type.Value('TWO')
+        req.rpc_id = api.getRPCId()
 
-        req.latitude, req.longitude, req.altitude = encodeLocation(location)
+        req.latitude, req.longitude, req.altitude = location.encodeLocation(self.location)
 
-        req.unknown12 = 18446744073709551615
+        req.unknown12 = 18446744071615
 
         req.auth.provider = self.authProvider
         req.auth.token.contents = self.accessToken
@@ -52,10 +54,10 @@ class PogoSession(object):
 
         return req
 
-    def request(req):
+    def request(self, req):
         try:
             rawResponse = self.session.post(API_URL, data=req.SerializeToString())
-            response = pokemon_pb2.Response()
+            response = response_pb2.Response()
             response.ParseFromString(rawResponse.content)
             return response
         except Exception, e:
