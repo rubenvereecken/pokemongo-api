@@ -18,9 +18,9 @@ Additions welcome.
 2016-07-17 16:26:59,953 - INFO - Starting new HTTPS connection (1): android.clients.google.com
 2016-07-17 16:27:00,362 - INFO - Starting new HTTPS connection (1): android.clients.google.com
 2016-07-17 16:27:00,789 - INFO - Location: The Atlantic Ocean
-2016-07-17 16:27:00,789 - INFO - Coordinates: 51.2083597 4.4681483 0.0
+2016-07-17 16:27:00,789 - INFO - Coordinates: 51.01 7.12 0.0
 2016-07-17 16:27:00,793 - INFO - Starting new HTTPS connection (1): pgorelease.nianticlabs.com
-2016-07-17 16:27:01,633 - INFO - creation_time: 3341848216
+2016-07-17 16:27:01,633 - INFO - creation_time: 3341800000
 team: 3
 avatar {
   hair: 1
