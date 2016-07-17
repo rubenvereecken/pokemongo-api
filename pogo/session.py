@@ -14,8 +14,8 @@ class PogoSession(object):
         self.authProvider = authProvider
         self.accessToken = accessToken
         self.location = loc
-        self.endpoint = self.createApiEndpoint()
-
+        self.endpoint = None
+        self.endpoint = 'https://' + self.createApiEndpoint() + '/rpc'
 
     def __str__(self):
         s = 'Access Token: {}\nEndpoint: {}\nLocation: {}'.format(self.accessToken,
@@ -31,7 +31,7 @@ class PogoSession(object):
         msg.type = request_pb2.Request.Payload.Type.Value('REQUEST_ENDPOINT')
         payload.append(msg)
         req = self.wrapInRequest(payload);
-        res = self.request(req)
+        res = self.request(req, API_URL)
         if res is None:
             logging.critical('Servers seem to be busy. Exiting.')
             sys.exit(-1)
@@ -54,27 +54,33 @@ class PogoSession(object):
 
         return req
 
-    def request(self, req):
+    def requestOrThrow(self, req, url=None):
+        if url is None:
+            url = self.endpoint
+        rawResponse = self.session.post(url, data=req.SerializeToString())
+        response = response_pb2.Response()
+        response.ParseFromString(rawResponse.content)
+        return response
+
+    def request(self, req, url=None):
         try:
-            rawResponse = self.session.post(API_URL, data=req.SerializeToString())
-            response = response_pb2.Response()
-            response.ParseFromString(rawResponse.content)
-            return response
+            return self.requestOrThrow(req, url)
         except Exception, e:
             logging.error(e)
             return None
         
     def wrapAndRequest(self, payload):
-        return self.request(self.wrapInRequest(payload))
+        res = self.request(self.wrapInRequest(payload))
+        if res is None:
+            logging.critical('Servers seem to be busy. Exiting.')
+            sys.exit(-1)
+        logging.debug('{} payloads'.format(len(res.payload)))
+        return res
 
-    def getProfile():
+    def getProfile(self):
         msg = request_pb2.Request.Payload()
         msg.type = request_pb2.Request.Payload.Type.Value('REQUEST_ENDPOINT')
         payload = [msg]
         res = self.wrapAndRequest(payload)
-        response = response_pb2.Response().ParseFromString(res.content)
-        print(response.payload[0].data)
-        profile = pokemon_pb2.ClientProfile().ParseFromString(response.payload[0].data)
-
+        profile = pokemon_pb2.ClientProfile().ParseFromString(res.payload[0].data)
         return profile
-

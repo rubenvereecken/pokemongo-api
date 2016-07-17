@@ -8,12 +8,13 @@ from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 
+import pokemon_pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='response.proto',
   package='',
-  serialized_pb='\n\x0eresponse.proto\"\xfa\x02\n\x08Response\x12\x1c\n\x04type\x18\x01 \x02(\x0e\x32\x0e.Response.Type\x12\x0e\n\x06rpc_id\x18\x02 \x02(\x03\x12\x10\n\x08\x65ndpoint\x18\x03 \x01(\t\x12$\n\x08unknown6\x18\x06 \x02(\x0b\x32\x12.Response.Unknown6\x12\"\n\x07payload\x18\x64 \x03(\x0b\x32\x11.Response.Payload\x1aM\n\x07Payload\x12$\n\x04type\x18\x01 \x02(\x0e\x32\x16.Response.Payload.Type\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"\x0e\n\x04Type\x12\x06\n\x02OK\x10\x01\x1ai\n\x08Unknown6\x12\x10\n\x08unknown1\x18\x01 \x02(\x05\x12-\n\x08unknown2\x18\x02 \x02(\x0b\x32\x1b.Response.Unknown6.Unknown2\x1a\x1c\n\x08Unknown2\x12\x10\n\x08unknown1\x18\x01 \x02(\x05\"*\n\x04Type\x12\x06\n\x02OK\x10\x01\x12\x0b\n\x07StillOK\x10\x02\x12\r\n\tAuthError\x10\x66\"\xb1\t\n\x07MapTile\x12\x13\n\x0bmap_cell_id\x18\x01 \x02(\x03\x12\x11\n\ttimestamp\x18\x02 \x02(\x03\x12\x1c\n\x05\x66orts\x18\x03 \x03(\x0b\x32\r.MapTile.Fort\x12.\n\x0bspawn_point\x18\x04 \x03(\x0b\x32\x19.MapTile.ClientSpawnPoint\x12*\n\x0cwild_pokemon\x18\x05 \x03(\x0b\x32\x14.MapTile.WildPokemon\x12\x14\n\x0cis_truncated\x18\x06 \x01(\x05\x12\x38\n\x15\x64\x65\x63imated_spawn_point\x18\t \x01(\x0b\x32\x19.MapTile.ClientSpawnPoint\x12.\n\x11\x63\x61tchable_pokemon\x18\n \x01(\x0b\x32\x13.MapTile.MapPokemon\x12.\n\x0enearby_pokemon\x18\x0b \x01(\x0b\x32\x16.MapTile.NearbyPokemon\x1aV\n\rNearbyPokemon\x12\x16\n\x0epokedex_number\x18\x01 \x02(\x05\x12\x17\n\x0f\x64istance_meters\x18\x02 \x02(\x07\x12\x14\n\x0c\x65ncounter_id\x18\x03 \x02(\x06\x1a\x81\x03\n\x04\x46ort\x12\x0f\n\x07\x66ort_id\x18\x01 \x02(\t\x12\x1a\n\x12last_modified_time\x18\x02 \x02(\x05\x12\x0b\n\x03lat\x18\x03 \x02(\x06\x12\x0b\n\x03lng\x18\x04 \x02(\x06\x12\x0c\n\x04team\x18\x05 \x01(\x05\x12\x18\n\x10guard_pokemon_id\x18\x06 \x01(\x05\x12\x1b\n\x13guard_pokemon_level\x18\x07 \x01(\x05\x12\x0f\n\x07\x65nabled\x18\x08 \x01(\x05\x12\x11\n\tfort_type\x18\t \x01(\x05\x12\x12\n\ngym_points\x18\n \x01(\x05\x12\x15\n\ractive_module\x18\x0b \x01(\x05\x12$\n\x04lure\x18\r \x01(\x0b\x32\x16.MapTile.Fort.LureInfo\x12\x1e\n\x16\x63ooldown_complete_time\x18\x0e \x01(\x03\x1aX\n\x08LureInfo\x12\x13\n\x0bpokestop_id\x18\x01 \x02(\x0c\x12\x10\n\x08unknown2\x18\x02 \x02(\x06\x12\x10\n\x08unknown3\x18\x03 \x02(\x05\x12\x13\n\x0b\x65xpire_time\x18\x04 \x02(\x03\x1a,\n\x10\x43lientSpawnPoint\x12\x0b\n\x03lat\x18\x02 \x02(\x06\x12\x0b\n\x03lng\x18\x03 \x02(\x06\x1a\xd4\x01\n\x0bWildPokemon\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x02(\x06\x12\x1a\n\x12last_modified_time\x18\x02 \x02(\x03\x12\x0b\n\x03lat\x18\x03 \x02(\x06\x12\x0b\n\x03lng\x18\x04 \x02(\x06\x12\x16\n\x0espawn_point_id\x18\x05 \x02(\t\x12+\n\x04info\x18\x07 \x02(\x0b\x32\x1d.MapTile.WildPokemon.PokeInfo\x12\x18\n\x10time_till_hidden\x18\x0b \x02(\x03\x1a\x1a\n\x08PokeInfo\x12\x0e\n\x06number\x18\x02 \x02(\x05\x1as\n\nMapPokemon\x12\x16\n\x0espawn_point_id\x18\x01 \x02(\t\x12\x14\n\x0c\x65ncounter_id\x18\x02 \x02(\x06\x12\x0f\n\x07pkmn_no\x18\x03 \x02(\x05\x12\x0c\n\x04time\x18\x04 \x02(\x05\x12\x0b\n\x03lat\x18\x05 \x02(\x06\x12\x0b\n\x03lng\x18\x06 \x02(\x06')
+  serialized_pb='\n\x0eresponse.proto\x1a\rpokemon.proto\"\xfa\x02\n\x08Response\x12\x1c\n\x04type\x18\x01 \x02(\x0e\x32\x0e.Response.Type\x12\x0e\n\x06rpc_id\x18\x02 \x02(\x03\x12\x10\n\x08\x65ndpoint\x18\x03 \x01(\t\x12$\n\x08unknown6\x18\x06 \x02(\x0b\x32\x12.Response.Unknown6\x12\"\n\x07payload\x18\x64 \x03(\x0b\x32\x11.Response.Payload\x1aM\n\x07Payload\x12$\n\x04type\x18\x01 \x02(\x0e\x32\x16.Response.Payload.Type\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"\x0e\n\x04Type\x12\x06\n\x02OK\x10\x01\x1ai\n\x08Unknown6\x12\x10\n\x08unknown1\x18\x01 \x02(\x05\x12-\n\x08unknown2\x18\x02 \x02(\x0b\x32\x1b.Response.Unknown6.Unknown2\x1a\x1c\n\x08Unknown2\x12\x10\n\x08unknown1\x18\x01 \x02(\x05\"*\n\x04Type\x12\x06\n\x02OK\x10\x01\x12\x0b\n\x07StillOK\x10\x02\x12\r\n\tAuthError\x10\x66\"\xb1\t\n\x07MapTile\x12\x13\n\x0bmap_cell_id\x18\x01 \x02(\x03\x12\x11\n\ttimestamp\x18\x02 \x02(\x03\x12\x1c\n\x05\x66orts\x18\x03 \x03(\x0b\x32\r.MapTile.Fort\x12.\n\x0bspawn_point\x18\x04 \x03(\x0b\x32\x19.MapTile.ClientSpawnPoint\x12*\n\x0cwild_pokemon\x18\x05 \x03(\x0b\x32\x14.MapTile.WildPokemon\x12\x14\n\x0cis_truncated\x18\x06 \x01(\x05\x12\x38\n\x15\x64\x65\x63imated_spawn_point\x18\t \x01(\x0b\x32\x19.MapTile.ClientSpawnPoint\x12.\n\x11\x63\x61tchable_pokemon\x18\n \x01(\x0b\x32\x13.MapTile.MapPokemon\x12.\n\x0enearby_pokemon\x18\x0b \x01(\x0b\x32\x16.MapTile.NearbyPokemon\x1aV\n\rNearbyPokemon\x12\x16\n\x0epokedex_number\x18\x01 \x02(\x05\x12\x17\n\x0f\x64istance_meters\x18\x02 \x02(\x07\x12\x14\n\x0c\x65ncounter_id\x18\x03 \x02(\x06\x1a\x81\x03\n\x04\x46ort\x12\x0f\n\x07\x66ort_id\x18\x01 \x02(\t\x12\x1a\n\x12last_modified_time\x18\x02 \x02(\x05\x12\x0b\n\x03lat\x18\x03 \x02(\x06\x12\x0b\n\x03lng\x18\x04 \x02(\x06\x12\x0c\n\x04team\x18\x05 \x01(\x05\x12\x18\n\x10guard_pokemon_id\x18\x06 \x01(\x05\x12\x1b\n\x13guard_pokemon_level\x18\x07 \x01(\x05\x12\x0f\n\x07\x65nabled\x18\x08 \x01(\x05\x12\x11\n\tfort_type\x18\t \x01(\x05\x12\x12\n\ngym_points\x18\n \x01(\x05\x12\x15\n\ractive_module\x18\x0b \x01(\x05\x12$\n\x04lure\x18\r \x01(\x0b\x32\x16.MapTile.Fort.LureInfo\x12\x1e\n\x16\x63ooldown_complete_time\x18\x0e \x01(\x03\x1aX\n\x08LureInfo\x12\x13\n\x0bpokestop_id\x18\x01 \x02(\x0c\x12\x10\n\x08unknown2\x18\x02 \x02(\x06\x12\x10\n\x08unknown3\x18\x03 \x02(\x05\x12\x13\n\x0b\x65xpire_time\x18\x04 \x02(\x03\x1a,\n\x10\x43lientSpawnPoint\x12\x0b\n\x03lat\x18\x02 \x02(\x06\x12\x0b\n\x03lng\x18\x03 \x02(\x06\x1a\xd4\x01\n\x0bWildPokemon\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x02(\x06\x12\x1a\n\x12last_modified_time\x18\x02 \x02(\x03\x12\x0b\n\x03lat\x18\x03 \x02(\x06\x12\x0b\n\x03lng\x18\x04 \x02(\x06\x12\x16\n\x0espawn_point_id\x18\x05 \x02(\t\x12+\n\x04info\x18\x07 \x02(\x0b\x32\x1d.MapTile.WildPokemon.PokeInfo\x12\x18\n\x10time_till_hidden\x18\x0b \x02(\x03\x1a\x1a\n\x08PokeInfo\x12\x0e\n\x06number\x18\x02 \x02(\x05\x1as\n\nMapPokemon\x12\x16\n\x0espawn_point_id\x18\x01 \x02(\t\x12\x14\n\x0c\x65ncounter_id\x18\x02 \x02(\x06\x12\x0f\n\x07pkmn_no\x18\x03 \x02(\x05\x12\x0c\n\x04time\x18\x04 \x02(\x05\x12\x0b\n\x03lat\x18\x05 \x02(\x06\x12\x0b\n\x03lng\x18\x06 \x02(\x06')
 
 
 
@@ -30,8 +31,8 @@ _RESPONSE_PAYLOAD_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=232,
-  serialized_end=246,
+  serialized_start=247,
+  serialized_end=261,
 )
 
 _RESPONSE_TYPE = _descriptor.EnumDescriptor(
@@ -55,8 +56,8 @@ _RESPONSE_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=355,
-  serialized_end=397,
+  serialized_start=370,
+  serialized_end=412,
 )
 
 
@@ -91,8 +92,8 @@ _RESPONSE_PAYLOAD = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=169,
-  serialized_end=246,
+  serialized_start=184,
+  serialized_end=261,
 )
 
 _RESPONSE_UNKNOWN6_UNKNOWN2 = _descriptor.Descriptor(
@@ -118,8 +119,8 @@ _RESPONSE_UNKNOWN6_UNKNOWN2 = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=325,
-  serialized_end=353,
+  serialized_start=340,
+  serialized_end=368,
 )
 
 _RESPONSE_UNKNOWN6 = _descriptor.Descriptor(
@@ -152,8 +153,8 @@ _RESPONSE_UNKNOWN6 = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=248,
-  serialized_end=353,
+  serialized_start=263,
+  serialized_end=368,
 )
 
 _RESPONSE = _descriptor.Descriptor(
@@ -208,8 +209,8 @@ _RESPONSE = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=19,
-  serialized_end=397,
+  serialized_start=34,
+  serialized_end=412,
 )
 
 
@@ -250,8 +251,8 @@ _MAPTILE_NEARBYPOKEMON = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=749,
-  serialized_end=835,
+  serialized_start=764,
+  serialized_end=850,
 )
 
 _MAPTILE_FORT_LUREINFO = _descriptor.Descriptor(
@@ -298,8 +299,8 @@ _MAPTILE_FORT_LUREINFO = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1135,
-  serialized_end=1223,
+  serialized_start=1150,
+  serialized_end=1238,
 )
 
 _MAPTILE_FORT = _descriptor.Descriptor(
@@ -409,8 +410,8 @@ _MAPTILE_FORT = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=838,
-  serialized_end=1223,
+  serialized_start=853,
+  serialized_end=1238,
 )
 
 _MAPTILE_CLIENTSPAWNPOINT = _descriptor.Descriptor(
@@ -443,8 +444,8 @@ _MAPTILE_CLIENTSPAWNPOINT = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1225,
-  serialized_end=1269,
+  serialized_start=1240,
+  serialized_end=1284,
 )
 
 _MAPTILE_WILDPOKEMON_POKEINFO = _descriptor.Descriptor(
@@ -470,8 +471,8 @@ _MAPTILE_WILDPOKEMON_POKEINFO = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1458,
-  serialized_end=1484,
+  serialized_start=1473,
+  serialized_end=1499,
 )
 
 _MAPTILE_WILDPOKEMON = _descriptor.Descriptor(
@@ -539,8 +540,8 @@ _MAPTILE_WILDPOKEMON = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1272,
-  serialized_end=1484,
+  serialized_start=1287,
+  serialized_end=1499,
 )
 
 _MAPTILE_MAPPOKEMON = _descriptor.Descriptor(
@@ -601,8 +602,8 @@ _MAPTILE_MAPPOKEMON = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=1486,
-  serialized_end=1601,
+  serialized_start=1501,
+  serialized_end=1616,
 )
 
 _MAPTILE = _descriptor.Descriptor(
@@ -684,8 +685,8 @@ _MAPTILE = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=400,
-  serialized_end=1601,
+  serialized_start=415,
+  serialized_end=1616,
 )
 
 _RESPONSE_PAYLOAD.fields_by_name['type'].enum_type = _RESPONSE_PAYLOAD_TYPE
