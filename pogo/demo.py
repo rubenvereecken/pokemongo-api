@@ -41,7 +41,7 @@ if __name__ == '__main__':
         session = api.createGoogleSession(args.username, args.password, args.location)
 
     if session: # do stuff
-        print session
-        pass
+        profile = session.getProfile()
+        print profile
     else:
         logging.critical('Session not created successfully')

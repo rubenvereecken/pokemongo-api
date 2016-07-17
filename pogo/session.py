@@ -2,7 +2,7 @@ import requests
 import logging
 import sys
 
-from proto import request_pb2, response_pb2
+from proto import request_pb2, response_pb2, pokemon_pb2
 import api
 import location
 
@@ -63,3 +63,18 @@ class PogoSession(object):
         except Exception, e:
             logging.error(e)
             return None
+        
+    def wrapAndRequest(self, payload):
+        return self.request(self.wrapInRequest(payload))
+
+    def getProfile():
+        msg = request_pb2.Request.Payload()
+        msg.type = request_pb2.Request.Payload.Type.Value('REQUEST_ENDPOINT')
+        payload = [msg]
+        res = self.wrapAndRequest(payload)
+        response = response_pb2.Response().ParseFromString(res.content)
+        print(response.payload[0].data)
+        profile = pokemon_pb2.ClientProfile().ParseFromString(response.payload[0].data)
+
+        return profile
+
