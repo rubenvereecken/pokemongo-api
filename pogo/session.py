@@ -58,6 +58,7 @@ class PogoSession(object):
         if url is None:
             url = self.endpoint
         rawResponse = self.session.post(url, data=req.SerializeToString())
+        # print rawResponse.content
         response = response_pb2.Response()
         response.ParseFromString(rawResponse.content)
         return response
@@ -74,7 +75,8 @@ class PogoSession(object):
         if res is None:
             logging.critical('Servers seem to be busy. Exiting.')
             sys.exit(-1)
-        logging.debug('{} payloads'.format(len(res.payload)))
+        # logging.debug('{} payloads'.format(len(res.payload)))
+        # logging.debug('payload has data?  {}'.format(res.payload[0].HasField('data')))
         return res
 
     def getProfile(self):
@@ -82,5 +84,7 @@ class PogoSession(object):
         msg.type = request_pb2.Request.Payload.Type.Value('REQUEST_ENDPOINT')
         payload = [msg]
         res = self.wrapAndRequest(payload)
-        profile = pokemon_pb2.ClientProfile().ParseFromString(res.payload[0].data)
+        profile = pokemon_pb2.ClientProfile()
+        profile.ParseFromString(res.payload[0].data)
+        print profile
         return profile
