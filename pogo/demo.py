@@ -11,7 +11,6 @@ def setupLogger():
     logger.setLevel(logging.DEBUG)
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)
-    # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     ch.setFormatter(formatter)
     logger.addHandler(ch)
@@ -19,7 +18,7 @@ def setupLogger():
 
 if __name__ == '__main__':
     setupLogger()
-    logging.debug('ola')
+    logging.debug('Logger set up')
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-a", "--auth", help="Auth Service",
@@ -37,20 +36,11 @@ if __name__ == '__main__':
         sys.exit(-1)
 
     if args.auth == 'ptc':
-        session = api.createPTCSession(args.username, args.password)
+        session = api.createPTCSession(args.username, args.password, args.location)
     elif args.auth == 'google':
-        session = api.createGoogleSession(args.username, args.password)
+        session = api.createGoogleSession(args.username, args.password, args.location)
 
-    loc = location.getLocation(args.location)
-    if loc:
-        logging.info('Location: {}'.format(loc.address))
-        logging.info('Coordinates: {} {} {}'.format(loc.latitude, log.longitude,
-            log.altitude))
+    if session: # do stuff
+        pass
     else:
-        logging.critical('Location not found')
-        sys.exit(-1)
-    session.setLocation(loc)
-
-
-    print(session)
-
+        logging.critical('Session not created successfully')

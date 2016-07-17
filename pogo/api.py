@@ -69,8 +69,15 @@ def createPTCSession(username, pw, startLocation):
     access_token = re.sub('.*access_token=', '', access_token)
 
     loc = location.getLocation(startLocation)
+    if loc:
+        logging.info('Location: {}'.format(loc.address))
+        logging.info('Coordinates: {} {} {}'.format(loc.latitude, log.longitude,
+            log.altitude))
 
-    if access_token:
+    if access_token and loc:
         return PogoSession(session, access_token, loc)
-    else:
-        return None
+    elif loc is None:
+        logging.critical('Location not found')
+    elif access_token is None:
+        logging.critical('Access token not generated')
+    return None

@@ -25,7 +25,9 @@ class PogoSession(object):
         
     def createApiEndpoint(self):
         messages = []
-        messages.append(request_pb2.Message().type = request_pb2.Message.Type.REQUEST_ENDPOINT)
+        msg = request_pb2.Message()
+        msg.type = request_pb2.Message.Type.REQUEST_ENDPOINT
+        messages.append(msg)
         req = self.wrapInRequest(messages);
         res = self.request(req)
         if res is None:
