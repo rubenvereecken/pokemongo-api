@@ -1,3 +1,3 @@
 [submodule "proto"]
 	path = proto
-	url = https://github.com/rubenvereecken/protocol.git
+	url = https://github.com/AeonLucid/POGOProtos 

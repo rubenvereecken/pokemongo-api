@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import argparse
 import logging
 import sys
@@ -11,7 +12,7 @@ def setupLogger():
     logger.setLevel(logging.INFO)
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('Line %(lineno)d,%(filename)s  - %(asctime)s - %(levelname)s - %(message)s')
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
@@ -26,9 +27,7 @@ if __name__ == '__main__':
     parser.add_argument("-u", "--username", help="Username", required=True)
     parser.add_argument("-p", "--password", help="Password", required=True)
     parser.add_argument("-l", "--location", help="Location", required=True)
-    # parser.add_argument("-d", "--debug", help="Debug Mode", action='store_true')
     parser.add_argument("-s", "--client_secret", help="PTC Client Secret")
-    # parser.set_defaults(DEBUG=True)
     args = parser.parse_args()
 
     if args.auth not in ['ptc', 'google']:
