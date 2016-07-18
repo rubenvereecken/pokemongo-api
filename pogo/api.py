@@ -6,8 +6,6 @@ import argparse
 import random
 import logging
 
-from proto import request_pb2
-
 from session import PogoSession
 import location
 
@@ -83,8 +81,7 @@ def createPTCSession(username, pw, startLocation):
     try:
         ticket = re.sub('.*ticket=', '', authResponse.history[0].headers['Location'])
     except Exception as e:
-        if DEBUG:
-            print(authResponse.json()['errors'][0])
+        logging.error(authResponse.json()['errors'][0])
         return None
 
     data1 = {
@@ -99,3 +96,5 @@ def createPTCSession(username, pw, startLocation):
     access_token = re.sub('.*access_token=', '', access_token)
 
     return createPogoSession(session, 'ptc', access_token, startLocation)
+
+        

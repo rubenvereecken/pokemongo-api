@@ -2,13 +2,30 @@ import requests
 import logging
 import sys
 
-from proto import request_pb2, response_pb2, pokemon_pb2
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+import proto
+from proto import LocalPlayer_pb2
+from Networking import Envelopes_pb2
+from Networking.Requests import Request_pb2
+from Networking.Requests import RequestType_pb2
+from Networking.Requests.Messages import GetInventoryMessage_pb2
+from Networking.Requests.Messages import FortSearchMessage_pb2
+from Networking.Requests.Messages import DownloadSettingsMessage_pb2
+from Networking.Responses import CheckAwardedBadgesResponse_pb2
+from Networking.Responses import DownloadSettingsResponse_pb2
+from Networking.Responses import GetHatchedEggsResponse_pb2
+from Networking.Responses import GetPlayerResponse_pb2
+
 import api
 import location
+from util import getMs
 
 API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
 
 class PogoSession(object):
+
     def __init__(self, session, authProvider, accessToken, loc):
         self.session = session
         self.authProvider = authProvider
@@ -27,40 +44,47 @@ class PogoSession(object):
         
     def createApiEndpoint(self):
         payload = []
-        msg = request_pb2.Request.Payload()
-        msg.type = request_pb2.Request.Payload.Type.Value('REQUEST_ENDPOINT')
+        msg = Request_pb2.Request(
+            request_type = RequestType_pb2.GET_PLAYER
+        )
         payload.append(msg)
-        req = self.wrapInRequest(payload);
+        req = self.wrapInRequest(payload)
         res = self.request(req, API_URL)
         if res is None:
             logging.critical('Servers seem to be busy. Exiting.')
             sys.exit(-1)
-        return res.endpoint
-        
+        return res.api_url
 
     def wrapInRequest(self, payload):
-        req = request_pb2.Request()
-        req.payload.extend(payload)
-        req.type = request_pb2.Request.Type.Value('TWO')
-        req.rpc_id = api.getRPCId()
+        req = Envelopes_pb2.Envelopes.RequestEnvelope(
+            auth_info = Envelopes_pb2.Envelopes.RequestEnvelope.AuthInfo(
+                provider = self.authProvider,
+                token = Envelopes_pb2.Envelopes.RequestEnvelope.AuthInfo.JWT(
+                    contents = self.accessToken,
+                    unknown2 = 59
+                )
+            )
+        )
 
+        # Build Envelope
+        req.status_code = 2
+        req.request_id = api.getRPCId()
         req.latitude, req.longitude, req.altitude = location.encodeLocation(self.location)
-
         req.unknown12 = 18446744071615
-
-        req.auth.provider = self.authProvider
-        req.auth.token.contents = self.accessToken
-        req.auth.token.unknown13 = 59
+        req.requests.extend(payload)
 
         return req
 
     def requestOrThrow(self, req, url=None):
         if url is None:
             url = self.endpoint
+
         rawResponse = self.session.post(url, data=req.SerializeToString())
-        response = response_pb2.Response()
-        response.ParseFromString(rawResponse.content)
-        return response
+
+        res = Envelopes_pb2.Envelopes.ResponseEnvelope()
+        res.ParseFromString(rawResponse.content)
+
+        return res
 
     def request(self, req, url=None):
         try:
@@ -78,12 +102,66 @@ class PogoSession(object):
         # logging.debug('payload has data?  {}'.format(res.payload[0].HasField('data')))
         return res
 
+    # Returns profile
     def getProfile(self):
-        msg = request_pb2.Request.Payload()
-        msg.type = request_pb2.Request.Payload.Type.Value('REQUEST_ENDPOINT')
-        payload = [msg]
+        payload = []
+        msg = Request_pb2.Request(
+            request_type = RequestType_pb2.GET_PLAYER
+        )
+        payload.append(msg)
         res = self.wrapAndRequest(payload)
-        profile = pokemon_pb2.ClientProfile()
+        data = GetPlayerResponse_pb2.GetPlayerResponse()
+        data.ParseFromString(res.returns[0])
+        return data
 
-        profile.ParseFromString(res.payload[0].data)
-        return profile
+    # Returns egg query
+    def getEggs(self):
+        payload = []
+        msg = Request_pb2.Request(
+            request_type=RequestType_pb2.GET_HATCHED_EGGS
+        )
+        payload.append(msg)
+        res = self.wrapAndRequest(payload)
+        data = GetHatchedEggsResponse_pb2.GetHatchedEggsResponse()
+        data.ParseFromString(res.returns[0])
+        return data
+    
+    #Returns inventory query
+    def getInventory(self):
+        payload = []
+        msg = Request_pb2.Request(
+            request_type = RequestType_pb2.GET_INVENTORY,
+            request_message = GetInventoryMessage_pb2.GetInventoryMessage(
+                timestamp_ms = getMs()
+            ).SerializeToString()
+        )
+        payload.append(msg)
+        res = self.wrapAndRequest(payload)
+        data = GetHatchedEggsResponse_pb2.GetHatchedEggsResponse()
+        data.ParseFromString(res.returns[0])
+        return data
+
+    # Returns Badge Query
+    def getBadges(self):
+        msg = Request_pb2.Request(
+            request_type = RequestType_pb2.CHECK_AWARDED_BADGES
+        )
+        payload.append(msg)
+        res = self.wrapAndRequest(payload)
+        data = GetHatchedEggsResponse_pb2.GetHatchedEggsResponse()
+        data.ParseFromString(res.res.returns[0])
+        return data
+
+    # Returns Settings Query
+    def getDownloadSettings(self):
+        msg = Request_pb2.Request(
+            request_type = RequestType_pb2.DOWNLOAD_SETTINGS,
+            request_message = DownloadSettingsMessage_pb2.DownloadSettingsMessage(
+                hash = "4a2e9bc330dae60e7b74fc85b98868ab4700802e"
+            ).SerializeToString()
+        )
+        payload.append(msg)
+        res = self.wrapAndRequest(payload)
+        data = DownloadSettingsResponse_pb2.DownloadSettingsResponse()
+        data.ParseFromString(res.res.returns[0])
+        return data

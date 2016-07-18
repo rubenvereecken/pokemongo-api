@@ -1,5 +1,6 @@
 import struct
 import logging
+import time
 
 def f2i(float):
   return struct.unpack('<Q', struct.pack('<d', float))[0]
@@ -13,3 +14,5 @@ def h2f(hex):
 def encodeLocation(loc):
     return (f2i(loc.latitude), f2i(loc.longitude), f2i(loc.altitude))
 
+def getMs():
+    return int(round(time.time() * 1000))
