@@ -13,17 +13,17 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from Enums import PokemonType_pb2 as Enums_dot_PokemonType__pb2
+from Enums import PokemonId_pb2 as Enums_dot_PokemonId__pb2
 
-from Enums.PokemonType_pb2 import *
+from Enums.PokemonId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Map/Pokemon/NearbyPokemon.proto',
   package='POGOProtos.Map.Pokemon',
   syntax='proto3',
-  serialized_pb=_b('\n\x1fMap/Pokemon/NearbyPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x17\x45nums/PokemonType.proto\"v\n\rNearbyPokemon\x12\x33\n\x0cpokemon_type\x18\x01 \x01(\x0e\x32\x1d.POGOProtos.Enums.PokemonType\x12\x1a\n\x12\x64istance_in_meters\x18\x02 \x01(\x02\x12\x14\n\x0c\x65ncounter_id\x18\x03 \x01(\x06P\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1fMap/Pokemon/NearbyPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x15\x45nums/PokemonId.proto\"r\n\rNearbyPokemon\x12/\n\npokemon_id\x18\x01 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12\x1a\n\x12\x64istance_in_meters\x18\x02 \x01(\x02\x12\x14\n\x0c\x65ncounter_id\x18\x03 \x01(\x06P\x00\x62\x06proto3')
   ,
-  dependencies=[Enums_dot_PokemonType__pb2.DESCRIPTOR,])
+  dependencies=[Enums_dot_PokemonId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -37,7 +37,7 @@ _NEARBYPOKEMON = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='pokemon_type', full_name='POGOProtos.Map.Pokemon.NearbyPokemon.pokemon_type', index=0,
+      name='pokemon_id', full_name='POGOProtos.Map.Pokemon.NearbyPokemon.pokemon_id', index=0,
       number=1, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -69,11 +69,11 @@ _NEARBYPOKEMON = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=84,
-  serialized_end=202,
+  serialized_start=82,
+  serialized_end=196,
 )
 
-_NEARBYPOKEMON.fields_by_name['pokemon_type'].enum_type = Enums_dot_PokemonType__pb2._POKEMONTYPE
+_NEARBYPOKEMON.fields_by_name['pokemon_id'].enum_type = Enums_dot_PokemonId__pb2._POKEMONID
 DESCRIPTOR.message_types_by_name['NearbyPokemon'] = _NEARBYPOKEMON
 
 NearbyPokemon = _reflection.GeneratedProtocolMessageType('NearbyPokemon', (_message.Message,), dict(

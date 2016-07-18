@@ -13,17 +13,17 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from Inventory import ItemType_pb2 as Inventory_dot_ItemType__pb2
+from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
 
-from Inventory.ItemType_pb2 import *
+from Inventory.ItemId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Inventory/Item.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n\x14Inventory/Item.proto\x12\x14POGOProtos.Inventory\x1a\x18Inventory/ItemType.proto\"S\n\x04Item\x12,\n\x04item\x18\x01 \x01(\x0e\x32\x1e.POGOProtos.Inventory.ItemType\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0e\n\x06unseen\x18\x03 \x01(\x08P\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x14Inventory/Item.proto\x12\x14POGOProtos.Inventory\x1a\x16Inventory/ItemId.proto\"T\n\x04Item\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0e\n\x06unseen\x18\x03 \x01(\x08P\x00\x62\x06proto3')
   ,
-  dependencies=[Inventory_dot_ItemType__pb2.DESCRIPTOR,])
+  dependencies=[Inventory_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -37,7 +37,7 @@ _ITEM = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='item', full_name='POGOProtos.Inventory.Item.item', index=0,
+      name='item_id', full_name='POGOProtos.Inventory.Item.item_id', index=0,
       number=1, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -69,11 +69,11 @@ _ITEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=72,
-  serialized_end=155,
+  serialized_start=70,
+  serialized_end=154,
 )
 
-_ITEM.fields_by_name['item'].enum_type = Inventory_dot_ItemType__pb2._ITEMTYPE
+_ITEM.fields_by_name['item_id'].enum_type = Inventory_dot_ItemId__pb2._ITEMID
 DESCRIPTOR.message_types_by_name['Item'] = _ITEM
 
 Item = _reflection.GeneratedProtocolMessageType('Item', (_message.Message,), dict(

@@ -13,17 +13,17 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from Enums import PokemonType_pb2 as Enums_dot_PokemonType__pb2
+from Enums import PokemonId_pb2 as Enums_dot_PokemonId__pb2
 
-from Enums.PokemonType_pb2 import *
+from Enums.PokemonId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Map/Pokemon/MapPokemon.proto',
   package='POGOProtos.Map.Pokemon',
   syntax='proto3',
-  serialized_pb=_b('\n\x1cMap/Pokemon/MapPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x17\x45nums/PokemonType.proto\"\xb4\x01\n\nMapPokemon\x12\x15\n\rspawnpoint_id\x18\x01 \x01(\t\x12\x14\n\x0c\x65ncounter_id\x18\x02 \x01(\x06\x12\x33\n\x0cpokemon_type\x18\x03 \x01(\x0e\x32\x1d.POGOProtos.Enums.PokemonType\x12\x1f\n\x17\x65xpiration_timestamp_ms\x18\x04 \x01(\x03\x12\x10\n\x08latitude\x18\x05 \x01(\x01\x12\x11\n\tlongitude\x18\x06 \x01(\x01P\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1cMap/Pokemon/MapPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x15\x45nums/PokemonId.proto\"\xb0\x01\n\nMapPokemon\x12\x15\n\rspawnpoint_id\x18\x01 \x01(\t\x12\x14\n\x0c\x65ncounter_id\x18\x02 \x01(\x06\x12/\n\npokemon_id\x18\x03 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12\x1f\n\x17\x65xpiration_timestamp_ms\x18\x04 \x01(\x03\x12\x10\n\x08latitude\x18\x05 \x01(\x01\x12\x11\n\tlongitude\x18\x06 \x01(\x01P\x00\x62\x06proto3')
   ,
-  dependencies=[Enums_dot_PokemonType__pb2.DESCRIPTOR,])
+  dependencies=[Enums_dot_PokemonId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -51,7 +51,7 @@ _MAPPOKEMON = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pokemon_type', full_name='POGOProtos.Map.Pokemon.MapPokemon.pokemon_type', index=2,
+      name='pokemon_id', full_name='POGOProtos.Map.Pokemon.MapPokemon.pokemon_id', index=2,
       number=3, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -90,11 +90,11 @@ _MAPPOKEMON = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=82,
-  serialized_end=262,
+  serialized_start=80,
+  serialized_end=256,
 )
 
-_MAPPOKEMON.fields_by_name['pokemon_type'].enum_type = Enums_dot_PokemonType__pb2._POKEMONTYPE
+_MAPPOKEMON.fields_by_name['pokemon_id'].enum_type = Enums_dot_PokemonId__pb2._POKEMONID
 DESCRIPTOR.message_types_by_name['MapPokemon'] = _MAPPOKEMON
 
 MapPokemon = _reflection.GeneratedProtocolMessageType('MapPokemon', (_message.Message,), dict(

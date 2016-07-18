@@ -13,23 +13,23 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from Settings import Fort_pb2 as Settings_dot_Fort__pb2
-from Settings import Map_pb2 as Settings_dot_Map__pb2
-from Settings import Level_pb2 as Settings_dot_Level__pb2
-from Settings import Inventory_pb2 as Settings_dot_Inventory__pb2
+from Settings import FortSettings_pb2 as Settings_dot_FortSettings__pb2
+from Settings import MapSettings_pb2 as Settings_dot_MapSettings__pb2
+from Settings import LevelSettings_pb2 as Settings_dot_LevelSettings__pb2
+from Settings import InventorySettings_pb2 as Settings_dot_InventorySettings__pb2
 
-from Settings.Fort_pb2 import *
-from Settings.Map_pb2 import *
-from Settings.Level_pb2 import *
-from Settings.Inventory_pb2 import *
+from Settings.FortSettings_pb2 import *
+from Settings.MapSettings_pb2 import *
+from Settings.LevelSettings_pb2 import *
+from Settings.InventorySettings_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Settings/GlobalSettings.proto',
   package='POGOProtos.Settings',
   syntax='proto3',
-  serialized_pb=_b('\n\x1dSettings/GlobalSettings.proto\x12\x13POGOProtos.Settings\x1a\x13Settings/Fort.proto\x1a\x12Settings/Map.proto\x1a\x14Settings/Level.proto\x1a\x18Settings/Inventory.proto\"\xde\x01\n\x0eGlobalSettings\x12\'\n\x04\x66ort\x18\x02 \x01(\x0b\x32\x19.POGOProtos.Settings.Fort\x12%\n\x03map\x18\x03 \x01(\x0b\x32\x18.POGOProtos.Settings.Map\x12)\n\x05level\x18\x04 \x01(\x0b\x32\x1a.POGOProtos.Settings.Level\x12\x31\n\tinventory\x18\x05 \x01(\x0b\x32\x1e.POGOProtos.Settings.Inventory\x12\x1e\n\x16minimum_client_version\x18\x06 \x01(\tP\x00P\x01P\x02P\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x1dSettings/GlobalSettings.proto\x12\x13POGOProtos.Settings\x1a\x1bSettings/FortSettings.proto\x1a\x1aSettings/MapSettings.proto\x1a\x1cSettings/LevelSettings.proto\x1a Settings/InventorySettings.proto\"\xa2\x02\n\x0eGlobalSettings\x12\x38\n\rfort_settings\x18\x02 \x01(\x0b\x32!.POGOProtos.Settings.FortSettings\x12\x36\n\x0cmap_settings\x18\x03 \x01(\x0b\x32 .POGOProtos.Settings.MapSettings\x12:\n\x0elevel_settings\x18\x04 \x01(\x0b\x32\".POGOProtos.Settings.LevelSettings\x12\x42\n\x12inventory_settings\x18\x05 \x01(\x0b\x32&.POGOProtos.Settings.InventorySettings\x12\x1e\n\x16minimum_client_version\x18\x06 \x01(\tP\x00P\x01P\x02P\x03\x62\x06proto3')
   ,
-  dependencies=[Settings_dot_Fort__pb2.DESCRIPTOR,Settings_dot_Map__pb2.DESCRIPTOR,Settings_dot_Level__pb2.DESCRIPTOR,Settings_dot_Inventory__pb2.DESCRIPTOR,])
+  dependencies=[Settings_dot_FortSettings__pb2.DESCRIPTOR,Settings_dot_MapSettings__pb2.DESCRIPTOR,Settings_dot_LevelSettings__pb2.DESCRIPTOR,Settings_dot_InventorySettings__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -43,28 +43,28 @@ _GLOBALSETTINGS = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='fort', full_name='POGOProtos.Settings.GlobalSettings.fort', index=0,
+      name='fort_settings', full_name='POGOProtos.Settings.GlobalSettings.fort_settings', index=0,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='map', full_name='POGOProtos.Settings.GlobalSettings.map', index=1,
+      name='map_settings', full_name='POGOProtos.Settings.GlobalSettings.map_settings', index=1,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='level', full_name='POGOProtos.Settings.GlobalSettings.level', index=2,
+      name='level_settings', full_name='POGOProtos.Settings.GlobalSettings.level_settings', index=2,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='inventory', full_name='POGOProtos.Settings.GlobalSettings.inventory', index=3,
+      name='inventory_settings', full_name='POGOProtos.Settings.GlobalSettings.inventory_settings', index=3,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -89,14 +89,14 @@ _GLOBALSETTINGS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=144,
-  serialized_end=366,
+  serialized_start=176,
+  serialized_end=466,
 )
 
-_GLOBALSETTINGS.fields_by_name['fort'].message_type = Settings_dot_Fort__pb2._FORT
-_GLOBALSETTINGS.fields_by_name['map'].message_type = Settings_dot_Map__pb2._MAP
-_GLOBALSETTINGS.fields_by_name['level'].message_type = Settings_dot_Level__pb2._LEVEL
-_GLOBALSETTINGS.fields_by_name['inventory'].message_type = Settings_dot_Inventory__pb2._INVENTORY
+_GLOBALSETTINGS.fields_by_name['fort_settings'].message_type = Settings_dot_FortSettings__pb2._FORTSETTINGS
+_GLOBALSETTINGS.fields_by_name['map_settings'].message_type = Settings_dot_MapSettings__pb2._MAPSETTINGS
+_GLOBALSETTINGS.fields_by_name['level_settings'].message_type = Settings_dot_LevelSettings__pb2._LEVELSETTINGS
+_GLOBALSETTINGS.fields_by_name['inventory_settings'].message_type = Settings_dot_InventorySettings__pb2._INVENTORYSETTINGS
 DESCRIPTOR.message_types_by_name['GlobalSettings'] = _GLOBALSETTINGS
 
 GlobalSettings = _reflection.GeneratedProtocolMessageType('GlobalSettings', (_message.Message,), dict(

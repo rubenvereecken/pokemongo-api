@@ -14,6 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 import LocalPlayer_pb2 as LocalPlayer__pb2
+Enums_dot_TutorialState__pb2 = LocalPlayer__pb2.Enums_dot_TutorialState__pb2
 Player_dot_AvatarDetails__pb2 = LocalPlayer__pb2.Player_dot_AvatarDetails__pb2
 Player_dot_DailyBonus__pb2 = LocalPlayer__pb2.Player_dot_DailyBonus__pb2
 Player_dot_EquippedBadge__pb2 = LocalPlayer__pb2.Player_dot_EquippedBadge__pb2

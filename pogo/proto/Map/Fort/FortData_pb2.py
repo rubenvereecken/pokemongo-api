@@ -13,15 +13,15 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from Enums import PokemonType_pb2 as Enums_dot_PokemonType__pb2
+from Enums import PokemonId_pb2 as Enums_dot_PokemonId__pb2
 from Enums import TeamColor_pb2 as Enums_dot_TeamColor__pb2
 from Map.Fort import FortType_pb2 as Map_dot_Fort_dot_FortType__pb2
 from Map.Fort import FortSponsor_pb2 as Map_dot_Fort_dot_FortSponsor__pb2
 from Map.Fort import FortRenderingType_pb2 as Map_dot_Fort_dot_FortRenderingType__pb2
 from Map.Fort import FortLureInfo_pb2 as Map_dot_Fort_dot_FortLureInfo__pb2
-Enums_dot_PokemonType__pb2 = Map_dot_Fort_dot_FortLureInfo__pb2.Enums_dot_PokemonType__pb2
+Enums_dot_PokemonId__pb2 = Map_dot_Fort_dot_FortLureInfo__pb2.Enums_dot_PokemonId__pb2
 
-from Enums.PokemonType_pb2 import *
+from Enums.PokemonId_pb2 import *
 from Enums.TeamColor_pb2 import *
 from Map.Fort.FortType_pb2 import *
 from Map.Fort.FortSponsor_pb2 import *
@@ -32,9 +32,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='Map/Fort/FortData.proto',
   package='POGOProtos.Map.Fort',
   syntax='proto3',
-  serialized_pb=_b('\n\x17Map/Fort/FortData.proto\x12\x13POGOProtos.Map.Fort\x1a\x17\x45nums/PokemonType.proto\x1a\x15\x45nums/TeamColor.proto\x1a\x17Map/Fort/FortType.proto\x1a\x1aMap/Fort/FortSponsor.proto\x1a Map/Fort/FortRenderingType.proto\x1a\x1bMap/Fort/FortLureInfo.proto\"\xc2\x04\n\x08\x46ortData\x12\n\n\x02id\x18\x01 \x01(\t\x12\"\n\x1alast_modified_timestamp_ms\x18\x02 \x01(\x03\x12\x10\n\x08latitude\x18\x03 \x01(\x01\x12\x11\n\tlongitude\x18\x04 \x01(\x01\x12\x0f\n\x07\x65nabled\x18\x08 \x01(\x08\x12+\n\x04type\x18\t \x01(\x0e\x32\x1d.POGOProtos.Map.Fort.FortType\x12\x32\n\rowned_by_team\x18\x05 \x01(\x0e\x32\x1b.POGOProtos.Enums.TeamColor\x12\x39\n\x12guard_pokemon_type\x18\x06 \x01(\x0e\x32\x1d.POGOProtos.Enums.PokemonType\x12\x1b\n\x13guard_pokemon_level\x18\x07 \x01(\x05\x12\x12\n\ngym_points\x18\n \x01(\x03\x12\x14\n\x0cis_in_battle\x18\x0b \x01(\x08\x12&\n\x1e\x63ooldown_complete_timestamp_ms\x18\x0e \x01(\x03\x12\x31\n\x07sponsor\x18\x0f \x01(\x0e\x32 .POGOProtos.Map.Fort.FortSponsor\x12>\n\x0erendering_type\x18\x10 \x01(\x0e\x32&.POGOProtos.Map.Fort.FortRenderingType\x12\x1c\n\x14\x61\x63tive_fort_modifier\x18\x0c \x01(\x0c\x12\x34\n\tlure_info\x18\r \x01(\x0b\x32!.POGOProtos.Map.Fort.FortLureInfoP\x00P\x01P\x02P\x03P\x04P\x05\x62\x06proto3')
+  serialized_pb=_b('\n\x17Map/Fort/FortData.proto\x12\x13POGOProtos.Map.Fort\x1a\x15\x45nums/PokemonId.proto\x1a\x15\x45nums/TeamColor.proto\x1a\x17Map/Fort/FortType.proto\x1a\x1aMap/Fort/FortSponsor.proto\x1a Map/Fort/FortRenderingType.proto\x1a\x1bMap/Fort/FortLureInfo.proto\"\xbb\x04\n\x08\x46ortData\x12\n\n\x02id\x18\x01 \x01(\t\x12\"\n\x1alast_modified_timestamp_ms\x18\x02 \x01(\x03\x12\x10\n\x08latitude\x18\x03 \x01(\x01\x12\x11\n\tlongitude\x18\x04 \x01(\x01\x12\x0f\n\x07\x65nabled\x18\x08 \x01(\x08\x12+\n\x04type\x18\t \x01(\x0e\x32\x1d.POGOProtos.Map.Fort.FortType\x12\x32\n\rowned_by_team\x18\x05 \x01(\x0e\x32\x1b.POGOProtos.Enums.TeamColor\x12\x35\n\x10guard_pokemon_id\x18\x06 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12\x18\n\x10guard_pokemon_cp\x18\x07 \x01(\x05\x12\x12\n\ngym_points\x18\n \x01(\x03\x12\x14\n\x0cis_in_battle\x18\x0b \x01(\x08\x12&\n\x1e\x63ooldown_complete_timestamp_ms\x18\x0e \x01(\x03\x12\x31\n\x07sponsor\x18\x0f \x01(\x0e\x32 .POGOProtos.Map.Fort.FortSponsor\x12>\n\x0erendering_type\x18\x10 \x01(\x0e\x32&.POGOProtos.Map.Fort.FortRenderingType\x12\x1c\n\x14\x61\x63tive_fort_modifier\x18\x0c \x01(\x0c\x12\x34\n\tlure_info\x18\r \x01(\x0b\x32!.POGOProtos.Map.Fort.FortLureInfoP\x00P\x01P\x02P\x03P\x04P\x05\x62\x06proto3')
   ,
-  dependencies=[Enums_dot_PokemonType__pb2.DESCRIPTOR,Enums_dot_TeamColor__pb2.DESCRIPTOR,Map_dot_Fort_dot_FortType__pb2.DESCRIPTOR,Map_dot_Fort_dot_FortSponsor__pb2.DESCRIPTOR,Map_dot_Fort_dot_FortRenderingType__pb2.DESCRIPTOR,Map_dot_Fort_dot_FortLureInfo__pb2.DESCRIPTOR,])
+  dependencies=[Enums_dot_PokemonId__pb2.DESCRIPTOR,Enums_dot_TeamColor__pb2.DESCRIPTOR,Map_dot_Fort_dot_FortType__pb2.DESCRIPTOR,Map_dot_Fort_dot_FortSponsor__pb2.DESCRIPTOR,Map_dot_Fort_dot_FortRenderingType__pb2.DESCRIPTOR,Map_dot_Fort_dot_FortLureInfo__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -97,14 +97,14 @@ _FORTDATA = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='guard_pokemon_type', full_name='POGOProtos.Map.Fort.FortData.guard_pokemon_type', index=7,
+      name='guard_pokemon_id', full_name='POGOProtos.Map.Fort.FortData.guard_pokemon_id', index=7,
       number=6, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='guard_pokemon_level', full_name='POGOProtos.Map.Fort.FortData.guard_pokemon_level', index=8,
+      name='guard_pokemon_cp', full_name='POGOProtos.Map.Fort.FortData.guard_pokemon_cp', index=8,
       number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -171,13 +171,13 @@ _FORTDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=213,
-  serialized_end=791,
+  serialized_start=211,
+  serialized_end=782,
 )
 
 _FORTDATA.fields_by_name['type'].enum_type = Map_dot_Fort_dot_FortType__pb2._FORTTYPE
 _FORTDATA.fields_by_name['owned_by_team'].enum_type = Enums_dot_TeamColor__pb2._TEAMCOLOR
-_FORTDATA.fields_by_name['guard_pokemon_type'].enum_type = Enums_dot_PokemonType__pb2._POKEMONTYPE
+_FORTDATA.fields_by_name['guard_pokemon_id'].enum_type = Enums_dot_PokemonId__pb2._POKEMONID
 _FORTDATA.fields_by_name['sponsor'].enum_type = Map_dot_Fort_dot_FortSponsor__pb2._FORTSPONSOR
 _FORTDATA.fields_by_name['rendering_type'].enum_type = Map_dot_Fort_dot_FortRenderingType__pb2._FORTRENDERINGTYPE
 _FORTDATA.fields_by_name['lure_info'].message_type = Map_dot_Fort_dot_FortLureInfo__pb2._FORTLUREINFO
