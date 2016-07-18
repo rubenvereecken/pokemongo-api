@@ -57,6 +57,16 @@ This is achieved with minimal coding effort on the client's part
       logging.info(profile)
 ```
 
+## Contribution
+Hell yeah!
+I'm on [Slack](https://pkre.slack.com) too
+(want an [invite](https://shielded-earth-81203.herokuapp.com)?)
+if you want to have a quick chat.
+
+I welcome all PRs but for big changes it'd be best
+to open an issue so I have some idea of what's going on.
+This thing is under heavy development after all.
+
 ## Protocol
 I also maintain my own version of the
 [Pokemon Go Protobuf protocol](https://github.com/rubenvereecken/pokemongo-protocol).
