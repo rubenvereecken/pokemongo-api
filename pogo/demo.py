@@ -44,3 +44,11 @@ if __name__ == '__main__':
         logging.info(profile)
     else:
         logging.critical('Session not created successfully')
+
+    cells = session.getLocation()
+    print(cells.status)
+    print(cells.map_cells)
+    for cell in cells.map_cells:
+        print("Yo?")
+        for pokemon in cell.wild_pokemons:
+            print(pokemon.pokemon_data)

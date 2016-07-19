@@ -10,12 +10,14 @@ from proto import LocalPlayer_pb2
 from Networking import Envelopes_pb2
 from Networking.Requests import Request_pb2
 from Networking.Requests import RequestType_pb2
+from Networking.Requests.Messages import DownloadSettingsMessage_pb2
 from Networking.Requests.Messages import GetInventoryMessage_pb2
 from Networking.Requests.Messages import FortSearchMessage_pb2
-from Networking.Requests.Messages import DownloadSettingsMessage_pb2
+from Networking.Requests.Messages import GetMapObjectsMessage_pb2
 from Networking.Responses import CheckAwardedBadgesResponse_pb2
 from Networking.Responses import DownloadSettingsResponse_pb2
 from Networking.Responses import GetHatchedEggsResponse_pb2
+from Networking.Responses import GetMapObjectsResponse_pb2
 from Networking.Responses import GetPlayerResponse_pb2
 
 import api
@@ -143,17 +145,19 @@ class PogoSession(object):
 
     # Returns Badge Query
     def getBadges(self):
+        payload = []
         msg = Request_pb2.Request(
             request_type = RequestType_pb2.CHECK_AWARDED_BADGES
         )
         payload.append(msg)
         res = self.wrapAndRequest(payload)
         data = GetHatchedEggsResponse_pb2.GetHatchedEggsResponse()
-        data.ParseFromString(res.res.returns[0])
+        data.ParseFromString(res.returns[0])
         return data
 
     # Returns Settings Query
     def getDownloadSettings(self):
+        payload = []
         msg = Request_pb2.Request(
             request_type = RequestType_pb2.DOWNLOAD_SETTINGS,
             request_message = DownloadSettingsMessage_pb2.DownloadSettingsMessage(
@@ -163,5 +167,25 @@ class PogoSession(object):
         payload.append(msg)
         res = self.wrapAndRequest(payload)
         data = DownloadSettingsResponse_pb2.DownloadSettingsResponse()
-        data.ParseFromString(res.res.returns[0])
+        data.ParseFromString(res.returns[0])
+        return data
+
+    # Get Location
+    def getLocation(self, radius = 10):
+        payload = []
+        cells = location.getCells(self.location, radius)
+        timestamps = [getMs(),] * len(cells)
+        msg = Request_pb2.Request(
+            request_type = RequestType_pb2.GET_MAP_OBJECTS,
+            request_message = GetMapObjectsMessage_pb2.GetMapObjectsMessage(
+                cell_id = cells,
+                since_timestamp_ms = timestamps,
+                latitude = self.location.latitude,
+                longitude = self.location.longitude
+            ).SerializeToString()
+        )
+        payload.append(msg)
+        res = self.wrapAndRequest(payload)
+        data = GetMapObjectsResponse_pb2.GetMapObjectsResponse()
+        data.ParseFromString(res.returns[0])
         return data
