@@ -13,6 +13,7 @@ from Networking.Requests import RequestType_pb2
 from Networking.Requests.Messages import DownloadSettingsMessage_pb2
 from Networking.Requests.Messages import GetInventoryMessage_pb2
 from Networking.Requests.Messages import GetMapObjectsMessage_pb2
+from Networking.Requests.Messages import FortSearchMessage_pb2
 
 import api
 import location
@@ -41,6 +42,11 @@ class PogoSession(object):
 
     def setLocation(self, loc):
         self.location = loc
+        self.getMapObjects(radius=1)
+
+    def setCoords(self, latitude, longitude):
+        self.location = location.getCoords(latitude, longitude)
+        self.getMapObjects(radius=1)
 
     def getLocation(self):
         return self.location.latitude, self.location.longitude, self.location.altitude
@@ -201,7 +207,31 @@ class PogoSession(object):
         res = self.wrapAndRequest(payload)
 
         # Parse
-        self.state.location.ParseFromString(res.returns[0])
+        self.state.mapObjects.ParseFromString(res.returns[0])
 
         # Return everything
-        return self.state.location
+        return self.state.mapObjects
+
+    # Get Location
+    def getFortSearch(self, fort):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.FORT_SEARCH,
+            request_message = FortSearchMessage_pb2.FortSearchMessage(
+                fort_id = fort.id,
+                player_latitude = self.location.latitude,
+                player_longitude = self.location.longitude,
+                fort_latitude = fort.latitude,
+                fort_longitude = fort.longitude
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self.state.fortSearch.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self.state.fortSearch
