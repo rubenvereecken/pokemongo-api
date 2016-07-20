@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/GetHatchedEggsResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n1Networking/Responses/GetHatchedEggsResponse.proto\x12\x1fPOGOProtos.Networking.Responses\"\x82\x01\n\x16GetHatchedEggsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x12\n\npokemon_id\x18\x02 \x03(\x04\x12\x12\n\nxp_awarded\x18\x03 \x03(\x05\x12\x15\n\rcandy_awarded\x18\x04 \x03(\x05\x12\x18\n\x10stardust_awarded\x18\x05 \x03(\x05\x62\x06proto3')
+  serialized_pb=_b('\n1Networking/Responses/GetHatchedEggsResponse.proto\x12\x1fPOGOProtos.Networking.Responses\"\x8e\x01\n\x16GetHatchedEggsResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x16\n\npokemon_id\x18\x02 \x03(\x04\x42\x02\x10\x01\x12\x1a\n\x12\x65xperience_awarded\x18\x03 \x03(\x05\x12\x15\n\rcandy_awarded\x18\x04 \x03(\x05\x12\x18\n\x10stardust_awarded\x18\x05 \x03(\x05\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -46,9 +46,9 @@ _GETHATCHEDEGGSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))),
     _descriptor.FieldDescriptor(
-      name='xp_awarded', full_name='POGOProtos.Networking.Responses.GetHatchedEggsResponse.xp_awarded', index=2,
+      name='experience_awarded', full_name='POGOProtos.Networking.Responses.GetHatchedEggsResponse.experience_awarded', index=2,
       number=3, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -81,7 +81,7 @@ _GETHATCHEDEGGSRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=87,
-  serialized_end=217,
+  serialized_end=229,
 )
 
 DESCRIPTOR.message_types_by_name['GetHatchedEggsResponse'] = _GETHATCHEDEGGSRESPONSE
@@ -94,4 +94,6 @@ GetHatchedEggsResponse = _reflection.GeneratedProtocolMessageType('GetHatchedEgg
 _sym_db.RegisterMessage(GetHatchedEggsResponse)
 
 
+_GETHATCHEDEGGSRESPONSE.fields_by_name['pokemon_id'].has_options = True
+_GETHATCHEDEGGSRESPONSE.fields_by_name['pokemon_id']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))
 # @@protoc_insertion_point(module_scope)

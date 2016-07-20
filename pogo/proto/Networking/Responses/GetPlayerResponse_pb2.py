@@ -13,23 +13,16 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-import LocalPlayer_pb2 as LocalPlayer__pb2
-Player_dot_AvatarDetails__pb2 = LocalPlayer__pb2.Player_dot_AvatarDetails__pb2
-Player_dot_DailyBonus__pb2 = LocalPlayer__pb2.Player_dot_DailyBonus__pb2
-Player_dot_EquippedBadge__pb2 = LocalPlayer__pb2.Player_dot_EquippedBadge__pb2
-Enums_dot_BadgeType__pb2 = LocalPlayer__pb2.Enums_dot_BadgeType__pb2
-Player_dot_ContactSettings__pb2 = LocalPlayer__pb2.Player_dot_ContactSettings__pb2
-Player_dot_Currency__pb2 = LocalPlayer__pb2.Player_dot_Currency__pb2
+from Data import PlayerData_pb2 as Data_dot_PlayerData__pb2
 
-from LocalPlayer_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/GetPlayerResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n,Networking/Responses/GetPlayerResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x11LocalPlayer.proto\"T\n\x11GetPlayerResponse\x12\x10\n\x08unknown1\x18\x01 \x01(\r\x12-\n\x0clocal_player\x18\x02 \x01(\x0b\x32\x17.POGOProtos.LocalPlayerP\x00\x62\x06proto3')
+  serialized_pb=_b('\n,Networking/Responses/GetPlayerResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x15\x44\x61ta/PlayerData.proto\"V\n\x11GetPlayerResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x30\n\x0bplayer_data\x18\x02 \x01(\x0b\x32\x1b.POGOProtos.Data.PlayerDatab\x06proto3')
   ,
-  dependencies=[LocalPlayer__pb2.DESCRIPTOR,])
+  dependencies=[Data_dot_PlayerData__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -43,14 +36,14 @@ _GETPLAYERRESPONSE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='unknown1', full_name='POGOProtos.Networking.Responses.GetPlayerResponse.unknown1', index=0,
-      number=1, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
+      name='success', full_name='POGOProtos.Networking.Responses.GetPlayerResponse.success', index=0,
+      number=1, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='local_player', full_name='POGOProtos.Networking.Responses.GetPlayerResponse.local_player', index=1,
+      name='player_data', full_name='POGOProtos.Networking.Responses.GetPlayerResponse.player_data', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -68,11 +61,11 @@ _GETPLAYERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=100,
-  serialized_end=184,
+  serialized_start=104,
+  serialized_end=190,
 )
 
-_GETPLAYERRESPONSE.fields_by_name['local_player'].message_type = LocalPlayer__pb2._LOCALPLAYER
+_GETPLAYERRESPONSE.fields_by_name['player_data'].message_type = Data_dot_PlayerData__pb2._PLAYERDATA
 DESCRIPTOR.message_types_by_name['GetPlayerResponse'] = _GETPLAYERRESPONSE
 
 GetPlayerResponse = _reflection.GeneratedProtocolMessageType('GetPlayerResponse', (_message.Message,), dict(

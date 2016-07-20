@@ -13,17 +13,16 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from Data import Pokemon_pb2 as Data_dot_Pokemon__pb2
+from Data import PokemonData_pb2 as Data_dot_PokemonData__pb2
 
-from Data.Pokemon_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Map/Pokemon/WildPokemon.proto',
   package='POGOProtos.Map.Pokemon',
   syntax='proto3',
-  serialized_pb=_b('\n\x1dMap/Pokemon/WildPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x12\x44\x61ta/Pokemon.proto\"\xcb\x01\n\x0bWildPokemon\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x01(\x06\x12\"\n\x1alast_modified_timestamp_ms\x18\x02 \x01(\x03\x12\x10\n\x08latitude\x18\x03 \x01(\x01\x12\x11\n\tlongitude\x18\x04 \x01(\x01\x12\x15\n\rspawnpoint_id\x18\x05 \x01(\t\x12)\n\x07pokemon\x18\x07 \x01(\x0b\x32\x18.POGOProtos.Data.Pokemon\x12\x1b\n\x13time_till_hidden_ms\x18\x0b \x01(\x05P\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1dMap/Pokemon/WildPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x16\x44\x61ta/PokemonData.proto\"\xd4\x01\n\x0bWildPokemon\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x01(\x06\x12\"\n\x1alast_modified_timestamp_ms\x18\x02 \x01(\x03\x12\x10\n\x08latitude\x18\x03 \x01(\x01\x12\x11\n\tlongitude\x18\x04 \x01(\x01\x12\x15\n\rspawnpoint_id\x18\x05 \x01(\t\x12\x32\n\x0cpokemon_data\x18\x07 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12\x1b\n\x13time_till_hidden_ms\x18\x0b \x01(\x05\x62\x06proto3')
   ,
-  dependencies=[Data_dot_Pokemon__pb2.DESCRIPTOR,])
+  dependencies=[Data_dot_PokemonData__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -72,7 +71,7 @@ _WILDPOKEMON = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pokemon', full_name='POGOProtos.Map.Pokemon.WildPokemon.pokemon', index=5,
+      name='pokemon_data', full_name='POGOProtos.Map.Pokemon.WildPokemon.pokemon_data', index=5,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -97,11 +96,11 @@ _WILDPOKEMON = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=78,
-  serialized_end=281,
+  serialized_start=82,
+  serialized_end=294,
 )
 
-_WILDPOKEMON.fields_by_name['pokemon'].message_type = Data_dot_Pokemon__pb2._POKEMON
+_WILDPOKEMON.fields_by_name['pokemon_data'].message_type = Data_dot_PokemonData__pb2._POKEMONDATA
 DESCRIPTOR.message_types_by_name['WildPokemon'] = _WILDPOKEMON
 
 WildPokemon = _reflection.GeneratedProtocolMessageType('WildPokemon', (_message.Message,), dict(

@@ -1,5 +1,4 @@
 import struct
-import logging
 import time
 
 def f2i(float):

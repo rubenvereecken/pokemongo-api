@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Networking.Requests import RequestType_pb2 as Networking_dot_Requests_dot_RequestType__pb2
 
-from Networking.Requests.RequestType_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Requests/Request.proto',
   package='POGOProtos.Networking.Requests',
   syntax='proto3',
-  serialized_pb=_b('\n!Networking/Requests/Request.proto\x12\x1ePOGOProtos.Networking.Requests\x1a%Networking/Requests/RequestType.proto\"e\n\x07Request\x12\x41\n\x0crequest_type\x18\x01 \x01(\x0e\x32+.POGOProtos.Networking.Requests.RequestType\x12\x17\n\x0frequest_message\x18\x02 \x01(\x0cP\x00\x62\x06proto3')
+  serialized_pb=_b('\n!Networking/Requests/Request.proto\x12\x1ePOGOProtos.Networking.Requests\x1a%Networking/Requests/RequestType.proto\"e\n\x07Request\x12\x41\n\x0crequest_type\x18\x01 \x01(\x0e\x32+.POGOProtos.Networking.Requests.RequestType\x12\x17\n\x0frequest_message\x18\x02 \x01(\x0c\x62\x06proto3')
   ,
   dependencies=[Networking_dot_Requests_dot_RequestType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

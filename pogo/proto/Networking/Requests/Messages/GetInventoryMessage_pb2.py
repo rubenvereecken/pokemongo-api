@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Requests/Messages/GetInventoryMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\n6Networking/Requests/Messages/GetInventoryMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"C\n\x13GetInventoryMessage\x12\x14\n\x0ctimestamp_ms\x18\x01 \x01(\x03\x12\x16\n\x0eitem_been_seen\x18\x02 \x01(\x05\x62\x06proto3')
+  serialized_pb=_b('\n6Networking/Requests/Messages/GetInventoryMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"H\n\x13GetInventoryMessage\x12\x19\n\x11last_timestamp_ms\x18\x01 \x01(\x03\x12\x16\n\x0eitem_been_seen\x18\x02 \x01(\x05\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -34,7 +34,7 @@ _GETINVENTORYMESSAGE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='timestamp_ms', full_name='POGOProtos.Networking.Requests.Messages.GetInventoryMessage.timestamp_ms', index=0,
+      name='last_timestamp_ms', full_name='POGOProtos.Networking.Requests.Messages.GetInventoryMessage.last_timestamp_ms', index=0,
       number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -60,7 +60,7 @@ _GETINVENTORYMESSAGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=99,
-  serialized_end=166,
+  serialized_end=171,
 )
 
 DESCRIPTOR.message_types_by_name['GetInventoryMessage'] = _GETINVENTORYMESSAGE

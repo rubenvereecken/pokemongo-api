@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Enums import BadgeType_pb2 as Enums_dot_BadgeType__pb2
 
-from Enums.BadgeType_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/CheckAwardedBadgesResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n5Networking/Responses/CheckAwardedBadgesResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x15\x45nums/BadgeType.proto\"\x80\x01\n\x1a\x43heckAwardedBadgesResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x33\n\x0e\x61warded_badges\x18\x02 \x03(\x0e\x32\x1b.POGOProtos.Enums.BadgeType\x12\x1c\n\x14\x61warded_badge_levels\x18\x03 \x03(\x05P\x00\x62\x06proto3')
+  serialized_pb=_b('\n5Networking/Responses/CheckAwardedBadgesResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x15\x45nums/BadgeType.proto\"\x80\x01\n\x1a\x43heckAwardedBadgesResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x33\n\x0e\x61warded_badges\x18\x02 \x03(\x0e\x32\x1b.POGOProtos.Enums.BadgeType\x12\x1c\n\x14\x61warded_badge_levels\x18\x03 \x03(\x05\x62\x06proto3')
   ,
   dependencies=[Enums_dot_BadgeType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
