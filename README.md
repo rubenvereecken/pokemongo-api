@@ -68,5 +68,4 @@ to open an issue so I have some idea of what's going on.
 This thing is under heavy development after all.
 
 ## Protocol
-I also maintain my own version of the
-[Pokemon Go Protobuf protocol](https://github.com/rubenvereecken/pokemongo-protocol).
+We currently use [AeonLucid's Pokemon Go Protobuf protocol](https://github.com/AeonLucid/POGOProtos).

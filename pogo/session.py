@@ -14,6 +14,7 @@ from Networking.Requests.Messages import DownloadSettingsMessage_pb2
 from Networking.Requests.Messages import GetInventoryMessage_pb2
 from Networking.Requests.Messages import GetMapObjectsMessage_pb2
 
+import api
 import location
 from util import getMs
 from state import State
@@ -75,7 +76,7 @@ class PogoSession(object):
         latitude, longitude, altitude = self.getLocation()
         req = RequestEnvelope_pb2.RequestEnvelope(
             status_code = 2,
-            request_id = 1469378659230941192,#api.getRPCId(),
+            request_id = api.getRPCId(),
             longitude = longitude,
             latitude = latitude,
             altitude = altitude,
