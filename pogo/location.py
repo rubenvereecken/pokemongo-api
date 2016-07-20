@@ -7,6 +7,10 @@ def getLocation(search):
     loc = geolocator.geocode(search)
     return loc
 
+def getCoords(latitude, longitude):
+    loc = geolocator.reverse((latitude, longitude))
+    return loc[0]
+
 def getCells(loc, radius = 10):
     origin = CellId.from_lat_lng(LatLng.from_degrees(loc.latitude, loc.longitude)).parent(15)
     walk = [origin.id()]

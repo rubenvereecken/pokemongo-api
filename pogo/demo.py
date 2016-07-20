@@ -1,6 +1,8 @@
 #!/usr/bin/python
 import argparse
 import logging
+import math
+import time
 import sys
 
 import api
@@ -51,6 +53,45 @@ if __name__ == '__main__':
             for pokemon in cell.wild_pokemons:
                 logging.info("%i at %f,%f"%(pokemon.pokemon_data.pokemon_id,pokemon.latitude,pokemon.longitude))
 
+
+        # Note this math doesn't make physical sense
+        # GPS Coordinates are spherical, and this is using
+        # Cartesian formulas. However, should work as
+        # huerestic
+
+        # Find nearest fort (pokestop)
+        logging.info("Spinnning Nearest Fort")
+        closest = float("Inf")
+        fortBest = None
+        latitude, longitude, _ = session.getLocation()
+        for cell in cells.map_cells:
+            for fort in cell.forts:
+                dist = math.hypot((fort.latitude - latitude), (fort.longitude - longitude))
+                if dist < closest and fort.type == 1:
+                    closest = dist
+                    fortBest = fort
+
+        logging.info("Get Inventory")
+        print(session.getInventory())
+
+        # No fort, demo == over
+        if not fortBest == None:
+            # Walk over to said fort
+            epsilon = 0.0001
+            step = 0.000005
+            vector = [(fort.latitude - latitude)/closest, (fort.longitude - longitude)/closest]
+            dist = closest
+            while dist > epsilon:
+                logging.info("%f units -> %f units away" % (dist, epsilon))
+                latitude += vector[0] * step
+                longitude += vector[1] * step
+                session.setCoords(latitude, longitude)
+                dist = math.hypot((fort.latitude - latitude), (fort.longitude - longitude))
+                time.sleep(1)
+
+            # Give it a spin
+            fortResponse = session.getFortSearch(fort)
+            logging.info(fortResponse)
 
     else:
         logging.critical('Session not created successfully')

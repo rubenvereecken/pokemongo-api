@@ -4,6 +4,7 @@ from Networking.Responses import GetInventoryResponse_pb2
 from Networking.Responses import GetHatchedEggsResponse_pb2
 from Networking.Responses import GetMapObjectsResponse_pb2
 from Networking.Responses import GetPlayerResponse_pb2
+from Networking.Responses import FortSearchResponse_pb2
 
 class State(object):
 
@@ -13,4 +14,5 @@ class State(object):
         self.inventory = GetInventoryResponse_pb2.GetInventoryResponse()
         self.badges = CheckAwardedBadgesResponse_pb2.CheckAwardedBadgesResponse()
         self.settings = DownloadSettingsResponse_pb2.DownloadSettingsResponse()
-        self.location =  GetMapObjectsResponse_pb2.GetMapObjectsResponse()
+        self.mapObjects =  GetMapObjectsResponse_pb2.GetMapObjectsResponse()
+        self.fortSearch = FortSearchResponse_pb2.FortSearchResponse()
