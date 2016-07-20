@@ -16,14 +16,12 @@ _sym_db = _symbol_database.Default()
 from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
 from Inventory import EggIncubatorType_pb2 as Inventory_dot_EggIncubatorType__pb2
 
-from Inventory.ItemId_pb2 import *
-from Inventory.EggIncubatorType_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Inventory/EggIncubator.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n\x1cInventory/EggIncubator.proto\x12\x14POGOProtos.Inventory\x1a\x16Inventory/ItemId.proto\x1a Inventory/EggIncubatorType.proto\"\xe8\x01\n\x0c\x45ggIncubator\x12\n\n\x02id\x18\x01 \x01(\t\x12-\n\x07item_id\x18\x02 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12>\n\x0eincubator_type\x18\x03 \x01(\x0e\x32&.POGOProtos.Inventory.EggIncubatorType\x12\x16\n\x0euses_remaining\x18\x04 \x01(\x05\x12\x12\n\npokemon_id\x18\x05 \x01(\x03\x12\x17\n\x0fstart_km_walked\x18\x06 \x01(\x01\x12\x18\n\x10target_km_walked\x18\x07 \x01(\x01P\x00P\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x1cInventory/EggIncubator.proto\x12\x14POGOProtos.Inventory\x1a\x16Inventory/ItemId.proto\x1a Inventory/EggIncubatorType.proto\"\xe8\x01\n\x0c\x45ggIncubator\x12\n\n\x02id\x18\x01 \x01(\t\x12-\n\x07item_id\x18\x02 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12>\n\x0eincubator_type\x18\x03 \x01(\x0e\x32&.POGOProtos.Inventory.EggIncubatorType\x12\x16\n\x0euses_remaining\x18\x04 \x01(\x05\x12\x12\n\npokemon_id\x18\x05 \x01(\x04\x12\x17\n\x0fstart_km_walked\x18\x06 \x01(\x01\x12\x18\n\x10target_km_walked\x18\x07 \x01(\x01\x62\x06proto3')
   ,
   dependencies=[Inventory_dot_ItemId__pb2.DESCRIPTOR,Inventory_dot_EggIncubatorType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -68,7 +66,7 @@ _EGGINCUBATOR = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='pokemon_id', full_name='POGOProtos.Inventory.EggIncubator.pokemon_id', index=4,
-      number=5, type=3, cpp_type=2, label=1,
+      number=5, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,

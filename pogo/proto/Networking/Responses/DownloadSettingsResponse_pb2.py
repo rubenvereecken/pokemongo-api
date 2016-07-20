@@ -14,18 +14,13 @@ _sym_db = _symbol_database.Default()
 
 
 from Settings import GlobalSettings_pb2 as Settings_dot_GlobalSettings__pb2
-Settings_dot_FortSettings__pb2 = Settings_dot_GlobalSettings__pb2.Settings_dot_FortSettings__pb2
-Settings_dot_MapSettings__pb2 = Settings_dot_GlobalSettings__pb2.Settings_dot_MapSettings__pb2
-Settings_dot_LevelSettings__pb2 = Settings_dot_GlobalSettings__pb2.Settings_dot_LevelSettings__pb2
-Settings_dot_InventorySettings__pb2 = Settings_dot_GlobalSettings__pb2.Settings_dot_InventorySettings__pb2
 
-from Settings.GlobalSettings_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/DownloadSettingsResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n3Networking/Responses/DownloadSettingsResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x1dSettings/GlobalSettings.proto\"n\n\x18\x44ownloadSettingsResponse\x12\r\n\x05\x65rror\x18\x01 \x01(\t\x12\x0c\n\x04hash\x18\x02 \x01(\t\x12\x35\n\x08settings\x18\x03 \x01(\x0b\x32#.POGOProtos.Settings.GlobalSettingsP\x00\x62\x06proto3')
+  serialized_pb=_b('\n3Networking/Responses/DownloadSettingsResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x1dSettings/GlobalSettings.proto\"n\n\x18\x44ownloadSettingsResponse\x12\r\n\x05\x65rror\x18\x01 \x01(\t\x12\x0c\n\x04hash\x18\x02 \x01(\t\x12\x35\n\x08settings\x18\x03 \x01(\x0b\x32#.POGOProtos.Settings.GlobalSettingsb\x06proto3')
   ,
   dependencies=[Settings_dot_GlobalSettings__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

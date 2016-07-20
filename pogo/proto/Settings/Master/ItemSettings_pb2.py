@@ -17,40 +17,22 @@ from Enums import ItemCategory_pb2 as Enums_dot_ItemCategory__pb2
 from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
 from Inventory import ItemType_pb2 as Inventory_dot_ItemType__pb2
 from Settings.Master.Item import FoodAttributes_pb2 as Settings_dot_Master_dot_Item_dot_FoodAttributes__pb2
-Enums_dot_ItemEffect__pb2 = Settings_dot_Master_dot_Item_dot_FoodAttributes__pb2.Enums_dot_ItemEffect__pb2
 from Settings.Master.Item import PotionAttributes_pb2 as Settings_dot_Master_dot_Item_dot_PotionAttributes__pb2
 from Settings.Master.Item import ReviveAttributes_pb2 as Settings_dot_Master_dot_Item_dot_ReviveAttributes__pb2
 from Settings.Master.Item import BattleAttributes_pb2 as Settings_dot_Master_dot_Item_dot_BattleAttributes__pb2
 from Settings.Master.Item import IncenseAttributes_pb2 as Settings_dot_Master_dot_Item_dot_IncenseAttributes__pb2
-Enums_dot_PokemonType__pb2 = Settings_dot_Master_dot_Item_dot_IncenseAttributes__pb2.Enums_dot_PokemonType__pb2
 from Settings.Master.Item import PokeballAttributes_pb2 as Settings_dot_Master_dot_Item_dot_PokeballAttributes__pb2
-Enums_dot_ItemEffect__pb2 = Settings_dot_Master_dot_Item_dot_PokeballAttributes__pb2.Enums_dot_ItemEffect__pb2
 from Settings.Master.Item import FortModifierAttributes_pb2 as Settings_dot_Master_dot_Item_dot_FortModifierAttributes__pb2
 from Settings.Master.Item import EggIncubatorAttributes_pb2 as Settings_dot_Master_dot_Item_dot_EggIncubatorAttributes__pb2
-Inventory_dot_EggIncubatorType__pb2 = Settings_dot_Master_dot_Item_dot_EggIncubatorAttributes__pb2.Inventory_dot_EggIncubatorType__pb2
 from Settings.Master.Item import ExperienceBoostAttributes_pb2 as Settings_dot_Master_dot_Item_dot_ExperienceBoostAttributes__pb2
 from Settings.Master.Item import InventoryUpgradeAttributes_pb2 as Settings_dot_Master_dot_Item_dot_InventoryUpgradeAttributes__pb2
-Inventory_dot_InventoryUpgradeType__pb2 = Settings_dot_Master_dot_Item_dot_InventoryUpgradeAttributes__pb2.Inventory_dot_InventoryUpgradeType__pb2
 
-from Enums.ItemCategory_pb2 import *
-from Inventory.ItemId_pb2 import *
-from Inventory.ItemType_pb2 import *
-from Settings.Master.Item.FoodAttributes_pb2 import *
-from Settings.Master.Item.PotionAttributes_pb2 import *
-from Settings.Master.Item.ReviveAttributes_pb2 import *
-from Settings.Master.Item.BattleAttributes_pb2 import *
-from Settings.Master.Item.IncenseAttributes_pb2 import *
-from Settings.Master.Item.PokeballAttributes_pb2 import *
-from Settings.Master.Item.FortModifierAttributes_pb2 import *
-from Settings.Master.Item.EggIncubatorAttributes_pb2 import *
-from Settings.Master.Item.ExperienceBoostAttributes_pb2 import *
-from Settings.Master.Item.InventoryUpgradeAttributes_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Settings/Master/ItemSettings.proto',
   package='POGOProtos.Settings.Master',
   syntax='proto3',
-  serialized_pb=_b('\n\"Settings/Master/ItemSettings.proto\x12\x1aPOGOProtos.Settings.Master\x1a\x18\x45nums/ItemCategory.proto\x1a\x16Inventory/ItemId.proto\x1a\x18Inventory/ItemType.proto\x1a)Settings/Master/Item/FoodAttributes.proto\x1a+Settings/Master/Item/PotionAttributes.proto\x1a+Settings/Master/Item/ReviveAttributes.proto\x1a+Settings/Master/Item/BattleAttributes.proto\x1a,Settings/Master/Item/IncenseAttributes.proto\x1a-Settings/Master/Item/PokeballAttributes.proto\x1a\x31Settings/Master/Item/FortModifierAttributes.proto\x1a\x31Settings/Master/Item/EggIncubatorAttributes.proto\x1a\x34Settings/Master/Item/ExperienceBoostAttributes.proto\x1a\x35Settings/Master/Item/InventoryUpgradeAttributes.proto\"\xab\x07\n\x0cItemSettings\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x31\n\titem_type\x18\x02 \x01(\x0e\x32\x1e.POGOProtos.Inventory.ItemType\x12\x30\n\x08\x63\x61tegory\x18\x03 \x01(\x0e\x32\x1e.POGOProtos.Enums.ItemCategory\x12\x11\n\tdrop_freq\x18\x04 \x01(\x02\x12\x1a\n\x12\x64rop_trainer_level\x18\x05 \x01(\x05\x12\x45\n\x08pokeball\x18\x06 \x01(\x0b\x32\x33.POGOProtos.Settings.Master.Item.PokeballAttributes\x12\x41\n\x06potion\x18\x07 \x01(\x0b\x32\x31.POGOProtos.Settings.Master.Item.PotionAttributes\x12\x41\n\x06revive\x18\x08 \x01(\x0b\x32\x31.POGOProtos.Settings.Master.Item.ReviveAttributes\x12\x41\n\x06\x62\x61ttle\x18\t \x01(\x0b\x32\x31.POGOProtos.Settings.Master.Item.BattleAttributes\x12=\n\x04\x66ood\x18\n \x01(\x0b\x32/.POGOProtos.Settings.Master.Item.FoodAttributes\x12V\n\x11inventory_upgrade\x18\x0b \x01(\x0b\x32;.POGOProtos.Settings.Master.Item.InventoryUpgradeAttributes\x12L\n\x08xp_boost\x18\x0c \x01(\x0b\x32:.POGOProtos.Settings.Master.Item.ExperienceBoostAttributes\x12\x43\n\x07incense\x18\r \x01(\x0b\x32\x32.POGOProtos.Settings.Master.Item.IncenseAttributes\x12N\n\regg_incubator\x18\x0e \x01(\x0b\x32\x37.POGOProtos.Settings.Master.Item.EggIncubatorAttributes\x12N\n\rfort_modifier\x18\x0f \x01(\x0b\x32\x37.POGOProtos.Settings.Master.Item.FortModifierAttributesP\x00P\x01P\x02P\x03P\x04P\x05P\x06P\x07P\x08P\tP\nP\x0bP\x0c\x62\x06proto3')
+  serialized_pb=_b('\n\"Settings/Master/ItemSettings.proto\x12\x1aPOGOProtos.Settings.Master\x1a\x18\x45nums/ItemCategory.proto\x1a\x16Inventory/ItemId.proto\x1a\x18Inventory/ItemType.proto\x1a)Settings/Master/Item/FoodAttributes.proto\x1a+Settings/Master/Item/PotionAttributes.proto\x1a+Settings/Master/Item/ReviveAttributes.proto\x1a+Settings/Master/Item/BattleAttributes.proto\x1a,Settings/Master/Item/IncenseAttributes.proto\x1a-Settings/Master/Item/PokeballAttributes.proto\x1a\x31Settings/Master/Item/FortModifierAttributes.proto\x1a\x31Settings/Master/Item/EggIncubatorAttributes.proto\x1a\x34Settings/Master/Item/ExperienceBoostAttributes.proto\x1a\x35Settings/Master/Item/InventoryUpgradeAttributes.proto\"\xab\x07\n\x0cItemSettings\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x31\n\titem_type\x18\x02 \x01(\x0e\x32\x1e.POGOProtos.Inventory.ItemType\x12\x30\n\x08\x63\x61tegory\x18\x03 \x01(\x0e\x32\x1e.POGOProtos.Enums.ItemCategory\x12\x11\n\tdrop_freq\x18\x04 \x01(\x02\x12\x1a\n\x12\x64rop_trainer_level\x18\x05 \x01(\x05\x12\x45\n\x08pokeball\x18\x06 \x01(\x0b\x32\x33.POGOProtos.Settings.Master.Item.PokeballAttributes\x12\x41\n\x06potion\x18\x07 \x01(\x0b\x32\x31.POGOProtos.Settings.Master.Item.PotionAttributes\x12\x41\n\x06revive\x18\x08 \x01(\x0b\x32\x31.POGOProtos.Settings.Master.Item.ReviveAttributes\x12\x41\n\x06\x62\x61ttle\x18\t \x01(\x0b\x32\x31.POGOProtos.Settings.Master.Item.BattleAttributes\x12=\n\x04\x66ood\x18\n \x01(\x0b\x32/.POGOProtos.Settings.Master.Item.FoodAttributes\x12V\n\x11inventory_upgrade\x18\x0b \x01(\x0b\x32;.POGOProtos.Settings.Master.Item.InventoryUpgradeAttributes\x12L\n\x08xp_boost\x18\x0c \x01(\x0b\x32:.POGOProtos.Settings.Master.Item.ExperienceBoostAttributes\x12\x43\n\x07incense\x18\r \x01(\x0b\x32\x32.POGOProtos.Settings.Master.Item.IncenseAttributes\x12N\n\regg_incubator\x18\x0e \x01(\x0b\x32\x37.POGOProtos.Settings.Master.Item.EggIncubatorAttributes\x12N\n\rfort_modifier\x18\x0f \x01(\x0b\x32\x37.POGOProtos.Settings.Master.Item.FortModifierAttributesb\x06proto3')
   ,
   dependencies=[Enums_dot_ItemCategory__pb2.DESCRIPTOR,Inventory_dot_ItemId__pb2.DESCRIPTOR,Inventory_dot_ItemType__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_FoodAttributes__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_PotionAttributes__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_ReviveAttributes__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_BattleAttributes__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_IncenseAttributes__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_PokeballAttributes__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_FortModifierAttributes__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_EggIncubatorAttributes__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_ExperienceBoostAttributes__pb2.DESCRIPTOR,Settings_dot_Master_dot_Item_dot_InventoryUpgradeAttributes__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
 
-from Inventory.ItemId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Map/Fort/FortModifier.proto',
   package='POGOProtos.Map.Fort',
   syntax='proto3',
-  serialized_pb=_b('\n\x1bMap/Fort/FortModifier.proto\x12\x13POGOProtos.Map.Fort\x1a\x16Inventory/ItemId.proto\"\x80\x01\n\x0c\x46ortModifier\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x1f\n\x17\x65xpiration_timestamp_ms\x18\x02 \x01(\x03\x12 \n\x18\x64\x65ployer_player_codename\x18\x03 \x01(\tP\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1bMap/Fort/FortModifier.proto\x12\x13POGOProtos.Map.Fort\x1a\x16Inventory/ItemId.proto\"\x80\x01\n\x0c\x46ortModifier\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x1f\n\x17\x65xpiration_timestamp_ms\x18\x02 \x01(\x03\x12 \n\x18\x64\x65ployer_player_codename\x18\x03 \x01(\tb\x06proto3')
   ,
   dependencies=[Inventory_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

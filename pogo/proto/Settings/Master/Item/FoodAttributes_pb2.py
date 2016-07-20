@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Enums import ItemEffect_pb2 as Enums_dot_ItemEffect__pb2
 
-from Enums.ItemEffect_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Settings/Master/Item/FoodAttributes.proto',
   package='POGOProtos.Settings.Master.Item',
   syntax='proto3',
-  serialized_pb=_b('\n)Settings/Master/Item/FoodAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a\x16\x45nums/ItemEffect.proto\"x\n\x0e\x46oodAttributes\x12\x31\n\x0bitem_effect\x18\x01 \x03(\x0e\x32\x1c.POGOProtos.Enums.ItemEffect\x12\x1b\n\x13item_effect_percent\x18\x02 \x03(\x02\x12\x16\n\x0egrowth_percent\x18\x03 \x01(\x02P\x00\x62\x06proto3')
+  serialized_pb=_b('\n)Settings/Master/Item/FoodAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a\x16\x45nums/ItemEffect.proto\"x\n\x0e\x46oodAttributes\x12\x31\n\x0bitem_effect\x18\x01 \x03(\x0e\x32\x1c.POGOProtos.Enums.ItemEffect\x12\x1b\n\x13item_effect_percent\x18\x02 \x03(\x02\x12\x16\n\x0egrowth_percent\x18\x03 \x01(\x02\x62\x06proto3')
   ,
   dependencies=[Enums_dot_ItemEffect__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

@@ -14,26 +14,14 @@ _sym_db = _symbol_database.Default()
 
 
 from Map.Fort import FortData_pb2 as Map_dot_Fort_dot_FortData__pb2
-Enums_dot_PokemonId__pb2 = Map_dot_Fort_dot_FortData__pb2.Enums_dot_PokemonId__pb2
-Enums_dot_TeamColor__pb2 = Map_dot_Fort_dot_FortData__pb2.Enums_dot_TeamColor__pb2
-Map_dot_Fort_dot_FortType__pb2 = Map_dot_Fort_dot_FortData__pb2.Map_dot_Fort_dot_FortType__pb2
-Map_dot_Fort_dot_FortSponsor__pb2 = Map_dot_Fort_dot_FortData__pb2.Map_dot_Fort_dot_FortSponsor__pb2
-Map_dot_Fort_dot_FortRenderingType__pb2 = Map_dot_Fort_dot_FortData__pb2.Map_dot_Fort_dot_FortRenderingType__pb2
-Map_dot_Fort_dot_FortLureInfo__pb2 = Map_dot_Fort_dot_FortData__pb2.Map_dot_Fort_dot_FortLureInfo__pb2
-Enums_dot_PokemonId__pb2 = Map_dot_Fort_dot_FortData__pb2.Enums_dot_PokemonId__pb2
 from Map.Pokemon import WildPokemon_pb2 as Map_dot_Pokemon_dot_WildPokemon__pb2
-Data_dot_PokemonData__pb2 = Map_dot_Pokemon_dot_WildPokemon__pb2.Data_dot_PokemonData__pb2
-Enums_dot_PokemonId__pb2 = Map_dot_Pokemon_dot_WildPokemon__pb2.Enums_dot_PokemonId__pb2
-Enums_dot_PokemonMove__pb2 = Map_dot_Pokemon_dot_WildPokemon__pb2.Enums_dot_PokemonMove__pb2
 
-from Map.Fort.FortData_pb2 import *
-from Map.Pokemon.WildPokemon_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/PlayerUpdateResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n/Networking/Responses/PlayerUpdateResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x17Map/Fort/FortData.proto\x1a\x1dMap/Pokemon/WildPokemon.proto\"\x96\x01\n\x14PlayerUpdateResponse\x12:\n\rwild_pokemons\x18\x01 \x03(\x0b\x32#.POGOProtos.Map.Pokemon.WildPokemon\x12,\n\x05\x66orts\x18\x02 \x03(\x0b\x32\x1d.POGOProtos.Map.Fort.FortData\x12\x14\n\x0c\x66orts_nearby\x18\x03 \x01(\x05P\x00P\x01\x62\x06proto3')
+  serialized_pb=_b('\n/Networking/Responses/PlayerUpdateResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x17Map/Fort/FortData.proto\x1a\x1dMap/Pokemon/WildPokemon.proto\"\x96\x01\n\x14PlayerUpdateResponse\x12:\n\rwild_pokemons\x18\x01 \x03(\x0b\x32#.POGOProtos.Map.Pokemon.WildPokemon\x12,\n\x05\x66orts\x18\x02 \x03(\x0b\x32\x1d.POGOProtos.Map.Fort.FortData\x12\x14\n\x0c\x66orts_nearby\x18\x03 \x01(\x05\x62\x06proto3')
   ,
   dependencies=[Map_dot_Fort_dot_FortData__pb2.DESCRIPTOR,Map_dot_Pokemon_dot_WildPokemon__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

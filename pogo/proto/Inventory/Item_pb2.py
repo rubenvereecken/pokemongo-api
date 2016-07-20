@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
 
-from Inventory.ItemId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Inventory/Item.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n\x14Inventory/Item.proto\x12\x14POGOProtos.Inventory\x1a\x16Inventory/ItemId.proto\"T\n\x04Item\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0e\n\x06unseen\x18\x03 \x01(\x08P\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x14Inventory/Item.proto\x12\x14POGOProtos.Inventory\x1a\x16Inventory/ItemId.proto\"T\n\x04Item\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x12\x0e\n\x06unseen\x18\x03 \x01(\x08\x62\x06proto3')
   ,
   dependencies=[Inventory_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

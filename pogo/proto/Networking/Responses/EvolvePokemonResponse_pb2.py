@@ -14,16 +14,13 @@ _sym_db = _symbol_database.Default()
 
 
 from Data import PokemonData_pb2 as Data_dot_PokemonData__pb2
-Enums_dot_PokemonId__pb2 = Data_dot_PokemonData__pb2.Enums_dot_PokemonId__pb2
-Enums_dot_PokemonMove__pb2 = Data_dot_PokemonData__pb2.Enums_dot_PokemonMove__pb2
 
-from Data.PokemonData_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/EvolvePokemonResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n0Networking/Responses/EvolvePokemonResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x16\x44\x61ta/PokemonData.proto\"\xf9\x02\n\x15\x45volvePokemonResponse\x12M\n\x06result\x18\x01 \x01(\x0e\x32=.POGOProtos.Networking.Responses.EvolvePokemonResponse.Result\x12:\n\x14\x65volved_pokemon_data\x18\x02 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12\x1a\n\x12\x65xperience_awarded\x18\x03 \x01(\x05\x12\x15\n\rcandy_awarded\x18\x04 \x01(\x05\"\xa1\x01\n\x06Result\x12\t\n\x05UNSET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x1a\n\x16\x46\x41ILED_POKEMON_MISSING\x10\x02\x12!\n\x1d\x46\x41ILED_INSUFFICIENT_RESOURCES\x10\x03\x12 \n\x1c\x46\x41ILED_POKEMON_CANNOT_EVOLVE\x10\x04\x12\x1e\n\x1a\x46\x41ILED_POKEMON_IS_DEPLOYED\x10\x05P\x00\x62\x06proto3')
+  serialized_pb=_b('\n0Networking/Responses/EvolvePokemonResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x16\x44\x61ta/PokemonData.proto\"\xf9\x02\n\x15\x45volvePokemonResponse\x12M\n\x06result\x18\x01 \x01(\x0e\x32=.POGOProtos.Networking.Responses.EvolvePokemonResponse.Result\x12:\n\x14\x65volved_pokemon_data\x18\x02 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12\x1a\n\x12\x65xperience_awarded\x18\x03 \x01(\x05\x12\x15\n\rcandy_awarded\x18\x04 \x01(\x05\"\xa1\x01\n\x06Result\x12\t\n\x05UNSET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x1a\n\x16\x46\x41ILED_POKEMON_MISSING\x10\x02\x12!\n\x1d\x46\x41ILED_INSUFFICIENT_RESOURCES\x10\x03\x12 \n\x1c\x46\x41ILED_POKEMON_CANNOT_EVOLVE\x10\x04\x12\x1e\n\x1a\x46\x41ILED_POKEMON_IS_DEPLOYED\x10\x05\x62\x06proto3')
   ,
   dependencies=[Data_dot_PokemonData__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

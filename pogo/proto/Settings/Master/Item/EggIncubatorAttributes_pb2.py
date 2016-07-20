@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Inventory import EggIncubatorType_pb2 as Inventory_dot_EggIncubatorType__pb2
 
-from Inventory.EggIncubatorType_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Settings/Master/Item/EggIncubatorAttributes.proto',
   package='POGOProtos.Settings.Master.Item',
   syntax='proto3',
-  serialized_pb=_b('\n1Settings/Master/Item/EggIncubatorAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a Inventory/EggIncubatorType.proto\"\x83\x01\n\x16\x45ggIncubatorAttributes\x12>\n\x0eincubator_type\x18\x01 \x01(\x0e\x32&.POGOProtos.Inventory.EggIncubatorType\x12\x0c\n\x04uses\x18\x02 \x01(\x05\x12\x1b\n\x13\x64istance_multiplier\x18\x03 \x01(\x02P\x00\x62\x06proto3')
+  serialized_pb=_b('\n1Settings/Master/Item/EggIncubatorAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a Inventory/EggIncubatorType.proto\"\x83\x01\n\x16\x45ggIncubatorAttributes\x12>\n\x0eincubator_type\x18\x01 \x01(\x0e\x32&.POGOProtos.Inventory.EggIncubatorType\x12\x0c\n\x04uses\x18\x02 \x01(\x05\x12\x1b\n\x13\x64istance_multiplier\x18\x03 \x01(\x02\x62\x06proto3')
   ,
   dependencies=[Inventory_dot_EggIncubatorType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

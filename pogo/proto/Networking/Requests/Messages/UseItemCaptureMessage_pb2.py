@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
 
-from Inventory.ItemId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Requests/Messages/UseItemCaptureMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\n8Networking/Requests/Messages/UseItemCaptureMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a\x16Inventory/ItemId.proto\"v\n\x15UseItemCaptureMessage\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x14\n\x0c\x65ncounter_id\x18\x02 \x01(\x06\x12\x18\n\x10spawn_point_guid\x18\x03 \x01(\tP\x00\x62\x06proto3')
+  serialized_pb=_b('\n8Networking/Requests/Messages/UseItemCaptureMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a\x16Inventory/ItemId.proto\"v\n\x15UseItemCaptureMessage\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x14\n\x0c\x65ncounter_id\x18\x02 \x01(\x06\x12\x18\n\x10spawn_point_guid\x18\x03 \x01(\tb\x06proto3')
   ,
   dependencies=[Inventory_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

@@ -14,77 +14,27 @@ _sym_db = _symbol_database.Default()
 
 
 from Settings.Master import ItemSettings_pb2 as Settings_dot_Master_dot_ItemSettings__pb2
-Enums_dot_ItemCategory__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Enums_dot_ItemCategory__pb2
-Inventory_dot_ItemId__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Inventory_dot_ItemId__pb2
-Inventory_dot_ItemType__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Inventory_dot_ItemType__pb2
-Settings_dot_Master_dot_Item_dot_FoodAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_FoodAttributes__pb2
-Enums_dot_ItemEffect__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Enums_dot_ItemEffect__pb2
-Settings_dot_Master_dot_Item_dot_PotionAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_PotionAttributes__pb2
-Settings_dot_Master_dot_Item_dot_ReviveAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_ReviveAttributes__pb2
-Settings_dot_Master_dot_Item_dot_BattleAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_BattleAttributes__pb2
-Settings_dot_Master_dot_Item_dot_IncenseAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_IncenseAttributes__pb2
-Enums_dot_PokemonType__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Enums_dot_PokemonType__pb2
-Settings_dot_Master_dot_Item_dot_PokeballAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_PokeballAttributes__pb2
-Enums_dot_ItemEffect__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Enums_dot_ItemEffect__pb2
-Settings_dot_Master_dot_Item_dot_FortModifierAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_FortModifierAttributes__pb2
-Settings_dot_Master_dot_Item_dot_EggIncubatorAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_EggIncubatorAttributes__pb2
-Inventory_dot_EggIncubatorType__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Inventory_dot_EggIncubatorType__pb2
-Settings_dot_Master_dot_Item_dot_ExperienceBoostAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_ExperienceBoostAttributes__pb2
-Settings_dot_Master_dot_Item_dot_InventoryUpgradeAttributes__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Settings_dot_Master_dot_Item_dot_InventoryUpgradeAttributes__pb2
-Inventory_dot_InventoryUpgradeType__pb2 = Settings_dot_Master_dot_ItemSettings__pb2.Inventory_dot_InventoryUpgradeType__pb2
 from Settings.Master import MoveSettings_pb2 as Settings_dot_Master_dot_MoveSettings__pb2
-Enums_dot_PokemonType__pb2 = Settings_dot_Master_dot_MoveSettings__pb2.Enums_dot_PokemonType__pb2
-Enums_dot_PokemonMovementType__pb2 = Settings_dot_Master_dot_MoveSettings__pb2.Enums_dot_PokemonMovementType__pb2
 from Settings.Master import BadgeSettings_pb2 as Settings_dot_Master_dot_BadgeSettings__pb2
-Enums_dot_BadgeType__pb2 = Settings_dot_Master_dot_BadgeSettings__pb2.Enums_dot_BadgeType__pb2
 from Settings.Master import PokemonSettings_pb2 as Settings_dot_Master_dot_PokemonSettings__pb2
-Enums_dot_PokemonId__pb2 = Settings_dot_Master_dot_PokemonSettings__pb2.Enums_dot_PokemonId__pb2
-Enums_dot_PokemonClass__pb2 = Settings_dot_Master_dot_PokemonSettings__pb2.Enums_dot_PokemonClass__pb2
-Enums_dot_PokemonType__pb2 = Settings_dot_Master_dot_PokemonSettings__pb2.Enums_dot_PokemonType__pb2
-Enums_dot_PokemonMove__pb2 = Settings_dot_Master_dot_PokemonSettings__pb2.Enums_dot_PokemonMove__pb2
-Enums_dot_PokemonFamilyId__pb2 = Settings_dot_Master_dot_PokemonSettings__pb2.Enums_dot_PokemonFamilyId__pb2
-Settings_dot_Master_dot_Pokemon_dot_StatsAttributes__pb2 = Settings_dot_Master_dot_PokemonSettings__pb2.Settings_dot_Master_dot_Pokemon_dot_StatsAttributes__pb2
-Settings_dot_Master_dot_Pokemon_dot_CameraAttributes__pb2 = Settings_dot_Master_dot_PokemonSettings__pb2.Settings_dot_Master_dot_Pokemon_dot_CameraAttributes__pb2
-Settings_dot_Master_dot_Pokemon_dot_EncounterAttributes__pb2 = Settings_dot_Master_dot_PokemonSettings__pb2.Settings_dot_Master_dot_Pokemon_dot_EncounterAttributes__pb2
-Enums_dot_PokemonMovementType__pb2 = Settings_dot_Master_dot_PokemonSettings__pb2.Enums_dot_PokemonMovementType__pb2
 from Settings.Master import MoveSequenceSettings_pb2 as Settings_dot_Master_dot_MoveSequenceSettings__pb2
 from Settings.Master import TypeEffectiveSettings_pb2 as Settings_dot_Master_dot_TypeEffectiveSettings__pb2
-Enums_dot_BadgeType__pb2 = Settings_dot_Master_dot_TypeEffectiveSettings__pb2.Enums_dot_BadgeType__pb2
 from Settings.Master import CameraSettings_pb2 as Settings_dot_Master_dot_CameraSettings__pb2
-Enums_dot_CameraTarget__pb2 = Settings_dot_Master_dot_CameraSettings__pb2.Enums_dot_CameraTarget__pb2
-Enums_dot_CameraInterpolation__pb2 = Settings_dot_Master_dot_CameraSettings__pb2.Enums_dot_CameraInterpolation__pb2
 from Settings.Master import PlayerLevelSettings_pb2 as Settings_dot_Master_dot_PlayerLevelSettings__pb2
 from Settings.Master import GymLevelSettings_pb2 as Settings_dot_Master_dot_GymLevelSettings__pb2
 from Settings.Master import GymBattleSettings_pb2 as Settings_dot_Master_dot_GymBattleSettings__pb2
 from Settings.Master import EncounterSettings_pb2 as Settings_dot_Master_dot_EncounterSettings__pb2
 from Settings.Master import IapItemDisplay_pb2 as Settings_dot_Master_dot_IapItemDisplay__pb2
-Enums_dot_IapItemCategory__pb2 = Settings_dot_Master_dot_IapItemDisplay__pb2.Enums_dot_IapItemCategory__pb2
-Inventory_dot_ItemId__pb2 = Settings_dot_Master_dot_IapItemDisplay__pb2.Inventory_dot_ItemId__pb2
 from Settings.Master import IapSettings_pb2 as Settings_dot_Master_dot_IapSettings__pb2
 from Settings.Master import PokemonUpgradeSettings_pb2 as Settings_dot_Master_dot_PokemonUpgradeSettings__pb2
 from Settings.Master import EquippedBadgeSettings_pb2 as Settings_dot_Master_dot_EquippedBadgeSettings__pb2
 
-from Settings.Master.ItemSettings_pb2 import *
-from Settings.Master.MoveSettings_pb2 import *
-from Settings.Master.BadgeSettings_pb2 import *
-from Settings.Master.PokemonSettings_pb2 import *
-from Settings.Master.MoveSequenceSettings_pb2 import *
-from Settings.Master.TypeEffectiveSettings_pb2 import *
-from Settings.Master.CameraSettings_pb2 import *
-from Settings.Master.PlayerLevelSettings_pb2 import *
-from Settings.Master.GymLevelSettings_pb2 import *
-from Settings.Master.GymBattleSettings_pb2 import *
-from Settings.Master.EncounterSettings_pb2 import *
-from Settings.Master.IapItemDisplay_pb2 import *
-from Settings.Master.IapSettings_pb2 import *
-from Settings.Master.PokemonUpgradeSettings_pb2 import *
-from Settings.Master.EquippedBadgeSettings_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/DownloadItemTemplatesResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n8Networking/Responses/DownloadItemTemplatesResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\"Settings/Master/ItemSettings.proto\x1a\"Settings/Master/MoveSettings.proto\x1a#Settings/Master/BadgeSettings.proto\x1a%Settings/Master/PokemonSettings.proto\x1a*Settings/Master/MoveSequenceSettings.proto\x1a+Settings/Master/TypeEffectiveSettings.proto\x1a$Settings/Master/CameraSettings.proto\x1a)Settings/Master/PlayerLevelSettings.proto\x1a&Settings/Master/GymLevelSettings.proto\x1a\'Settings/Master/GymBattleSettings.proto\x1a\'Settings/Master/EncounterSettings.proto\x1a$Settings/Master/IapItemDisplay.proto\x1a!Settings/Master/IapSettings.proto\x1a,Settings/Master/PokemonUpgradeSettings.proto\x1a+Settings/Master/EquippedBadgeSettings.proto\"\xf0\t\n\x1d\x44ownloadItemTemplatesResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x63\n\x0eitem_templates\x18\x02 \x03(\x0b\x32K.POGOProtos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate\x12\x14\n\x0ctimestamp_ms\x18\x03 \x01(\x04\x1a\xc2\x08\n\x0cItemTemplate\x12\x13\n\x0btemplate_id\x18\x01 \x01(\t\x12\x45\n\x10pokemon_settings\x18\x02 \x01(\x0b\x32+.POGOProtos.Settings.Master.PokemonSettings\x12?\n\ritem_settings\x18\x03 \x01(\x0b\x32(.POGOProtos.Settings.Master.ItemSettings\x12?\n\rmove_settings\x18\x04 \x01(\x0b\x32(.POGOProtos.Settings.Master.MoveSettings\x12P\n\x16move_sequence_settings\x18\x05 \x01(\x0b\x32\x30.POGOProtos.Settings.Master.MoveSequenceSettings\x12I\n\x0etype_effective\x18\x08 \x01(\x0b\x32\x31.POGOProtos.Settings.Master.TypeEffectiveSettings\x12\x41\n\x0e\x62\x61\x64ge_settings\x18\n \x01(\x0b\x32).POGOProtos.Settings.Master.BadgeSettings\x12:\n\x06\x63\x61mera\x18\x0b \x01(\x0b\x32*.POGOProtos.Settings.Master.CameraSettings\x12\x45\n\x0cplayer_level\x18\x0c \x01(\x0b\x32/.POGOProtos.Settings.Master.PlayerLevelSettings\x12?\n\tgym_level\x18\r \x01(\x0b\x32,.POGOProtos.Settings.Master.GymLevelSettings\x12\x46\n\x0f\x62\x61ttle_settings\x18\x0e \x01(\x0b\x32-.POGOProtos.Settings.Master.GymBattleSettings\x12I\n\x12\x65ncounter_settings\x18\x0f \x01(\x0b\x32-.POGOProtos.Settings.Master.EncounterSettings\x12\x44\n\x10iap_item_display\x18\x10 \x01(\x0b\x32*.POGOProtos.Settings.Master.IapItemDisplay\x12=\n\x0ciap_settings\x18\x11 \x01(\x0b\x32\'.POGOProtos.Settings.Master.IapSettings\x12L\n\x10pokemon_upgrades\x18\x12 \x01(\x0b\x32\x32.POGOProtos.Settings.Master.PokemonUpgradeSettings\x12J\n\x0f\x65quipped_badges\x18\x13 \x01(\x0b\x32\x31.POGOProtos.Settings.Master.EquippedBadgeSettingsP\x00P\x01P\x02P\x03P\x04P\x05P\x06P\x07P\x08P\tP\nP\x0bP\x0cP\rP\x0e\x62\x06proto3')
+  serialized_pb=_b('\n8Networking/Responses/DownloadItemTemplatesResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\"Settings/Master/ItemSettings.proto\x1a\"Settings/Master/MoveSettings.proto\x1a#Settings/Master/BadgeSettings.proto\x1a%Settings/Master/PokemonSettings.proto\x1a*Settings/Master/MoveSequenceSettings.proto\x1a+Settings/Master/TypeEffectiveSettings.proto\x1a$Settings/Master/CameraSettings.proto\x1a)Settings/Master/PlayerLevelSettings.proto\x1a&Settings/Master/GymLevelSettings.proto\x1a\'Settings/Master/GymBattleSettings.proto\x1a\'Settings/Master/EncounterSettings.proto\x1a$Settings/Master/IapItemDisplay.proto\x1a!Settings/Master/IapSettings.proto\x1a,Settings/Master/PokemonUpgradeSettings.proto\x1a+Settings/Master/EquippedBadgeSettings.proto\"\xf0\t\n\x1d\x44ownloadItemTemplatesResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x63\n\x0eitem_templates\x18\x02 \x03(\x0b\x32K.POGOProtos.Networking.Responses.DownloadItemTemplatesResponse.ItemTemplate\x12\x14\n\x0ctimestamp_ms\x18\x03 \x01(\x04\x1a\xc2\x08\n\x0cItemTemplate\x12\x13\n\x0btemplate_id\x18\x01 \x01(\t\x12\x45\n\x10pokemon_settings\x18\x02 \x01(\x0b\x32+.POGOProtos.Settings.Master.PokemonSettings\x12?\n\ritem_settings\x18\x03 \x01(\x0b\x32(.POGOProtos.Settings.Master.ItemSettings\x12?\n\rmove_settings\x18\x04 \x01(\x0b\x32(.POGOProtos.Settings.Master.MoveSettings\x12P\n\x16move_sequence_settings\x18\x05 \x01(\x0b\x32\x30.POGOProtos.Settings.Master.MoveSequenceSettings\x12I\n\x0etype_effective\x18\x08 \x01(\x0b\x32\x31.POGOProtos.Settings.Master.TypeEffectiveSettings\x12\x41\n\x0e\x62\x61\x64ge_settings\x18\n \x01(\x0b\x32).POGOProtos.Settings.Master.BadgeSettings\x12:\n\x06\x63\x61mera\x18\x0b \x01(\x0b\x32*.POGOProtos.Settings.Master.CameraSettings\x12\x45\n\x0cplayer_level\x18\x0c \x01(\x0b\x32/.POGOProtos.Settings.Master.PlayerLevelSettings\x12?\n\tgym_level\x18\r \x01(\x0b\x32,.POGOProtos.Settings.Master.GymLevelSettings\x12\x46\n\x0f\x62\x61ttle_settings\x18\x0e \x01(\x0b\x32-.POGOProtos.Settings.Master.GymBattleSettings\x12I\n\x12\x65ncounter_settings\x18\x0f \x01(\x0b\x32-.POGOProtos.Settings.Master.EncounterSettings\x12\x44\n\x10iap_item_display\x18\x10 \x01(\x0b\x32*.POGOProtos.Settings.Master.IapItemDisplay\x12=\n\x0ciap_settings\x18\x11 \x01(\x0b\x32\'.POGOProtos.Settings.Master.IapSettings\x12L\n\x10pokemon_upgrades\x18\x12 \x01(\x0b\x32\x32.POGOProtos.Settings.Master.PokemonUpgradeSettings\x12J\n\x0f\x65quipped_badges\x18\x13 \x01(\x0b\x32\x31.POGOProtos.Settings.Master.EquippedBadgeSettingsb\x06proto3')
   ,
   dependencies=[Settings_dot_Master_dot_ItemSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_MoveSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_BadgeSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_PokemonSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_MoveSequenceSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_TypeEffectiveSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_CameraSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_PlayerLevelSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_GymLevelSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_GymBattleSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_EncounterSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_IapItemDisplay__pb2.DESCRIPTOR,Settings_dot_Master_dot_IapSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_PokemonUpgradeSettings__pb2.DESCRIPTOR,Settings_dot_Master_dot_EquippedBadgeSettings__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

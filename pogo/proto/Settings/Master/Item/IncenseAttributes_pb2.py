@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Enums import PokemonType_pb2 as Enums_dot_PokemonType__pb2
 
-from Enums.PokemonType_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Settings/Master/Item/IncenseAttributes.proto',
   package='POGOProtos.Settings.Master.Item',
   syntax='proto3',
-  serialized_pb=_b('\n,Settings/Master/Item/IncenseAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a\x17\x45nums/PokemonType.proto\"\xd2\x02\n\x11IncenseAttributes\x12 \n\x18incense_lifetime_seconds\x18\x01 \x01(\x05\x12\x33\n\x0cpokemon_type\x18\x02 \x03(\x0e\x32\x1d.POGOProtos.Enums.PokemonType\x12(\n pokemon_incense_type_probability\x18\x03 \x01(\x02\x12\x30\n(standing_time_between_encounters_seconds\x18\x04 \x01(\x05\x12-\n%moving_time_between_encounter_seconds\x18\x05 \x01(\x05\x12\x35\n-distance_required_for_shorter_interval_meters\x18\x06 \x01(\x05\x12$\n\x1cpokemon_attracted_length_sec\x18\x07 \x01(\x05P\x00\x62\x06proto3')
+  serialized_pb=_b('\n,Settings/Master/Item/IncenseAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a\x17\x45nums/PokemonType.proto\"\xd2\x02\n\x11IncenseAttributes\x12 \n\x18incense_lifetime_seconds\x18\x01 \x01(\x05\x12\x33\n\x0cpokemon_type\x18\x02 \x03(\x0e\x32\x1d.POGOProtos.Enums.PokemonType\x12(\n pokemon_incense_type_probability\x18\x03 \x01(\x02\x12\x30\n(standing_time_between_encounters_seconds\x18\x04 \x01(\x05\x12-\n%moving_time_between_encounter_seconds\x18\x05 \x01(\x05\x12\x35\n-distance_required_for_shorter_interval_meters\x18\x06 \x01(\x05\x12$\n\x1cpokemon_attracted_length_sec\x18\x07 \x01(\x05\x62\x06proto3')
   ,
   dependencies=[Enums_dot_PokemonType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

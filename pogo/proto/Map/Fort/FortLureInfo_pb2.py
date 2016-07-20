@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Enums import PokemonId_pb2 as Enums_dot_PokemonId__pb2
 
-from Enums.PokemonId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Map/Fort/FortLureInfo.proto',
   package='POGOProtos.Map.Fort',
   syntax='proto3',
-  serialized_pb=_b('\n\x1bMap/Fort/FortLureInfo.proto\x12\x13POGOProtos.Map.Fort\x1a\x15\x45nums/PokemonId.proto\"\x8c\x01\n\x0c\x46ortLureInfo\x12\x0f\n\x07\x66ort_id\x18\x01 \x01(\t\x12\x10\n\x08unknown2\x18\x02 \x01(\x01\x12\x36\n\x11\x61\x63tive_pokemon_id\x18\x03 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12!\n\x19lure_expires_timestamp_ms\x18\x04 \x01(\x03P\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1bMap/Fort/FortLureInfo.proto\x12\x13POGOProtos.Map.Fort\x1a\x15\x45nums/PokemonId.proto\"\x8c\x01\n\x0c\x46ortLureInfo\x12\x0f\n\x07\x66ort_id\x18\x01 \x01(\t\x12\x10\n\x08unknown2\x18\x02 \x01(\x01\x12\x36\n\x11\x61\x63tive_pokemon_id\x18\x03 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12!\n\x19lure_expires_timestamp_ms\x18\x04 \x01(\x03\x62\x06proto3')
   ,
   dependencies=[Enums_dot_PokemonId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

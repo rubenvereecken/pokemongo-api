@@ -6,7 +6,8 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 import proto
-from Networking import Envelopes_pb2
+from Networking.Envelopes import ResponseEnvelope_pb2
+from Networking.Envelopes import RequestEnvelope_pb2
 from Networking.Requests import Request_pb2
 from Networking.Requests import RequestType_pb2
 from Networking.Requests.Messages import DownloadSettingsMessage_pb2
@@ -62,9 +63,9 @@ class PogoSession(object):
         # If we haven't authenticated before
         info = None
         if(not self.authTicket):
-            info = Envelopes_pb2.Envelopes.RequestEnvelope.AuthInfo(
+            info = RequestEnvelope_pb2.RequestEnvelope.AuthInfo(
                 provider = self.authProvider,
-                token = Envelopes_pb2.Envelopes.RequestEnvelope.AuthInfo.JWT(
+                token = RequestEnvelope_pb2.RequestEnvelope.AuthInfo.JWT(
                     contents = self.accessToken,
                     unknown2 = 59
                 )
@@ -72,7 +73,7 @@ class PogoSession(object):
 
         # Build Envelope
         latitude, longitude, altitude = self.getLocation()
-        req = Envelopes_pb2.Envelopes.RequestEnvelope(
+        req = RequestEnvelope_pb2.RequestEnvelope(
             status_code = 2,
             request_id = 1469378659230941192,#api.getRPCId(),
             longitude = longitude,
@@ -96,7 +97,7 @@ class PogoSession(object):
         rawResponse = self.session.post(url, data=req.SerializeToString())
 
         # Parse it out
-        res = Envelopes_pb2.Envelopes.ResponseEnvelope()
+        res = ResponseEnvelope_pb2.ResponseEnvelope()
         res.ParseFromString(rawResponse.content)
 
         # Update Auth ticket if it exists

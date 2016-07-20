@@ -14,16 +14,13 @@ _sym_db = _symbol_database.Default()
 
 
 from Inventory import AppliedItem_pb2 as Inventory_dot_AppliedItem__pb2
-Inventory_dot_ItemId__pb2 = Inventory_dot_AppliedItem__pb2.Inventory_dot_ItemId__pb2
-Inventory_dot_ItemType__pb2 = Inventory_dot_AppliedItem__pb2.Inventory_dot_ItemType__pb2
 
-from Inventory.AppliedItem_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Inventory/AppliedItems.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n\x1cInventory/AppliedItems.proto\x12\x14POGOProtos.Inventory\x1a\x1bInventory/AppliedItem.proto\"?\n\x0c\x41ppliedItems\x12/\n\x04item\x18\x04 \x01(\x0b\x32!.POGOProtos.Inventory.AppliedItemP\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1cInventory/AppliedItems.proto\x12\x14POGOProtos.Inventory\x1a\x1bInventory/AppliedItem.proto\"?\n\x0c\x41ppliedItems\x12/\n\x04item\x18\x04 \x03(\x0b\x32!.POGOProtos.Inventory.AppliedItemb\x06proto3')
   ,
   dependencies=[Inventory_dot_AppliedItem__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -40,8 +37,8 @@ _APPLIEDITEMS = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='item', full_name='POGOProtos.Inventory.AppliedItems.item', index=0,
-      number=4, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),

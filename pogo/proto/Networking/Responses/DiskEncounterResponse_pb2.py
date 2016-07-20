@@ -14,21 +14,16 @@ _sym_db = _symbol_database.Default()
 
 
 from Data import PokemonData_pb2 as Data_dot_PokemonData__pb2
-Enums_dot_PokemonId__pb2 = Data_dot_PokemonData__pb2.Enums_dot_PokemonId__pb2
-Enums_dot_PokemonMove__pb2 = Data_dot_PokemonData__pb2.Enums_dot_PokemonMove__pb2
-from Data import CaptureProbability_pb2 as Data_dot_CaptureProbability__pb2
-Inventory_dot_ItemId__pb2 = Data_dot_CaptureProbability__pb2.Inventory_dot_ItemId__pb2
+from Data.Capture import CaptureProbability_pb2 as Data_dot_Capture_dot_CaptureProbability__pb2
 
-from Data.PokemonData_pb2 import *
-from Data.CaptureProbability_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/DiskEncounterResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n0Networking/Responses/DiskEncounterResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x16\x44\x61ta/PokemonData.proto\x1a\x1d\x44\x61ta/CaptureProbability.proto\"\xe2\x02\n\x15\x44iskEncounterResponse\x12M\n\x06result\x18\x01 \x01(\x0e\x32=.POGOProtos.Networking.Responses.DiskEncounterResponse.Result\x12\x32\n\x0cpokemon_data\x18\x02 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12@\n\x13\x63\x61pture_probability\x18\x03 \x01(\x0b\x32#.POGOProtos.Data.CaptureProbability\"\x83\x01\n\x06Result\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x11\n\rNOT_AVAILABLE\x10\x02\x12\x10\n\x0cNOT_IN_RANGE\x10\x03\x12\x1e\n\x1a\x45NCOUNTER_ALREADY_FINISHED\x10\x04\x12\x1a\n\x16POKEMON_INVENTORY_FULL\x10\x05P\x00P\x01\x62\x06proto3')
+  serialized_pb=_b('\n0Networking/Responses/DiskEncounterResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x16\x44\x61ta/PokemonData.proto\x1a%Data/Capture/CaptureProbability.proto\"\xea\x02\n\x15\x44iskEncounterResponse\x12M\n\x06result\x18\x01 \x01(\x0e\x32=.POGOProtos.Networking.Responses.DiskEncounterResponse.Result\x12\x32\n\x0cpokemon_data\x18\x02 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12H\n\x13\x63\x61pture_probability\x18\x03 \x01(\x0b\x32+.POGOProtos.Data.Capture.CaptureProbability\"\x83\x01\n\x06Result\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x11\n\rNOT_AVAILABLE\x10\x02\x12\x10\n\x0cNOT_IN_RANGE\x10\x03\x12\x1e\n\x1a\x45NCOUNTER_ALREADY_FINISHED\x10\x04\x12\x1a\n\x16POKEMON_INVENTORY_FULL\x10\x05\x62\x06proto3')
   ,
-  dependencies=[Data_dot_PokemonData__pb2.DESCRIPTOR,Data_dot_CaptureProbability__pb2.DESCRIPTOR,])
+  dependencies=[Data_dot_PokemonData__pb2.DESCRIPTOR,Data_dot_Capture_dot_CaptureProbability__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -66,8 +61,8 @@ _DISKENCOUNTERRESPONSE_RESULT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=364,
-  serialized_end=495,
+  serialized_start=380,
+  serialized_end=511,
 )
 _sym_db.RegisterEnumDescriptor(_DISKENCOUNTERRESPONSE_RESULT)
 
@@ -113,13 +108,13 @@ _DISKENCOUNTERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=141,
-  serialized_end=495,
+  serialized_start=149,
+  serialized_end=511,
 )
 
 _DISKENCOUNTERRESPONSE.fields_by_name['result'].enum_type = _DISKENCOUNTERRESPONSE_RESULT
 _DISKENCOUNTERRESPONSE.fields_by_name['pokemon_data'].message_type = Data_dot_PokemonData__pb2._POKEMONDATA
-_DISKENCOUNTERRESPONSE.fields_by_name['capture_probability'].message_type = Data_dot_CaptureProbability__pb2._CAPTUREPROBABILITY
+_DISKENCOUNTERRESPONSE.fields_by_name['capture_probability'].message_type = Data_dot_Capture_dot_CaptureProbability__pb2._CAPTUREPROBABILITY
 _DISKENCOUNTERRESPONSE_RESULT.containing_type = _DISKENCOUNTERRESPONSE
 DESCRIPTOR.message_types_by_name['DiskEncounterResponse'] = _DISKENCOUNTERRESPONSE
 

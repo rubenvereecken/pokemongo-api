@@ -13,23 +13,17 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from Data import CaptureProbability_pb2 as Data_dot_CaptureProbability__pb2
-Inventory_dot_ItemId__pb2 = Data_dot_CaptureProbability__pb2.Inventory_dot_ItemId__pb2
+from Data.Capture import CaptureProbability_pb2 as Data_dot_Capture_dot_CaptureProbability__pb2
 from Map.Pokemon import WildPokemon_pb2 as Map_dot_Pokemon_dot_WildPokemon__pb2
-Data_dot_PokemonData__pb2 = Map_dot_Pokemon_dot_WildPokemon__pb2.Data_dot_PokemonData__pb2
-Enums_dot_PokemonId__pb2 = Map_dot_Pokemon_dot_WildPokemon__pb2.Enums_dot_PokemonId__pb2
-Enums_dot_PokemonMove__pb2 = Map_dot_Pokemon_dot_WildPokemon__pb2.Enums_dot_PokemonMove__pb2
 
-from Data.CaptureProbability_pb2 import *
-from Map.Pokemon.WildPokemon_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/EncounterResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n,Networking/Responses/EncounterResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x1d\x44\x61ta/CaptureProbability.proto\x1a\x1dMap/Pokemon/WildPokemon.proto\"\xac\x04\n\x11\x45ncounterResponse\x12\x39\n\x0cwild_pokemon\x18\x01 \x01(\x0b\x32#.POGOProtos.Map.Pokemon.WildPokemon\x12Q\n\nbackground\x18\x02 \x01(\x0e\x32=.POGOProtos.Networking.Responses.EncounterResponse.Background\x12I\n\x06status\x18\x03 \x01(\x0e\x32\x39.POGOProtos.Networking.Responses.EncounterResponse.Status\x12@\n\x13\x63\x61pture_probability\x18\x04 \x01(\x0b\x32#.POGOProtos.Data.CaptureProbability\"\"\n\nBackground\x12\x08\n\x04PARK\x10\x00\x12\n\n\x06\x44\x45SERT\x10\x01\"\xd7\x01\n\x06Status\x12\x13\n\x0f\x45NCOUNTER_ERROR\x10\x00\x12\x15\n\x11\x45NCOUNTER_SUCCESS\x10\x01\x12\x17\n\x13\x45NCOUNTER_NOT_FOUND\x10\x02\x12\x14\n\x10\x45NCOUNTER_CLOSED\x10\x03\x12\x1a\n\x16\x45NCOUNTER_POKEMON_FLED\x10\x04\x12\x1a\n\x16\x45NCOUNTER_NOT_IN_RANGE\x10\x05\x12\x1e\n\x1a\x45NCOUNTER_ALREADY_HAPPENED\x10\x06\x12\x1a\n\x16POKEMON_INVENTORY_FULL\x10\x07P\x00P\x01\x62\x06proto3')
+  serialized_pb=_b('\n,Networking/Responses/EncounterResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a%Data/Capture/CaptureProbability.proto\x1a\x1dMap/Pokemon/WildPokemon.proto\"\xb4\x04\n\x11\x45ncounterResponse\x12\x39\n\x0cwild_pokemon\x18\x01 \x01(\x0b\x32#.POGOProtos.Map.Pokemon.WildPokemon\x12Q\n\nbackground\x18\x02 \x01(\x0e\x32=.POGOProtos.Networking.Responses.EncounterResponse.Background\x12I\n\x06status\x18\x03 \x01(\x0e\x32\x39.POGOProtos.Networking.Responses.EncounterResponse.Status\x12H\n\x13\x63\x61pture_probability\x18\x04 \x01(\x0b\x32+.POGOProtos.Data.Capture.CaptureProbability\"\"\n\nBackground\x12\x08\n\x04PARK\x10\x00\x12\n\n\x06\x44\x45SERT\x10\x01\"\xd7\x01\n\x06Status\x12\x13\n\x0f\x45NCOUNTER_ERROR\x10\x00\x12\x15\n\x11\x45NCOUNTER_SUCCESS\x10\x01\x12\x17\n\x13\x45NCOUNTER_NOT_FOUND\x10\x02\x12\x14\n\x10\x45NCOUNTER_CLOSED\x10\x03\x12\x1a\n\x16\x45NCOUNTER_POKEMON_FLED\x10\x04\x12\x1a\n\x16\x45NCOUNTER_NOT_IN_RANGE\x10\x05\x12\x1e\n\x1a\x45NCOUNTER_ALREADY_HAPPENED\x10\x06\x12\x1a\n\x16POKEMON_INVENTORY_FULL\x10\x07\x62\x06proto3')
   ,
-  dependencies=[Data_dot_CaptureProbability__pb2.DESCRIPTOR,Map_dot_Pokemon_dot_WildPokemon__pb2.DESCRIPTOR,])
+  dependencies=[Data_dot_Capture_dot_CaptureProbability__pb2.DESCRIPTOR,Map_dot_Pokemon_dot_WildPokemon__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -51,8 +45,8 @@ _ENCOUNTERRESPONSE_BACKGROUND = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=448,
-  serialized_end=482,
+  serialized_start=464,
+  serialized_end=498,
 )
 _sym_db.RegisterEnumDescriptor(_ENCOUNTERRESPONSE_BACKGROUND)
 
@@ -97,8 +91,8 @@ _ENCOUNTERRESPONSE_STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=485,
-  serialized_end=700,
+  serialized_start=501,
+  serialized_end=716,
 )
 _sym_db.RegisterEnumDescriptor(_ENCOUNTERRESPONSE_STATUS)
 
@@ -152,14 +146,14 @@ _ENCOUNTERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=144,
-  serialized_end=700,
+  serialized_start=152,
+  serialized_end=716,
 )
 
 _ENCOUNTERRESPONSE.fields_by_name['wild_pokemon'].message_type = Map_dot_Pokemon_dot_WildPokemon__pb2._WILDPOKEMON
 _ENCOUNTERRESPONSE.fields_by_name['background'].enum_type = _ENCOUNTERRESPONSE_BACKGROUND
 _ENCOUNTERRESPONSE.fields_by_name['status'].enum_type = _ENCOUNTERRESPONSE_STATUS
-_ENCOUNTERRESPONSE.fields_by_name['capture_probability'].message_type = Data_dot_CaptureProbability__pb2._CAPTUREPROBABILITY
+_ENCOUNTERRESPONSE.fields_by_name['capture_probability'].message_type = Data_dot_Capture_dot_CaptureProbability__pb2._CAPTUREPROBABILITY
 _ENCOUNTERRESPONSE_BACKGROUND.containing_type = _ENCOUNTERRESPONSE
 _ENCOUNTERRESPONSE_STATUS.containing_type = _ENCOUNTERRESPONSE
 DESCRIPTOR.message_types_by_name['EncounterResponse'] = _ENCOUNTERRESPONSE

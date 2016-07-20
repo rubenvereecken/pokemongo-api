@@ -14,20 +14,16 @@ _sym_db = _symbol_database.Default()
 
 
 from Data import PokemonData_pb2 as Data_dot_PokemonData__pb2
-Enums_dot_PokemonId__pb2 = Data_dot_PokemonData__pb2.Enums_dot_PokemonId__pb2
-Enums_dot_PokemonMove__pb2 = Data_dot_PokemonData__pb2.Enums_dot_PokemonMove__pb2
-from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
+from Inventory import ItemAward_pb2 as Inventory_dot_ItemAward__pb2
 
-from Data.PokemonData_pb2 import *
-from Inventory.ItemId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Responses/FortSearchResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n-Networking/Responses/FortSearchResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x16\x44\x61ta/PokemonData.proto\x1a\x16Inventory/ItemId.proto\"\xa4\x04\n\x12\x46ortSearchResponse\x12J\n\x06result\x18\x01 \x01(\x0e\x32:.POGOProtos.Networking.Responses.FortSearchResponse.Result\x12T\n\ritems_awarded\x18\x02 \x03(\x0b\x32=.POGOProtos.Networking.Responses.FortSearchResponse.ItemAward\x12\x14\n\x0cgems_awarded\x18\x03 \x01(\x05\x12\x36\n\x10pokemon_data_egg\x18\x04 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12\x1a\n\x12\x65xperience_awarded\x18\x05 \x01(\x05\x12&\n\x1e\x63ooldown_complete_timestamp_ms\x18\x06 \x01(\x03\x12\"\n\x1a\x63hain_hack_sequence_number\x18\x07 \x01(\x05\x1aN\n\tItemAward\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x12\n\nitem_count\x18\x02 \x01(\x05\"f\n\x06Result\x12\x11\n\rNO_RESULT_SET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x10\n\x0cOUT_OF_RANGE\x10\x02\x12\x16\n\x12IN_COOLDOWN_PERIOD\x10\x03\x12\x12\n\x0eINVENTORY_FULL\x10\x04P\x00P\x01\x62\x06proto3')
+  serialized_pb=_b('\n-Networking/Responses/FortSearchResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a\x16\x44\x61ta/PokemonData.proto\x1a\x19Inventory/ItemAward.proto\"\xb6\x03\n\x12\x46ortSearchResponse\x12J\n\x06result\x18\x01 \x01(\x0e\x32:.POGOProtos.Networking.Responses.FortSearchResponse.Result\x12\x36\n\ritems_awarded\x18\x02 \x03(\x0b\x32\x1f.POGOProtos.Inventory.ItemAward\x12\x14\n\x0cgems_awarded\x18\x03 \x01(\x05\x12\x36\n\x10pokemon_data_egg\x18\x04 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12\x1a\n\x12\x65xperience_awarded\x18\x05 \x01(\x05\x12&\n\x1e\x63ooldown_complete_timestamp_ms\x18\x06 \x01(\x03\x12\"\n\x1a\x63hain_hack_sequence_number\x18\x07 \x01(\x05\"f\n\x06Result\x12\x11\n\rNO_RESULT_SET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x10\n\x0cOUT_OF_RANGE\x10\x02\x12\x16\n\x12IN_COOLDOWN_PERIOD\x10\x03\x12\x12\n\x0eINVENTORY_FULL\x10\x04\x62\x06proto3')
   ,
-  dependencies=[Data_dot_PokemonData__pb2.DESCRIPTOR,Inventory_dot_ItemId__pb2.DESCRIPTOR,])
+  dependencies=[Data_dot_PokemonData__pb2.DESCRIPTOR,Inventory_dot_ItemAward__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -61,48 +57,11 @@ _FORTSEARCHRESPONSE_RESULT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=577,
-  serialized_end=679,
+  serialized_start=470,
+  serialized_end=572,
 )
 _sym_db.RegisterEnumDescriptor(_FORTSEARCHRESPONSE_RESULT)
 
-
-_FORTSEARCHRESPONSE_ITEMAWARD = _descriptor.Descriptor(
-  name='ItemAward',
-  full_name='POGOProtos.Networking.Responses.FortSearchResponse.ItemAward',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='item_id', full_name='POGOProtos.Networking.Responses.FortSearchResponse.ItemAward.item_id', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='item_count', full_name='POGOProtos.Networking.Responses.FortSearchResponse.ItemAward.item_count', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=497,
-  serialized_end=575,
-)
 
 _FORTSEARCHRESPONSE = _descriptor.Descriptor(
   name='FortSearchResponse',
@@ -163,7 +122,7 @@ _FORTSEARCHRESPONSE = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_FORTSEARCHRESPONSE_ITEMAWARD, ],
+  nested_types=[],
   enum_types=[
     _FORTSEARCHRESPONSE_RESULT,
   ],
@@ -173,32 +132,22 @@ _FORTSEARCHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=131,
-  serialized_end=679,
+  serialized_start=134,
+  serialized_end=572,
 )
 
-_FORTSEARCHRESPONSE_ITEMAWARD.fields_by_name['item_id'].enum_type = Inventory_dot_ItemId__pb2._ITEMID
-_FORTSEARCHRESPONSE_ITEMAWARD.containing_type = _FORTSEARCHRESPONSE
 _FORTSEARCHRESPONSE.fields_by_name['result'].enum_type = _FORTSEARCHRESPONSE_RESULT
-_FORTSEARCHRESPONSE.fields_by_name['items_awarded'].message_type = _FORTSEARCHRESPONSE_ITEMAWARD
+_FORTSEARCHRESPONSE.fields_by_name['items_awarded'].message_type = Inventory_dot_ItemAward__pb2._ITEMAWARD
 _FORTSEARCHRESPONSE.fields_by_name['pokemon_data_egg'].message_type = Data_dot_PokemonData__pb2._POKEMONDATA
 _FORTSEARCHRESPONSE_RESULT.containing_type = _FORTSEARCHRESPONSE
 DESCRIPTOR.message_types_by_name['FortSearchResponse'] = _FORTSEARCHRESPONSE
 
 FortSearchResponse = _reflection.GeneratedProtocolMessageType('FortSearchResponse', (_message.Message,), dict(
-
-  ItemAward = _reflection.GeneratedProtocolMessageType('ItemAward', (_message.Message,), dict(
-    DESCRIPTOR = _FORTSEARCHRESPONSE_ITEMAWARD,
-    __module__ = 'Networking.Responses.FortSearchResponse_pb2'
-    # @@protoc_insertion_point(class_scope:POGOProtos.Networking.Responses.FortSearchResponse.ItemAward)
-    ))
-  ,
   DESCRIPTOR = _FORTSEARCHRESPONSE,
   __module__ = 'Networking.Responses.FortSearchResponse_pb2'
   # @@protoc_insertion_point(class_scope:POGOProtos.Networking.Responses.FortSearchResponse)
   ))
 _sym_db.RegisterMessage(FortSearchResponse)
-_sym_db.RegisterMessage(FortSearchResponse.ItemAward)
 
 
 # @@protoc_insertion_point(module_scope)

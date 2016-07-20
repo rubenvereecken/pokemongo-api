@@ -14,16 +14,13 @@ _sym_db = _symbol_database.Default()
 
 
 from Data import PokemonData_pb2 as Data_dot_PokemonData__pb2
-Enums_dot_PokemonId__pb2 = Data_dot_PokemonData__pb2.Enums_dot_PokemonId__pb2
-Enums_dot_PokemonMove__pb2 = Data_dot_PokemonData__pb2.Enums_dot_PokemonMove__pb2
 
-from Data.PokemonData_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Map/Pokemon/WildPokemon.proto',
   package='POGOProtos.Map.Pokemon',
   syntax='proto3',
-  serialized_pb=_b('\n\x1dMap/Pokemon/WildPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x16\x44\x61ta/PokemonData.proto\"\xd4\x01\n\x0bWildPokemon\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x01(\x06\x12\"\n\x1alast_modified_timestamp_ms\x18\x02 \x01(\x03\x12\x10\n\x08latitude\x18\x03 \x01(\x01\x12\x11\n\tlongitude\x18\x04 \x01(\x01\x12\x15\n\rspawnpoint_id\x18\x05 \x01(\t\x12\x32\n\x0cpokemon_data\x18\x07 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12\x1b\n\x13time_till_hidden_ms\x18\x0b \x01(\x05P\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1dMap/Pokemon/WildPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x16\x44\x61ta/PokemonData.proto\"\xd4\x01\n\x0bWildPokemon\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x01(\x06\x12\"\n\x1alast_modified_timestamp_ms\x18\x02 \x01(\x03\x12\x10\n\x08latitude\x18\x03 \x01(\x01\x12\x11\n\tlongitude\x18\x04 \x01(\x01\x12\x15\n\rspawnpoint_id\x18\x05 \x01(\t\x12\x32\n\x0cpokemon_data\x18\x07 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12\x1b\n\x13time_till_hidden_ms\x18\x0b \x01(\x05\x62\x06proto3')
   ,
   dependencies=[Data_dot_PokemonData__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

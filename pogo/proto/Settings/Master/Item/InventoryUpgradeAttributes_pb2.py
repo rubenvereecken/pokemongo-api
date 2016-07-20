@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Inventory import InventoryUpgradeType_pb2 as Inventory_dot_InventoryUpgradeType__pb2
 
-from Inventory.InventoryUpgradeType_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Settings/Master/Item/InventoryUpgradeAttributes.proto',
   package='POGOProtos.Settings.Master.Item',
   syntax='proto3',
-  serialized_pb=_b('\n5Settings/Master/Item/InventoryUpgradeAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a$Inventory/InventoryUpgradeType.proto\"z\n\x1aInventoryUpgradeAttributes\x12\x1a\n\x12\x61\x64\x64itional_storage\x18\x01 \x01(\x05\x12@\n\x0cupgrade_type\x18\x02 \x01(\x0e\x32*.POGOProtos.Inventory.InventoryUpgradeTypeP\x00\x62\x06proto3')
+  serialized_pb=_b('\n5Settings/Master/Item/InventoryUpgradeAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a$Inventory/InventoryUpgradeType.proto\"z\n\x1aInventoryUpgradeAttributes\x12\x1a\n\x12\x61\x64\x64itional_storage\x18\x01 \x01(\x05\x12@\n\x0cupgrade_type\x18\x02 \x01(\x0e\x32*.POGOProtos.Inventory.InventoryUpgradeTypeb\x06proto3')
   ,
   dependencies=[Inventory_dot_InventoryUpgradeType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

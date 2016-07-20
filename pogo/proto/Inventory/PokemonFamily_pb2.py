@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Enums import PokemonFamilyId_pb2 as Enums_dot_PokemonFamilyId__pb2
 
-from Enums.PokemonFamilyId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Inventory/PokemonFamily.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n\x1dInventory/PokemonFamily.proto\x12\x14POGOProtos.Inventory\x1a\x1b\x45nums/PokemonFamilyId.proto\"T\n\rPokemonFamily\x12\x34\n\tfamily_id\x18\x01 \x01(\x0e\x32!.POGOProtos.Enums.PokemonFamilyId\x12\r\n\x05\x63\x61ndy\x18\x02 \x01(\x05P\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1dInventory/PokemonFamily.proto\x12\x14POGOProtos.Inventory\x1a\x1b\x45nums/PokemonFamilyId.proto\"T\n\rPokemonFamily\x12\x34\n\tfamily_id\x18\x01 \x01(\x0e\x32!.POGOProtos.Enums.PokemonFamilyId\x12\r\n\x05\x63\x61ndy\x18\x02 \x01(\x05\x62\x06proto3')
   ,
   dependencies=[Enums_dot_PokemonFamilyId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

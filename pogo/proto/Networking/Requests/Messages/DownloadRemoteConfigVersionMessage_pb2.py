@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Enums import Platform_pb2 as Enums_dot_Platform__pb2
 
-from Enums.Platform_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Networking/Requests/Messages/DownloadRemoteConfigVersionMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nENetworking/Requests/Messages/DownloadRemoteConfigVersionMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a\x14\x45nums/Platform.proto\"\xaa\x01\n\"DownloadRemoteConfigVersionMessage\x12,\n\x08platform\x18\x01 \x01(\x0e\x32\x1a.POGOProtos.Enums.Platform\x12\x1b\n\x13\x64\x65vice_manufacturer\x18\x02 \x01(\t\x12\x14\n\x0c\x64\x65vice_model\x18\x03 \x01(\t\x12\x0e\n\x06locale\x18\x04 \x01(\t\x12\x13\n\x0b\x61pp_version\x18\x05 \x01(\rP\x00\x62\x06proto3')
+  serialized_pb=_b('\nENetworking/Requests/Messages/DownloadRemoteConfigVersionMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a\x14\x45nums/Platform.proto\"\xaa\x01\n\"DownloadRemoteConfigVersionMessage\x12,\n\x08platform\x18\x01 \x01(\x0e\x32\x1a.POGOProtos.Enums.Platform\x12\x1b\n\x13\x64\x65vice_manufacturer\x18\x02 \x01(\t\x12\x14\n\x0c\x64\x65vice_model\x18\x03 \x01(\t\x12\x0e\n\x06locale\x18\x04 \x01(\t\x12\x13\n\x0b\x61pp_version\x18\x05 \x01(\rb\x06proto3')
   ,
   dependencies=[Enums_dot_Platform__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

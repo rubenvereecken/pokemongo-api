@@ -16,14 +16,12 @@ _sym_db = _symbol_database.Default()
 from Enums import IapItemCategory_pb2 as Enums_dot_IapItemCategory__pb2
 from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
 
-from Enums.IapItemCategory_pb2 import *
-from Inventory.ItemId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Settings/Master/IapItemDisplay.proto',
   package='POGOProtos.Settings.Master',
   syntax='proto3',
-  serialized_pb=_b('\n$Settings/Master/IapItemDisplay.proto\x12\x1aPOGOProtos.Settings.Master\x1a\x1b\x45nums/IapItemCategory.proto\x1a\x16Inventory/ItemId.proto\"\xaa\x01\n\x0eIapItemDisplay\x12\x0b\n\x03sku\x18\x01 \x01(\t\x12\x37\n\x08\x63\x61tegory\x18\x02 \x01(\x0e\x32%.POGOProtos.Enums.HoloIapItemCategory\x12\x12\n\nsort_order\x18\x03 \x01(\x05\x12.\n\x08item_ids\x18\x04 \x03(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x0e\n\x06\x63ounts\x18\x05 \x03(\x05P\x00P\x01\x62\x06proto3')
+  serialized_pb=_b('\n$Settings/Master/IapItemDisplay.proto\x12\x1aPOGOProtos.Settings.Master\x1a\x1b\x45nums/IapItemCategory.proto\x1a\x16Inventory/ItemId.proto\"\xaa\x01\n\x0eIapItemDisplay\x12\x0b\n\x03sku\x18\x01 \x01(\t\x12\x37\n\x08\x63\x61tegory\x18\x02 \x01(\x0e\x32%.POGOProtos.Enums.HoloIapItemCategory\x12\x12\n\nsort_order\x18\x03 \x01(\x05\x12.\n\x08item_ids\x18\x04 \x03(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x0e\n\x06\x63ounts\x18\x05 \x03(\x05\x62\x06proto3')
   ,
   dependencies=[Enums_dot_IapItemCategory__pb2.DESCRIPTOR,Inventory_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

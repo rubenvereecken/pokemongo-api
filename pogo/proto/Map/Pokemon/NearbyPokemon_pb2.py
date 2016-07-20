@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Enums import PokemonId_pb2 as Enums_dot_PokemonId__pb2
 
-from Enums.PokemonId_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Map/Pokemon/NearbyPokemon.proto',
   package='POGOProtos.Map.Pokemon',
   syntax='proto3',
-  serialized_pb=_b('\n\x1fMap/Pokemon/NearbyPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x15\x45nums/PokemonId.proto\"r\n\rNearbyPokemon\x12/\n\npokemon_id\x18\x01 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12\x1a\n\x12\x64istance_in_meters\x18\x02 \x01(\x02\x12\x14\n\x0c\x65ncounter_id\x18\x03 \x01(\x06P\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1fMap/Pokemon/NearbyPokemon.proto\x12\x16POGOProtos.Map.Pokemon\x1a\x15\x45nums/PokemonId.proto\"r\n\rNearbyPokemon\x12/\n\npokemon_id\x18\x01 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12\x1a\n\x12\x64istance_in_meters\x18\x02 \x01(\x02\x12\x14\n\x0c\x65ncounter_id\x18\x03 \x01(\x06\x62\x06proto3')
   ,
   dependencies=[Enums_dot_PokemonId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

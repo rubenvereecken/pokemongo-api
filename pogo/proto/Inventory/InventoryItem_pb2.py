@@ -14,37 +14,13 @@ _sym_db = _symbol_database.Default()
 
 
 from Inventory import InventoryItemData_pb2 as Inventory_dot_InventoryItemData__pb2
-Inventory_dot_Item__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_Item__pb2
-Inventory_dot_ItemId__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_ItemId__pb2
-Inventory_dot_AppliedItems__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_AppliedItems__pb2
-Inventory_dot_AppliedItem__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_AppliedItem__pb2
-Inventory_dot_ItemId__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_ItemId__pb2
-Inventory_dot_ItemType__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_ItemType__pb2
-Inventory_dot_EggIncubators__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_EggIncubators__pb2
-Inventory_dot_EggIncubator__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_EggIncubator__pb2
-Inventory_dot_ItemId__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_ItemId__pb2
-Inventory_dot_EggIncubatorType__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_EggIncubatorType__pb2
-Inventory_dot_PokemonFamily__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_PokemonFamily__pb2
-Enums_dot_PokemonFamilyId__pb2 = Inventory_dot_InventoryItemData__pb2.Enums_dot_PokemonFamilyId__pb2
-Inventory_dot_InventoryUpgrades__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_InventoryUpgrades__pb2
-Inventory_dot_InventoryUpgrade__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_InventoryUpgrade__pb2
-Inventory_dot_ItemId__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_ItemId__pb2
-Inventory_dot_InventoryUpgradeType__pb2 = Inventory_dot_InventoryItemData__pb2.Inventory_dot_InventoryUpgradeType__pb2
-Data_dot_PokemonData__pb2 = Inventory_dot_InventoryItemData__pb2.Data_dot_PokemonData__pb2
-Enums_dot_PokemonId__pb2 = Inventory_dot_InventoryItemData__pb2.Enums_dot_PokemonId__pb2
-Enums_dot_PokemonMove__pb2 = Inventory_dot_InventoryItemData__pb2.Enums_dot_PokemonMove__pb2
-Data_dot_PokedexEntry__pb2 = Inventory_dot_InventoryItemData__pb2.Data_dot_PokedexEntry__pb2
-Player_dot_PlayerStats__pb2 = Inventory_dot_InventoryItemData__pb2.Player_dot_PlayerStats__pb2
-Player_dot_PlayerCurrency__pb2 = Inventory_dot_InventoryItemData__pb2.Player_dot_PlayerCurrency__pb2
-Player_dot_PlayerCamera__pb2 = Inventory_dot_InventoryItemData__pb2.Player_dot_PlayerCamera__pb2
 
-from Inventory.InventoryItemData_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Inventory/InventoryItem.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n\x1dInventory/InventoryItem.proto\x12\x14POGOProtos.Inventory\x1a!Inventory/InventoryItemData.proto\"\x8e\x01\n\rInventoryItem\x12\x1d\n\x15modified_timestamp_ms\x18\x01 \x01(\x03\x12\x18\n\x10\x64\x65leted_item_key\x18\x02 \x01(\x03\x12\x44\n\x13inventory_item_data\x18\x03 \x01(\x0b\x32\'.POGOProtos.Inventory.InventoryItemDataP\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x1dInventory/InventoryItem.proto\x12\x14POGOProtos.Inventory\x1a!Inventory/InventoryItemData.proto\"\x8e\x01\n\rInventoryItem\x12\x1d\n\x15modified_timestamp_ms\x18\x01 \x01(\x03\x12\x18\n\x10\x64\x65leted_item_key\x18\x02 \x01(\x03\x12\x44\n\x13inventory_item_data\x18\x03 \x01(\x0b\x32\'.POGOProtos.Inventory.InventoryItemDatab\x06proto3')
   ,
   dependencies=[Inventory_dot_InventoryItemData__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

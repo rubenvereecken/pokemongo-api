@@ -16,14 +16,12 @@ _sym_db = _symbol_database.Default()
 from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
 from Inventory import InventoryUpgradeType_pb2 as Inventory_dot_InventoryUpgradeType__pb2
 
-from Inventory.ItemId_pb2 import *
-from Inventory.InventoryUpgradeType_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Inventory/InventoryUpgrade.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n Inventory/InventoryUpgrade.proto\x12\x14POGOProtos.Inventory\x1a\x16Inventory/ItemId.proto\x1a$Inventory/InventoryUpgradeType.proto\"\x9f\x01\n\x10InventoryUpgrade\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12@\n\x0cupgrade_type\x18\x02 \x01(\x0e\x32*.POGOProtos.Inventory.InventoryUpgradeType\x12\x1a\n\x12\x61\x64\x64itional_storage\x18\x03 \x01(\x05P\x00P\x01\x62\x06proto3')
+  serialized_pb=_b('\n Inventory/InventoryUpgrade.proto\x12\x14POGOProtos.Inventory\x1a\x16Inventory/ItemId.proto\x1a$Inventory/InventoryUpgradeType.proto\"\x9f\x01\n\x10InventoryUpgrade\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12@\n\x0cupgrade_type\x18\x02 \x01(\x0e\x32*.POGOProtos.Inventory.InventoryUpgradeType\x12\x1a\n\x12\x61\x64\x64itional_storage\x18\x03 \x01(\x05\x62\x06proto3')
   ,
   dependencies=[Inventory_dot_ItemId__pb2.DESCRIPTOR,Inventory_dot_InventoryUpgradeType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

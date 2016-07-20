@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Enums import ItemEffect_pb2 as Enums_dot_ItemEffect__pb2
 
-from Enums.ItemEffect_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Settings/Master/Item/PokeballAttributes.proto',
   package='POGOProtos.Settings.Master.Item',
   syntax='proto3',
-  serialized_pb=_b('\n-Settings/Master/Item/PokeballAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a\x16\x45nums/ItemEffect.proto\"\x95\x01\n\x12PokeballAttributes\x12\x31\n\x0bitem_effect\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Enums.ItemEffect\x12\x15\n\rcapture_multi\x18\x02 \x01(\x02\x12\x1c\n\x14\x63\x61pture_multi_effect\x18\x03 \x01(\x02\x12\x17\n\x0fitem_effect_mod\x18\x04 \x01(\x02P\x00\x62\x06proto3')
+  serialized_pb=_b('\n-Settings/Master/Item/PokeballAttributes.proto\x12\x1fPOGOProtos.Settings.Master.Item\x1a\x16\x45nums/ItemEffect.proto\"\x95\x01\n\x12PokeballAttributes\x12\x31\n\x0bitem_effect\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Enums.ItemEffect\x12\x15\n\rcapture_multi\x18\x02 \x01(\x02\x12\x1c\n\x14\x63\x61pture_multi_effect\x18\x03 \x01(\x02\x12\x17\n\x0fitem_effect_mod\x18\x04 \x01(\x02\x62\x06proto3')
   ,
   dependencies=[Enums_dot_ItemEffect__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

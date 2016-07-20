@@ -16,14 +16,12 @@ _sym_db = _symbol_database.Default()
 from Inventory import ItemId_pb2 as Inventory_dot_ItemId__pb2
 from Inventory import ItemType_pb2 as Inventory_dot_ItemType__pb2
 
-from Inventory.ItemId_pb2 import *
-from Inventory.ItemType_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Inventory/AppliedItem.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n\x1bInventory/AppliedItem.proto\x12\x14POGOProtos.Inventory\x1a\x16Inventory/ItemId.proto\x1a\x18Inventory/ItemType.proto\"\x96\x01\n\x0b\x41ppliedItem\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x31\n\titem_type\x18\x02 \x01(\x0e\x32\x1e.POGOProtos.Inventory.ItemType\x12\x11\n\texpire_ms\x18\x03 \x01(\x03\x12\x12\n\napplied_ms\x18\x04 \x01(\x03P\x00P\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x1bInventory/AppliedItem.proto\x12\x14POGOProtos.Inventory\x1a\x16Inventory/ItemId.proto\x1a\x18Inventory/ItemType.proto\"\x96\x01\n\x0b\x41ppliedItem\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x31\n\titem_type\x18\x02 \x01(\x0e\x32\x1e.POGOProtos.Inventory.ItemType\x12\x11\n\texpire_ms\x18\x03 \x01(\x03\x12\x12\n\napplied_ms\x18\x04 \x01(\x03\x62\x06proto3')
   ,
   dependencies=[Inventory_dot_ItemId__pb2.DESCRIPTOR,Inventory_dot_ItemType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

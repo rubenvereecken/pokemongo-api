@@ -15,13 +15,12 @@ _sym_db = _symbol_database.Default()
 
 from Enums import PokemonMovementType_pb2 as Enums_dot_PokemonMovementType__pb2
 
-from Enums.PokemonMovementType_pb2 import *
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Settings/Master/Pokemon/EncounterAttributes.proto',
   package='POGOProtos.Settings.Master.Pokemon',
   syntax='proto3',
-  serialized_pb=_b('\n1Settings/Master/Pokemon/EncounterAttributes.proto\x12\"POGOProtos.Settings.Master.Pokemon\x1a\x1f\x45nums/PokemonMovementType.proto\"\xa6\x02\n\x13\x45ncounterAttributes\x12\x19\n\x11\x62\x61se_capture_rate\x18\x01 \x01(\x02\x12\x16\n\x0e\x62\x61se_flee_rate\x18\x02 \x01(\x02\x12\x1a\n\x12\x63ollision_radius_m\x18\x03 \x01(\x02\x12\x1a\n\x12\x63ollision_height_m\x18\x04 \x01(\x02\x12\x1f\n\x17\x63ollision_head_radius_m\x18\x05 \x01(\x02\x12<\n\rmovement_type\x18\x06 \x01(\x0e\x32%.POGOProtos.Enums.PokemonMovementType\x12\x18\n\x10movement_timer_s\x18\x07 \x01(\x02\x12\x13\n\x0bjump_time_s\x18\x08 \x01(\x02\x12\x16\n\x0e\x61ttack_timer_s\x18\t \x01(\x02P\x00\x62\x06proto3')
+  serialized_pb=_b('\n1Settings/Master/Pokemon/EncounterAttributes.proto\x12\"POGOProtos.Settings.Master.Pokemon\x1a\x1f\x45nums/PokemonMovementType.proto\"\xa6\x02\n\x13\x45ncounterAttributes\x12\x19\n\x11\x62\x61se_capture_rate\x18\x01 \x01(\x02\x12\x16\n\x0e\x62\x61se_flee_rate\x18\x02 \x01(\x02\x12\x1a\n\x12\x63ollision_radius_m\x18\x03 \x01(\x02\x12\x1a\n\x12\x63ollision_height_m\x18\x04 \x01(\x02\x12\x1f\n\x17\x63ollision_head_radius_m\x18\x05 \x01(\x02\x12<\n\rmovement_type\x18\x06 \x01(\x0e\x32%.POGOProtos.Enums.PokemonMovementType\x12\x18\n\x10movement_timer_s\x18\x07 \x01(\x02\x12\x13\n\x0bjump_time_s\x18\x08 \x01(\x02\x12\x16\n\x0e\x61ttack_timer_s\x18\t \x01(\x02\x62\x06proto3')
   ,
   dependencies=[Enums_dot_PokemonMovementType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
