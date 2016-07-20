@@ -33,6 +33,7 @@ class PogoSession(object):
         self.authProvider = authProvider
         self.accessToken = accessToken
         self.location = loc
+        self.authTicket = None
         self.endpoint = None
         self.endpoint = 'https://' + self.createApiEndpoint() + '/rpc'
 
@@ -55,26 +56,39 @@ class PogoSession(object):
         if res is None:
             logging.critical('Servers seem to be busy. Exiting.')
             sys.exit(-1)
+
         return res.api_url
 
     def wrapInRequest(self, payload):
-        req = Envelopes_pb2.Envelopes.RequestEnvelope(
-            auth_info = Envelopes_pb2.Envelopes.RequestEnvelope.AuthInfo(
+
+        # If we haven't authenticated before
+        info = None
+        if(not self.authTicket):
+            info = Envelopes_pb2.Envelopes.RequestEnvelope.AuthInfo(
                 provider = self.authProvider,
                 token = Envelopes_pb2.Envelopes.RequestEnvelope.AuthInfo.JWT(
                     contents = self.accessToken,
                     unknown2 = 59
                 )
             )
-        )
 
         # Build Envelope
-        req.status_code = 2
-        req.request_id = api.getRPCId()
-        req.latitude, req.longitude, req.altitude = location.encodeLocation(self.location)
-        req.unknown12 = 18446744071615
+        latitude, longitude, altitude = location.encodeLocation(self.location)
+        req = Envelopes_pb2.Envelopes.RequestEnvelope(
+            status_code = 2,
+            request_id = 1469378659230941192,#api.getRPCId(),
+            longitude = longitude,
+            latitude = latitude,
+            altitude = altitude,
+            auth_ticket = self.authTicket,
+            unknown12 = 989,
+            auth_info = info
+        )
+
+        # Add requests
         req.requests.extend(payload)
 
+        print(req)
         return req
 
     def requestOrThrow(self, req, url=None):
@@ -83,8 +97,13 @@ class PogoSession(object):
 
         rawResponse = self.session.post(url, data=req.SerializeToString())
 
+        # Parse it out
         res = Envelopes_pb2.Envelopes.ResponseEnvelope()
         res.ParseFromString(rawResponse.content)
+
+        # Update Auth ticket if it exists
+        if(res.auth_ticket.start):
+            self.authTicket = res.auth_ticket
 
         return res
 
@@ -174,14 +193,15 @@ class PogoSession(object):
     def getLocation(self, radius = 10):
         payload = []
         cells = location.getCells(self.location, radius)
-        timestamps = [getMs(),] * len(cells)
+        latitude, longitude, altitude = location.encodeLocation(self.location)
+        timestamps = [0,] * len(cells)
         msg = Request_pb2.Request(
             request_type = RequestType_pb2.GET_MAP_OBJECTS,
             request_message = GetMapObjectsMessage_pb2.GetMapObjectsMessage(
                 cell_id = cells,
                 since_timestamp_ms = timestamps,
-                latitude = self.location.latitude,
-                longitude = self.location.longitude
+                latitude = latitude,
+                longitude = longitude
             ).SerializeToString()
         )
         payload.append(msg)

@@ -92,7 +92,7 @@ def createPTCSession(username, pw, startLocation):
         'code': ticket,
     }
     r2 = session.post(LOGIN_OAUTH, data=data1)
-    access_token = re.sub('&expires.*', '', r2.content)
+    access_token = re.sub('&expires.*', '', r2.content.decode('utf-8'))
     access_token = re.sub('.*access_token=', '', access_token)
 
     return createPogoSession(session, 'ptc', access_token, startLocation)

@@ -5,7 +5,7 @@ import sys
 
 import api
 import location
-
+import time
 
 def setupLogger():
     logger = logging.getLogger()
@@ -45,10 +45,19 @@ if __name__ == '__main__':
     else:
         logging.critical('Session not created successfully')
 
+    time.sleep(2)
     cells = session.getLocation()
-    print(cells.status)
-    print(cells.map_cells)
     for cell in cells.map_cells:
-        print("Yo?")
+        print(cell)
+        print(cell.wild_pokemons)
+        print(cell.nearby_pokemons)
+        print(cell.catchable_pokemons)
+        print(cell.forts)
+        print(cell.spawn_points)
+        print(cell.decimated_spawn_points)
         for pokemon in cell.wild_pokemons:
+            print(pokemon.pokemon_data)
+        for pokemon in cell.nearby_pokemons:
+            print(pokemon.pokemon_data)
+        for pokemon in cell.catchable_pokemons:
             print(pokemon.pokemon_data)

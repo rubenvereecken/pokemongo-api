@@ -1,4 +1,3 @@
-from google.protobuf.internal import encoder
 from geopy.geocoders import GoogleV3
 from s2sphere import CellId, LatLng
 import logging
@@ -25,8 +24,8 @@ def getCells(loc, radius = 10):
     for i in range(radius):
         walk.append(right.id())
         walk.append(left.id())
-        next = right.next()
-        prev = left.prev()
+        right = right.next()
+        left = left.prev()
 
     # Return everything
     return sorted(walk)
