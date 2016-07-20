@@ -4,8 +4,6 @@ import logging
 import sys
 
 import api
-import location
-import time
 
 def setupLogger():
     logger = logging.getLogger()
@@ -40,24 +38,20 @@ if __name__ == '__main__':
         session = api.createGoogleSession(args.username, args.password, args.location)
 
     if session: # do stuff
+
+        # Get profile        
+        logging.info("Printing Profile:")
         profile = session.getProfile()
         logging.info(profile)
+
+        # Get Map details
+        logging.info("Printing Nearby Pokemon:")
+        cells = session.getMapObjects()
+        for cell in cells.map_cells:
+            for pokemon in cell.wild_pokemons:
+                logging.info("%i at %f,%f"%(pokemon.pokemon_data.pokemon_id,pokemon.latitude,pokemon.longitude))
+
+
     else:
         logging.critical('Session not created successfully')
 
-    time.sleep(2)
-    cells = session.getLocation()
-    for cell in cells.map_cells:
-        print(cell)
-        print(cell.wild_pokemons)
-        print(cell.nearby_pokemons)
-        print(cell.catchable_pokemons)
-        print(cell.forts)
-        print(cell.spawn_points)
-        print(cell.decimated_spawn_points)
-        for pokemon in cell.wild_pokemons:
-            print(pokemon.pokemon_data)
-        for pokemon in cell.nearby_pokemons:
-            print(pokemon.pokemon_data)
-        for pokemon in cell.catchable_pokemons:
-            print(pokemon.pokemon_data)

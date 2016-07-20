@@ -1,8 +1,6 @@
 import requests
 import re
-import struct
 import json
-import argparse
 import random
 import logging
 
@@ -51,7 +49,6 @@ def createPogoSession(session, provider, access_token, loc):
         logging.critical('Access token not generated')
     return None
 
-
 def createGoogleSession(username, pw, startLocation):
     session = createRequestsSession()
     logging.info('Creating Google session for {}'.format(username))
@@ -80,9 +77,9 @@ def createPTCSession(username, pw, startLocation):
     ticket = None
     try:
         ticket = re.sub('.*ticket=', '', authResponse.history[0].headers['Location'])
-    except Exception as e:
+    except:
         logging.error(authResponse.json()['errors'][0])
-        return None
+        raise
 
     data1 = {
         'client_id': 'mobile-app_pokemon-go',

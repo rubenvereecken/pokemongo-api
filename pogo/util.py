@@ -1,5 +1,4 @@
 import struct
-import logging
 import time
 
 def f2i(float):
@@ -16,8 +15,3 @@ def encodeLocation(loc):
 
 def getMs():
     return int(round(time.time() * 1000))
-
-def encode(cellid):
-    output = []
-    encoder._VarintEncoder()(output.append, cellid)
-    return ''.join(output)
