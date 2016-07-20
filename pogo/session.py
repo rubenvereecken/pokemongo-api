@@ -163,11 +163,11 @@ class PogoSession(object):
         return data
 
     # Parse the default responses
-    def parseDefault(self, res, isGeneral=False):
-        self.state.eggs.ParseFromString(res.returns[0])
-        self.state.inventory.ParseFromString(res.returns[1])
-        self.state.badges.ParseFromString(res.returns[2])
-        self.state.settings.ParseFromString(res.returns[3])
+    def parseDefault(self, res):
+        self.state.eggs.ParseFromString(res.returns[1])
+        self.state.inventory.ParseFromString(res.returns[2])
+        self.state.badges.ParseFromString(res.returns[3])
+        self.state.settings.ParseFromString(res.returns[4])
 
     # Get profile
     def getProfile(self):

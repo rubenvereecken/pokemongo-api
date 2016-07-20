@@ -54,6 +54,11 @@ if __name__ == '__main__':
                 logging.info("%i at %f,%f"%(pokemon.pokemon_data.pokemon_id,pokemon.latitude,pokemon.longitude))
 
 
+        # Note this math doesn't make physical sense
+        # GPS Coordinates are spherical, and this is using
+        # Cartesian formulas. However, should work as
+        # huerestic
+
         # Find nearest fort (pokestop)
         logging.info("Spinnning Nearest Fort")
         closest = float("Inf")
@@ -69,11 +74,12 @@ if __name__ == '__main__':
         # No fort, demo == over
         if not fortBest == None:
             # Walk over to said fort
-            epsilon = 0.001
-            step = 0.0005
+            epsilon = 0.0001
+            step = 0.000005
             vector = [(fort.latitude - latitude)/closest, (fort.longitude - longitude)/closest]
             dist = closest
             while dist > epsilon:
+                logging.info("%f units -> %f units away" % (dist, epsilon))
                 latitude += vector[0] * step
                 longitude += vector[1] * step
                 session.setCoords(latitude, longitude)
