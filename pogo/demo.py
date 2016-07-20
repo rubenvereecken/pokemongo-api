@@ -71,6 +71,9 @@ if __name__ == '__main__':
                     closest = dist
                     fortBest = fort
 
+        logging.info("Get Inventory")
+        print(session.getInventory())
+
         # No fort, demo == over
         if not fortBest == None:
             # Walk over to said fort

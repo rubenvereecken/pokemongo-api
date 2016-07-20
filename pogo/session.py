@@ -143,7 +143,7 @@ class PogoSession(object):
         data[1] = Request_pb2.Request(
             request_type = RequestType_pb2.GET_INVENTORY,
             request_message = GetInventoryMessage_pb2.GetInventoryMessage(
-                last_timestamp_ms = getMs()
+                last_timestamp_ms = 0
             ).SerializeToString()
         )
 
@@ -184,6 +184,10 @@ class PogoSession(object):
 
         # Return everything
         return self.state.profile
+
+    def getInventory(self):
+        self.getProfile()
+        return self.state.inventory
 
     # Get Location
     def getMapObjects(self, radius = 10):
