@@ -1,11 +1,11 @@
 #!/usr/bin/python
 import argparse
 import logging
-import math
 import time
 import sys
 
 import api
+import location
 
 def setupLogger():
     logger = logging.getLogger()
@@ -49,15 +49,24 @@ if __name__ == '__main__':
         # Get Map details
         logging.info("Printing Nearby Pokemon:")
         cells = session.getMapObjects()
+        closest = float("Inf")
+        pokemonBest = None
+        latitude, longitude, _ = session.getLocation()
         for cell in cells.map_cells:
             for pokemon in cell.wild_pokemons:
                 logging.info("%i at %f,%f"%(pokemon.pokemon_data.pokemon_id,pokemon.latitude,pokemon.longitude))
+                dist = location.getDistance(latitude, longitude, pokemon.latitude, pokemon.longitude)
+                if dist < closest:
+                    pokemonBest = pokemon
 
+        if pokemonBest:
+            session.walkTo(pokemonBest.latitude, pokemonBest.longitude)
+            encounter = session.encounterPokemon(pokemonBest)
+            time.sleep(2)
 
-        # Note this math doesn't make physical sense
-        # GPS Coordinates are spherical, and this is using
-        # Cartesian formulas. However, should work as
-        # huerestic
+        # Do Inventory stuff
+        logging.info("Get Inventory")
+        logging.info(session.getInventory())
 
         # Find nearest fort (pokestop)
         logging.info("Spinnning Nearest Fort")
@@ -66,33 +75,18 @@ if __name__ == '__main__':
         latitude, longitude, _ = session.getLocation()
         for cell in cells.map_cells:
             for fort in cell.forts:
-                dist = math.hypot((fort.latitude - latitude), (fort.longitude - longitude))
+                dist = location.getDistance(latitude, longitude, fort.latitude, fort.longitude)
                 if dist < closest and fort.type == 1:
                     closest = dist
                     fortBest = fort
 
-        logging.info("Get Inventory")
-        print(session.getInventory())
-
         # No fort, demo == over
-        if not fortBest == None:
-            # Walk over to said fort
-            epsilon = 0.0001
-            step = 0.000005
-            vector = [(fort.latitude - latitude)/closest, (fort.longitude - longitude)/closest]
-            dist = closest
-            while dist > epsilon:
-                logging.info("%f units -> %f units away" % (dist, epsilon))
-                latitude += vector[0] * step
-                longitude += vector[1] * step
-                session.setCoords(latitude, longitude)
-                dist = math.hypot((fort.latitude - latitude), (fort.longitude - longitude))
-                time.sleep(1)
-
+        if fortBest:
+            # Walk over
+            session.walkTo(fortBest.latitude, fortBest.longitude)
             # Give it a spin
-            fortResponse = session.getFortSearch(fort)
+            fortResponse = session.getFortSearch(fortBest)
             logging.info(fortResponse)
 
     else:
         logging.critical('Session not created successfully')
-

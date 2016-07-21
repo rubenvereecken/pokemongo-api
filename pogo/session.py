@@ -1,23 +1,24 @@
 import requests
 import logging
-import sys
+import time
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-import proto
-from Networking.Envelopes import ResponseEnvelope_pb2
-from Networking.Envelopes import RequestEnvelope_pb2
-from Networking.Requests import Request_pb2
-from Networking.Requests import RequestType_pb2
-from Networking.Requests.Messages import DownloadSettingsMessage_pb2
-from Networking.Requests.Messages import GetInventoryMessage_pb2
-from Networking.Requests.Messages import GetMapObjectsMessage_pb2
-from Networking.Requests.Messages import FortSearchMessage_pb2
+from POGOProtos.Networking.Envelopes import ResponseEnvelope_pb2
+from POGOProtos.Networking.Envelopes import RequestEnvelope_pb2
+from POGOProtos.Networking.Requests import Request_pb2
+from POGOProtos.Networking.Requests import RequestType_pb2
+from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
+from POGOProtos.Networking.Requests.Messages import GetInventoryMessage_pb2
+from POGOProtos.Networking.Requests.Messages import GetMapObjectsMessage_pb2
+from POGOProtos.Networking.Requests.Messages import FortSearchMessage_pb2
+from POGOProtos.Networking.Requests.Messages import EncounterMessage_pb2
+from POGOProtos.Networking.Requests.Messages import CatchPokemonMessage_pb2
+
 
 import api
 import location
-from util import getMs
 from state import State
 
 API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
@@ -65,7 +66,7 @@ class PogoSession(object):
 
         return res.api_url
 
-    def wrapInRequest(self, payload):
+    def wrapInRequest(self, payload, defaults=True):
 
         # If we haven't authenticated before
         info = None
@@ -92,7 +93,8 @@ class PogoSession(object):
         )
 
         # Add requests
-        payload += self.getDefaults()
+        if defaults:
+            payload += self.getDefaults()
         req.requests.extend(payload)
 
         return req
@@ -117,17 +119,18 @@ class PogoSession(object):
         try:
             return self.requestOrThrow(req, url)
         except Exception as e:
+            logging.critical('Probably server fires.')
             logging.error(e)
             raise
 
-    def wrapAndRequest(self, payload):
-        res = self.request(self.wrapInRequest(payload))
-        self.parseDefault(res)
+    def wrapAndRequest(self, payload, defaults=True):
+        res = self.request(self.wrapInRequest(payload, defaults=defaults))
+        if(defaults): self.parseDefault(res)
         if res is None:
+            logging.critical(res)
             logging.critical('Servers seem to be busy. Exiting.')
-            sys.exit(-1)
-        # logging.debug('{} payloads'.format(len(res.payload)))
-        # logging.debug('payload has data?  {}'.format(res.payload[0].HasField('data')))
+            raise Exception('No Valid Response.')
+
         return res
 
     def getDefaults(self):
@@ -168,6 +171,31 @@ class PogoSession(object):
         self.state.inventory.ParseFromString(res.returns[2])
         self.state.badges.ParseFromString(res.returns[3])
         self.state.settings.ParseFromString(res.returns[4])
+
+    # Walk over to position in meters
+    def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5):
+        if step >= epsilon:
+            raise Exception("Walk may never converge")
+
+        # Calculate distance to position
+        latitude, longitude, _ = self.getLocation()
+        dist = closest = location.getDistance(latitude, longitude, olatitude, olongitude)
+
+        # Run walk
+        divisions = closest/step
+        dLat = (latitude - olatitude)/divisions
+        dLon = (longitude - olongitude)/divisions
+        while dist > epsilon:
+            logging.info("%f m -> %f m away" % (closest - dist, closest))
+            latitude  -= dLat
+            longitude -= dLon
+            self.setCoords(
+                latitude,
+                longitude
+            )
+            time.sleep(1)
+            dist = location.getDistance(latitude, longitude, olatitude, olongitude)
+
 
     # Get profile
     def getProfile(self):
@@ -239,3 +267,51 @@ class PogoSession(object):
 
         # Return everything
         return self.state.fortSearch
+
+    # Get encounter
+    def encounterPokemon(self, pokemon):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.ENCOUNTER,
+            request_message = EncounterMessage_pb2.EncounterMessage(
+                encounter_id = pokemon.encounter_id,
+                spawn_point_id = pokemon.spawn_point_id,
+                player_latitude = self.location.latitude,
+                player_longitude = self.location.longitude
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self.state.encounter.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self.state.encounter
+
+    def catchPokemon(self, pokemon, pokeball=1):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.CATCH_POKEMON,
+            request_message = CatchPokemonMessage_pb2.CatchPokemonMessage(
+                encounter_id = pokemon.encounter_id,
+                pokeball = pokeball,
+                normalized_reticle_size = 1.950,
+                spawn_point_guid = pokemon.spawn_point_id,
+                hit_pokemon = True,
+                spin_modifier = 0.850,
+                normalized_hit_position = 1.0
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self.state.catch.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self.state.catch
