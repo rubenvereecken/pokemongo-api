@@ -62,9 +62,7 @@ if __name__ == '__main__':
         if pokemonBest:
             session.walkTo(pokemonBest.latitude, pokemonBest.longitude)
             encounter = session.encounterPokemon(pokemonBest)
-            print encounter
             time.sleep(2)
-            print session.catchPokemon(pokemonBest)
 
         # Do Inventory stuff
         logging.info("Get Inventory")

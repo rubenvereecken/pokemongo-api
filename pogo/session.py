@@ -291,10 +291,12 @@ class PogoSession(object):
         # Return everything
         return self.state.encounter
 
-    def catchPokemon(self, pokemon, pokeball = 1):
+    def catchPokemon(self, pokemon, pokeball=1):
 
-        print type(pokemon.spawn_point_id)
-        message = CatchPokemonMessage_pb2.CatchPokemonMessage(
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.CATCH_POKEMON,
+            request_message = CatchPokemonMessage_pb2.CatchPokemonMessage(
                 encounter_id = pokemon.encounter_id,
                 pokeball = pokeball,
                 normalized_reticle_size = 1.950,
@@ -302,14 +304,7 @@ class PogoSession(object):
                 hit_pokemon = True,
                 spin_modifier = 0.850,
                 normalized_hit_position = 1.0
-            )
-
-        print(message)
-
-        # Create request
-        payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.CATCH_POKEMON,
-            request_message = message.SerializeToString()
+            ).SerializeToString()
         )]
 
         # Send
