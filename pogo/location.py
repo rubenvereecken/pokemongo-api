@@ -1,3 +1,4 @@
+from math import sin, cos, sqrt, atan2, radians
 from geopy.geocoders import GoogleV3
 from s2sphere import CellId, LatLng
 
@@ -10,6 +11,25 @@ def getLocation(search):
 def getCoords(latitude, longitude):
     loc = geolocator.reverse((latitude, longitude))
     return loc[0]
+
+def getRadianDistance(latitude, longitude, olatitude, olongitude):
+    # approximate radius of earth in km
+    R = 6373e3
+
+    # delta angles
+    dLat = olatitude - latitude
+    dLon = olongitude - longitude
+
+    # do the math
+    # stackoverflow/questions/19412462/
+    a = sin(dLat / 2)**2 + cos(latitude) * cos(olatitude) * sin(dLon / 2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return R * c
+
+
+def getDistance(*coords):
+    return getRadianDistance(*[radians(coord) for coord in coords])
+
 
 def getCells(loc, radius = 10):
     origin = CellId.from_lat_lng(LatLng.from_degrees(loc.latitude, loc.longitude)).parent(15)
