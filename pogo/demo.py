@@ -60,9 +60,9 @@ if __name__ == '__main__':
                     pokemonBest = pokemon
 
         if pokemonBest:
+            logging.info("Catching nearest pokemon:")
             session.walkTo(pokemonBest.latitude, pokemonBest.longitude)
-            encounter = session.encounterPokemon(pokemonBest)
-            time.sleep(2)
+            logging.info(session.encounterAndCatch(pokemonBest))
 
         # Do Inventory stuff
         logging.info("Get Inventory")

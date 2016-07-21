@@ -103,6 +103,7 @@ class PogoSession(object):
         if url is None:
             url = self.endpoint
 
+        # Send request
         rawResponse = self.session.post(url, data=req.SerializeToString())
 
         # Parse it out
@@ -315,3 +316,8 @@ class PogoSession(object):
 
         # Return everything
         return self.state.catch
+
+    def encounterAndCatch(self, pokemon, pokeball=1, delay=2):
+        self.encounterPokemon(pokemon)
+        time.sleep(delay)
+        return self.catchPokemon(pokemon, pokeball)
