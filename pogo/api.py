@@ -64,7 +64,7 @@ def createPTCSession(username, pw, startLocation):
     session = createRequestsSession()
     logging.info('Creating PTC session for {}'.format(username))
     r = session.get(LOGIN_URL)
-    jdata = json.loads(r.content)
+    jdata = json.loads(r.content.decode())
     data = {
         'lt': jdata['lt'],
         'execution': jdata['execution'],
