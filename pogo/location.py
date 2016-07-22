@@ -4,13 +4,19 @@ from s2sphere import CellId, LatLng
 
 geolocator = GoogleV3()
 
+
 def getLocation(search):
     loc = geolocator.geocode(search)
     return loc
 
+
 def getCoords(latitude, longitude):
-    loc = geolocator.reverse((latitude, longitude))
+    try:
+        loc = geolocator.reverse((latitude, longitude))
+    except IOError:
+        return False
     return loc[0]
+
 
 def getRadianDistance(latitude, longitude, olatitude, olongitude):
     # approximate radius of earth in km
@@ -31,14 +37,14 @@ def getDistance(*coords):
     return getRadianDistance(*[radians(coord) for coord in coords])
 
 
-def getCells(loc, radius = 10):
+def getCells(loc, radius=10):
     origin = CellId.from_lat_lng(LatLng.from_degrees(loc.latitude, loc.longitude)).parent(15)
     walk = [origin.id()]
     right = origin.next()
     left = origin.prev()
 
     # Search around provided radius
-    for i in range(radius):
+    for _ in range(radius):
         walk.append(right.id())
         walk.append(left.id())
         right = right.next()

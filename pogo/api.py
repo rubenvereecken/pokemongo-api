@@ -34,12 +34,13 @@ def createRequestsSession():
     session.verify = False
     return session
 
+
 def createPogoSession(session, provider, access_token, loc):
     loc = location.getLocation(loc)
     if loc:
-        logging.info('Location: {}'.format(loc.address))
-        logging.info('Coordinates: {} {} {}'.format(loc.latitude, loc.longitude,
-            loc.altitude))
+        logging.info('Location: {0}'.format(loc.address))
+        logging.info('Coordinates: {0} {1} {2}'.format(loc.latitude, loc.longitude,
+                                                       loc.altitude))
 
     if access_token and loc:
         return PogoSession(session, provider, access_token, loc)
@@ -55,10 +56,11 @@ def createGoogleSession(username, pw, startLocation):
 
     r1 = perform_master_login(username, pw, ANDROID_ID)
     r2 = perform_oauth(username, r1.get('Token', ''), ANDROID_ID, SERVICE, APP,
-        CLIENT_SIG)
+                       CLIENT_SIG)
 
     access_token = r2.get('Auth') # access token
     return createPogoSession(session, 'google', access_token, startLocation)
+
 
 def createPTCSession(username, pw, startLocation):
     session = createRequestsSession()
