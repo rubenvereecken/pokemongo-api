@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Data/PokemonData.proto',
   package='POGOProtos.Data',
   syntax='proto3',
-  serialized_pb=_b('\n!POGOProtos/Data/PokemonData.proto\x12\x0fPOGOProtos.Data\x1a POGOProtos/Enums/PokemonId.proto\x1a\"POGOProtos/Enums/PokemonMove.proto\"\xf5\x05\n\x0bPokemonData\x12\n\n\x02id\x18\x01 \x01(\x06\x12/\n\npokemon_id\x18\x02 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12\n\n\x02\x63p\x18\x03 \x01(\x05\x12\x0f\n\x07stamina\x18\x04 \x01(\x05\x12\x13\n\x0bstamina_max\x18\x05 \x01(\x05\x12-\n\x06move_1\x18\x06 \x01(\x0e\x32\x1d.POGOProtos.Enums.PokemonMove\x12-\n\x06move_2\x18\x07 \x01(\x0e\x32\x1d.POGOProtos.Enums.PokemonMove\x12\x18\n\x10\x64\x65ployed_fort_id\x18\x08 \x01(\x05\x12\x12\n\nowner_name\x18\t \x01(\t\x12\x0e\n\x06is_egg\x18\n \x01(\x08\x12\x1c\n\x14\x65gg_km_walked_target\x18\x0b \x01(\x05\x12\x1b\n\x13\x65gg_km_walked_start\x18\x0c \x01(\x05\x12\x0e\n\x06origin\x18\x0e \x01(\x05\x12\x10\n\x08height_m\x18\x0f \x01(\x02\x12\x11\n\tweight_kg\x18\x10 \x01(\x02\x12\x19\n\x11individual_attack\x18\x11 \x01(\x05\x12\x1a\n\x12individual_defense\x18\x12 \x01(\x05\x12\x1a\n\x12individual_stamina\x18\x13 \x01(\x05\x12\x15\n\rcp_multiplier\x18\x14 \x01(\x05\x12\x10\n\x08pokeball\x18\x15 \x01(\x05\x12\x18\n\x10\x63\x61ptured_cell_id\x18\x16 \x01(\x04\x12\x18\n\x10\x62\x61ttles_attacked\x18\x17 \x01(\x05\x12\x18\n\x10\x62\x61ttles_defended\x18\x18 \x01(\x05\x12\x18\n\x10\x65gg_incubator_id\x18\x19 \x01(\x05\x12\x18\n\x10\x63reation_time_ms\x18\x1a \x01(\x04\x12\x14\n\x0cnum_upgrades\x18\x1b \x01(\x05\x12 \n\x18\x61\x64\x64itional_cp_multiplier\x18\x1c \x01(\x05\x12\x10\n\x08\x66\x61vorite\x18\x1d \x01(\x05\x12\x10\n\x08nickname\x18\x1e \x01(\t\x12\x11\n\tfrom_fort\x18\x1f \x01(\x05\x62\x06proto3')
+  serialized_pb=_b('\n!POGOProtos/Data/PokemonData.proto\x12\x0fPOGOProtos.Data\x1a POGOProtos/Enums/PokemonId.proto\x1a\"POGOProtos/Enums/PokemonMove.proto\"\xf5\x05\n\x0bPokemonData\x12\n\n\x02id\x18\x01 \x01(\x06\x12/\n\npokemon_id\x18\x02 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12\n\n\x02\x63p\x18\x03 \x01(\x05\x12\x0f\n\x07stamina\x18\x04 \x01(\x05\x12\x13\n\x0bstamina_max\x18\x05 \x01(\x05\x12-\n\x06move_1\x18\x06 \x01(\x0e\x32\x1d.POGOProtos.Enums.PokemonMove\x12-\n\x06move_2\x18\x07 \x01(\x0e\x32\x1d.POGOProtos.Enums.PokemonMove\x12\x18\n\x10\x64\x65ployed_fort_id\x18\x08 \x01(\x05\x12\x12\n\nowner_name\x18\t \x01(\t\x12\x0e\n\x06is_egg\x18\n \x01(\x08\x12\x1c\n\x14\x65gg_km_walked_target\x18\x0b \x01(\x01\x12\x1b\n\x13\x65gg_km_walked_start\x18\x0c \x01(\x01\x12\x0e\n\x06origin\x18\x0e \x01(\x05\x12\x10\n\x08height_m\x18\x0f \x01(\x02\x12\x11\n\tweight_kg\x18\x10 \x01(\x02\x12\x19\n\x11individual_attack\x18\x11 \x01(\x05\x12\x1a\n\x12individual_defense\x18\x12 \x01(\x05\x12\x1a\n\x12individual_stamina\x18\x13 \x01(\x05\x12\x15\n\rcp_multiplier\x18\x14 \x01(\x02\x12\x10\n\x08pokeball\x18\x15 \x01(\x05\x12\x18\n\x10\x63\x61ptured_cell_id\x18\x16 \x01(\x04\x12\x18\n\x10\x62\x61ttles_attacked\x18\x17 \x01(\x05\x12\x18\n\x10\x62\x61ttles_defended\x18\x18 \x01(\x05\x12\x18\n\x10\x65gg_incubator_id\x18\x19 \x01(\t\x12\x18\n\x10\x63reation_time_ms\x18\x1a \x01(\x04\x12\x14\n\x0cnum_upgrades\x18\x1b \x01(\x05\x12 \n\x18\x61\x64\x64itional_cp_multiplier\x18\x1c \x01(\x05\x12\x10\n\x08\x66\x61vorite\x18\x1d \x01(\x05\x12\x10\n\x08nickname\x18\x1e \x01(\t\x12\x11\n\tfrom_fort\x18\x1f \x01(\x05\x62\x06proto3')
   ,
   dependencies=[POGOProtos_dot_Enums_dot_PokemonId__pb2.DESCRIPTOR,POGOProtos_dot_Enums_dot_PokemonMove__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -108,15 +108,15 @@ _POKEMONDATA = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='egg_km_walked_target', full_name='POGOProtos.Data.PokemonData.egg_km_walked_target', index=10,
-      number=11, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      number=11, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='egg_km_walked_start', full_name='POGOProtos.Data.PokemonData.egg_km_walked_start', index=11,
-      number=12, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      number=12, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -164,8 +164,8 @@ _POKEMONDATA = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='cp_multiplier', full_name='POGOProtos.Data.PokemonData.cp_multiplier', index=18,
-      number=20, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      number=20, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -199,8 +199,8 @@ _POKEMONDATA = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='egg_incubator_id', full_name='POGOProtos.Data.PokemonData.egg_incubator_id', index=23,
-      number=25, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
+      number=25, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),

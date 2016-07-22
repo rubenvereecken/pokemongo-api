@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Map/Fort/FortLureInfo.proto',
   package='POGOProtos.Map.Fort',
   syntax='proto3',
-  serialized_pb=_b('\n&POGOProtos/Map/Fort/FortLureInfo.proto\x12\x13POGOProtos.Map.Fort\x1a POGOProtos/Enums/PokemonId.proto\"\x8c\x01\n\x0c\x46ortLureInfo\x12\x0f\n\x07\x66ort_id\x18\x01 \x01(\t\x12\x10\n\x08unknown2\x18\x02 \x01(\x01\x12\x36\n\x11\x61\x63tive_pokemon_id\x18\x03 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12!\n\x19lure_expires_timestamp_ms\x18\x04 \x01(\x03\x62\x06proto3')
+  serialized_pb=_b('\n&POGOProtos/Map/Fort/FortLureInfo.proto\x12\x13POGOProtos.Map.Fort\x1a POGOProtos/Enums/PokemonId.proto\"\x90\x01\n\x0c\x46ortLureInfo\x12\x0f\n\x07\x66ort_id\x18\x01 \x01(\t\x12\x14\n\x0c\x65ncounter_id\x18\x02 \x01(\x06\x12\x36\n\x11\x61\x63tive_pokemon_id\x18\x03 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12!\n\x19lure_expires_timestamp_ms\x18\x04 \x01(\x03\x62\x06proto3')
   ,
   dependencies=[POGOProtos_dot_Enums_dot_PokemonId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -43,9 +43,9 @@ _FORTLUREINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='unknown2', full_name='POGOProtos.Map.Fort.FortLureInfo.unknown2', index=1,
-      number=2, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
+      name='encounter_id', full_name='POGOProtos.Map.Fort.FortLureInfo.encounter_id', index=1,
+      number=2, type=6, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
@@ -76,7 +76,7 @@ _FORTLUREINFO = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=98,
-  serialized_end=238,
+  serialized_end=242,
 )
 
 _FORTLUREINFO.fields_by_name['active_pokemon_id'].enum_type = POGOProtos_dot_Enums_dot_PokemonId__pb2._POKEMONID

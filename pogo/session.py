@@ -2,24 +2,30 @@ import requests
 import logging
 import time
 
+# Hide errors (Yes this is terrible, but prettier)
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-from POGOProtos.Networking.Envelopes import ResponseEnvelope_pb2
-from POGOProtos.Networking.Envelopes import RequestEnvelope_pb2
+# Load Generated Protobuf
 from POGOProtos.Networking.Requests import Request_pb2
 from POGOProtos.Networking.Requests import RequestType_pb2
+from POGOProtos.Networking.Envelopes import ResponseEnvelope_pb2
+from POGOProtos.Networking.Envelopes import RequestEnvelope_pb2
 from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import GetInventoryMessage_pb2
 from POGOProtos.Networking.Requests.Messages import GetMapObjectsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import FortSearchMessage_pb2
 from POGOProtos.Networking.Requests.Messages import EncounterMessage_pb2
 from POGOProtos.Networking.Requests.Messages import CatchPokemonMessage_pb2
+from POGOProtos.Networking.Requests.Messages import ReleasePokemonMessage_pb2
+from POGOProtos.Networking.Requests.Messages import UseItemEggIncubatorMessage_pb2
+from POGOProtos.Networking.Requests.Messages import EvolvePokemonMessage_pb2
 
-
+# Load local
 import api
 import location
 from state import State
+from inventory import Inventory
 
 API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
 
@@ -35,6 +41,9 @@ class PogoSession(object):
         self.authTicket = None
         self.endpoint = None
         self.endpoint = 'https://' + self.createApiEndpoint() + '/rpc'
+
+        # Set up Inventory
+        self.getInventory()
 
     def __str__(self):
         s = 'Access Token: {}\nEndpoint: {}\nLocation: {}'.format(self.accessToken,
@@ -173,31 +182,42 @@ class PogoSession(object):
         self.state.badges.ParseFromString(res.returns[3])
         self.state.settings.ParseFromString(res.returns[4])
 
-    # Walk over to position in meters
-    def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5):
-        if step >= epsilon:
-            raise Exception("Walk may never converge")
+        # Finally make inventory usable
+        items = self.state.inventory.inventory_delta.inventory_items
+        self.inventory = Inventory(items)
 
-        # Calculate distance to position
-        latitude, longitude, _ = self.getLocation()
-        dist = closest = location.getDistance(latitude, longitude, olatitude, olongitude)
+    # Hooks for those bundled in default
+    # Getters
+    def getEggs(self):
+        self.getProfile()
+        return self.state.eggs        
 
-        # Run walk
-        divisions = closest/step
-        dLat = (latitude - olatitude)/divisions
-        dLon = (longitude - olongitude)/divisions
-        while dist > epsilon:
-            logging.info("%f m -> %f m away" % (closest - dist, closest))
-            latitude  -= dLat
-            longitude -= dLon
-            self.setCoords(
-                latitude,
-                longitude
-            )
-            time.sleep(1)
-            dist = location.getDistance(latitude, longitude, olatitude, olongitude)
+    def getInventory(self):
+        self.getProfile()
+        return self.inventory
 
+    def getBadges(self):
+        self.getProfile()
+        return self.state.badges
 
+    def getDownloadSettings(self):
+        self.getProfile()
+        return self.state.settings
+
+    # Checkers, so we don't have to start another request
+    def checkEggs(self):
+        return self.state.eggs        
+
+    def checkInventory(self):
+        return self.inventory
+
+    def checkBadges(self):
+        return self.state.badges
+
+    def checkDownloadSettings(self):
+        return self.state.settings
+
+    # Core api calls
     # Get profile
     def getProfile(self):
         # Create profile request
@@ -213,10 +233,6 @@ class PogoSession(object):
 
         # Return everything
         return self.state.profile
-
-    def getInventory(self):
-        self.getProfile()
-        return self.state.inventory
 
     # Get Location
     def getMapObjects(self, radius = 10):
@@ -292,6 +308,7 @@ class PogoSession(object):
         # Return everything
         return self.state.encounter
 
+    # Upon Encounter, try and catch
     def catchPokemon(self, pokemon, pokeball=1):
 
         # Create request
@@ -317,6 +334,94 @@ class PogoSession(object):
         # Return everything
         return self.state.catch
 
+    # Transfer Pokemon
+    def evolvePokemon(self, pokemon):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.EVOLVE_POKEMON,
+            request_message = EvolvePokemonMessage_pb2.EvolvePokemonMessage(
+                pokemon_id = pokemon.id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self.state.evolve.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self.state.evolve
+
+    # Transfer Pokemon
+    def releasePokemon(self, pokemon):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.RELEASE_POKEMON,
+            request_message = ReleasePokemonMessage_pb2.ReleasePokemonMessage(
+                pokemon_id = pokemon.id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self.state.release.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self.state.release
+
+    # set an Egg into an incubator
+    def setEgg(self, item, pokemon):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.USE_ITEM_EGG_INCUBATOR,
+            request_message = UseItemEggIncubatorMessage_pb2.UseItemEggIncubatorMessage(
+                item_id = item.id,
+                pokemon_id = pokemon.id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self.state.incubator.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self.state.incubator
+
+    # These act as more logical functions. Might be better to break out seperately
+    # Walk over to position in meters
+    def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5):
+        if step >= epsilon:
+            raise Exception("Walk may never converge")
+
+        # Calculate distance to position
+        latitude, longitude, _ = self.getLocation()
+        dist = closest = location.getDistance(latitude, longitude, olatitude, olongitude)
+
+        # Run walk
+        divisions = closest/step
+        dLat = (latitude - olatitude)/divisions
+        dLon = (longitude - olongitude)/divisions
+        while dist > epsilon:
+            logging.info("%f m -> %f m away" % (closest - dist, closest))
+            latitude  -= dLat
+            longitude -= dLon
+            self.setCoords(
+                latitude,
+                longitude
+            )
+            time.sleep(1)
+            dist = location.getDistance(latitude, longitude, olatitude, olongitude)
+
+    # Wrap both for ease
+    # TODO: Should probably check for success
     def encounterAndCatch(self, pokemon, pokeball=1, delay=2):
         self.encounterPokemon(pokemon)
         time.sleep(delay)
