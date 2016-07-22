@@ -95,21 +95,11 @@ if __name__ == '__main__':
                 # No fort, demo == over
                 if fort:
                     # Walk over to said fort
-                    epsilon = 0.0001
-                    step = 0.000010
-                    vector = [(fort.latitude - latitude)/closest, (fort.longitude - longitude)/closest]
-                    dist = closest
-                    while dist > epsilon:
-                        logging.info("%f units -> %f units away" % (dist, epsilon))
-                        latitude += vector[0] * step
-                        longitude += vector[1] * step
-                        session.setCoords(latitude, longitude)
-                        dist = math.hypot((fort.latitude - latitude), (fort.longitude - longitude))
-                        time.sleep(1)
+                    session.walkTo(fort.latitude, fort.longitude)
 
-            # Give it a spin
-            fortResponse = session.getFortSearch(fortBest)
-            logging.info(fortResponse)
+                # Give it a spin
+                fortResponse = session.getFortSearch(fort)
+                logging.info(fortResponse)
 
     else:
         logging.critical('Session not created successfully')
