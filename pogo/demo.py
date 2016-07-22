@@ -106,7 +106,7 @@ if __name__ == '__main__':
                     except GeneralPogoException as e:
                         logging.critical('GeneralPogoException raised: %s', e)
                         session = poko_session.authenticate()
-                    except Exception:
+                    except Exception as e:
                         logging.critical('Exception raised: %s', e)
                         session = poko_session.authenticate()
 
