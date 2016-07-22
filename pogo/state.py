@@ -7,9 +7,14 @@ from Networking.Responses import GetPlayerResponse_pb2
 from Networking.Responses import FortSearchResponse_pb2
 from Networking.Responses import EncounterResponse_pb2
 from Networking.Responses import CatchPokemonResponse_pb2
+from Networking.Responses import EvolvePokemonResponse_pb2
+from Networking.Responses import ReleasePokemonResponse_pb2
+from Networking.Responses import UseItemEggIncubatorResponse_pb2
+from Networking.Responses import RecycleInventoryItemResponse_pb2
+
 
 class State(object):
-
+    """Class to wrap the current state of responses"""
     def __init__(self):
         self.profile = GetPlayerResponse_pb2.GetPlayerResponse()
         self.eggs = GetHatchedEggsResponse_pb2.GetHatchedEggsResponse()
@@ -20,3 +25,7 @@ class State(object):
         self.fortSearch = FortSearchResponse_pb2.FortSearchResponse()
         self.encounter = EncounterResponse_pb2.EncounterResponse()
         self.catch = CatchPokemonResponse_pb2.CatchPokemonResponse()
+        self.evolve = EvolvePokemonResponse_pb2.EvolvePokemonResponse()
+        self.release = ReleasePokemonResponse_pb2.ReleasePokemonResponse()
+        self.recycle = RecycleInventoryItemResponse_pb2.RecycleInventoryItemResponse()
+        self.incubator = UseItemEggIncubatorResponse_pb2.UseItemEggIncubatorResponse()

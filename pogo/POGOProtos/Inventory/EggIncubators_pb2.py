@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Inventory/EggIncubators.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n(POGOProtos/Inventory/EggIncubators.proto\x12\x14POGOProtos.Inventory\x1a\'POGOProtos/Inventory/EggIncubator.proto\"J\n\rEggIncubators\x12\x39\n\regg_incubator\x18\x01 \x01(\x0b\x32\".POGOProtos.Inventory.EggIncubatorb\x06proto3')
+  serialized_pb=_b('\n(POGOProtos/Inventory/EggIncubators.proto\x12\x14POGOProtos.Inventory\x1a\'POGOProtos/Inventory/EggIncubator.proto\"J\n\rEggIncubators\x12\x39\n\regg_incubator\x18\x01 \x03(\x0b\x32\".POGOProtos.Inventory.EggIncubatorb\x06proto3')
   ,
   dependencies=[POGOProtos_dot_Inventory_dot_EggIncubator__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -37,8 +37,8 @@ _EGGINCUBATORS = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='egg_incubator', full_name='POGOProtos.Inventory.EggIncubators.egg_incubator', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),

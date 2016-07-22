@@ -1,48 +1,80 @@
 from math import sin, cos, sqrt, atan2, radians
 from geopy.geocoders import GoogleV3
 from s2sphere import CellId, LatLng
-
-geolocator = GoogleV3()
-
-def getLocation(search):
-    loc = geolocator.geocode(search)
-    return loc
-
-def getCoords(latitude, longitude):
-    loc = geolocator.reverse((latitude, longitude))
-    return loc[0]
-
-def getRadianDistance(latitude, longitude, olatitude, olongitude):
-    # approximate radius of earth in km
-    R = 6373e3
-
-    # delta angles
-    dLat = olatitude - latitude
-    dLon = olongitude - longitude
-
-    # do the math
-    # stackoverflow/questions/19412462/
-    a = sin(dLat / 2)**2 + cos(latitude) * cos(olatitude) * sin(dLon / 2)**2
-    c = 2 * atan2(sqrt(a), sqrt(1 - a))
-    return R * c
+from custom_exceptions import GeneralPogoException
 
 
-def getDistance(*coords):
-    return getRadianDistance(*[radians(coord) for coord in coords])
+# Wrapper for location
+class Location(object):
+    def __init__(self, locationLookup, geo_key):
+        self.geo_key = geo_key
+        self.locator = GoogleV3()
+        if geo_key:
+            self.locator = GoogleV3(api_key=geo_key)
 
+        self.latitude, self.longitude, self.altitude = self.setLocation(locationLookup)
 
-def getCells(loc, radius = 10):
-    origin = CellId.from_lat_lng(LatLng.from_degrees(loc.latitude, loc.longitude)).parent(15)
-    walk = [origin.id()]
-    right = origin.next()
-    left = origin.prev()
+    def __str__(self):
+        s = 'Coordinates: {} {} {}'.format(
+            self.latitude,
+            self.longitude,
+            self.altitude
+        )
+        return s
 
-    # Search around provided radius
-    for i in range(radius):
-        walk.append(right.id())
-        walk.append(left.id())
-        right = right.next()
-        left = left.prev()
+    @staticmethod
+    def getRadianDistance(latitude, longitude, olatitude, olongitude):
+        # approximate radius of earth in km
+        R = 6373e3
 
-    # Return everything
-    return sorted(walk)
+        # delta angles
+        dLat = olatitude - latitude
+        dLon = olongitude - longitude
+
+        # do the math
+        # stackoverflow/questions/19412462/
+        a = sin(dLat / 2)**2
+        a += cos(latitude) * cos(olatitude) * sin(dLon / 2)**2
+        c = 2 * atan2(sqrt(a), sqrt(1 - a))
+        return R * c
+
+    @staticmethod
+    def getDistance(*coords):
+        return Location.getRadianDistance(*[radians(coord) for coord in coords])
+
+    def setLocation(self, search):
+        try:
+            geo = self.locator.geocode(search)
+        except:
+            raise GeneralPogoException('Error in Geo Request')
+        return geo.latitude, geo.longitude, geo.altitude
+
+    def setCoordinates(self, latitude, longitude):
+        self.latitude = latitude
+        self.longitude = longitude
+
+    def getCoordinates(self):
+        return self.latitude, self.longitude, self.altitude
+
+    def getCells(self, radius=10):
+        origin = CellId.from_lat_lng(
+            LatLng.from_degrees(
+                self.latitude,
+                self.longitude
+            )
+        ).parent(15)
+
+        # Create walk around area
+        walk = [origin.id()]
+        right = origin.next()
+        left = origin.prev()
+
+        # Search around provided radius
+        for _ in range(radius):
+            walk.append(right.id())
+            walk.append(left.id())
+            right = right.next()
+            left = left.prev()
+
+        # Return everything
+        return sorted(walk)
