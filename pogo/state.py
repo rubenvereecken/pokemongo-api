@@ -11,6 +11,7 @@ from Networking.Responses import EvolvePokemonResponse_pb2
 from Networking.Responses import ReleasePokemonResponse_pb2
 from Networking.Responses import UseItemEggIncubatorResponse_pb2
 
+
 class State(object):
 
     def __init__(self):

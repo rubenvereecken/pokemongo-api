@@ -21,10 +21,12 @@ CLIENT_SIG = '321187995bc7cdc2b5fc91b11a96e2baa8602c62'
 
 RPC_ID = int(random.random() * 10 ** 12)
 
+
 def getRPCId():
     global RPC_ID
     RPC_ID = RPC_ID + 1
     return RPC_ID
+
 
 def createRequestsSession():
     session = requests.session()
@@ -34,12 +36,17 @@ def createRequestsSession():
     session.verify = False
     return session
 
+
 def createPogoSession(session, provider, access_token, loc):
     loc = location.getLocation(loc)
     if loc:
-        logging.info('Location: {}'.format(loc.address))
-        logging.info('Coordinates: {} {} {}'.format(loc.latitude, loc.longitude,
-            loc.altitude))
+        logging.info('Location: {0}'.format(loc.address))
+        logging.info(
+            'Coordinates: %f %f %f',
+            loc.latitude,
+            loc.longitude,
+            loc.altitude
+        )
 
     if access_token and loc:
         return PogoSession(session, provider, access_token, loc)
@@ -49,16 +56,18 @@ def createPogoSession(session, provider, access_token, loc):
         logging.critical('Access token not generated')
     return None
 
+
 def createGoogleSession(username, pw, startLocation):
     session = createRequestsSession()
     logging.info('Creating Google session for {}'.format(username))
 
     r1 = perform_master_login(username, pw, ANDROID_ID)
     r2 = perform_oauth(username, r1.get('Token', ''), ANDROID_ID, SERVICE, APP,
-        CLIENT_SIG)
+                       CLIENT_SIG)
 
-    access_token = r2.get('Auth') # access token
+    access_token = r2.get('Auth')  # access token
     return createPogoSession(session, 'google', access_token, startLocation)
+
 
 def createPTCSession(username, pw, startLocation):
     session = createRequestsSession()
@@ -93,5 +102,3 @@ def createPTCSession(username, pw, startLocation):
     access_token = re.sub('.*access_token=', '', access_token)
 
     return createPogoSession(session, 'ptc', access_token, startLocation)
-
-        
