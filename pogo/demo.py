@@ -87,24 +87,25 @@ if __name__ == '__main__':
         logging.info("Get Inventory")
         print(session.getInventory())
 
-        for ordered_fort in ordered_forts:
-            dist = ordered_fort['distance']
-            fort = ordered_fort['fort']
-            closest = dist
-            # No fort, demo == over
-            if fort:
-                # Walk over to said fort
-                epsilon = 0.0001
-                step = 0.000010
-                vector = [(fort.latitude - latitude)/closest, (fort.longitude - longitude)/closest]
-                dist = closest
-                while dist > epsilon:
-                    logging.info("%f units -> %f units away" % (dist, epsilon))
-                    latitude += vector[0] * step
-                    longitude += vector[1] * step
-                    session.setCoords(latitude, longitude)
-                    dist = math.hypot((fort.latitude - latitude), (fort.longitude - longitude))
-                    time.sleep(1)
+        while True:
+            for ordered_fort in ordered_forts:
+                dist = ordered_fort['distance']
+                fort = ordered_fort['fort']
+                closest = dist
+                # No fort, demo == over
+                if fort:
+                    # Walk over to said fort
+                    epsilon = 0.0001
+                    step = 0.000010
+                    vector = [(fort.latitude - latitude)/closest, (fort.longitude - longitude)/closest]
+                    dist = closest
+                    while dist > epsilon:
+                        logging.info("%f units -> %f units away" % (dist, epsilon))
+                        latitude += vector[0] * step
+                        longitude += vector[1] * step
+                        session.setCoords(latitude, longitude)
+                        dist = math.hypot((fort.latitude - latitude), (fort.longitude - longitude))
+                        time.sleep(1)
 
             # Give it a spin
             fortResponse = session.getFortSearch(fortBest)
