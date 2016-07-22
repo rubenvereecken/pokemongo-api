@@ -97,9 +97,9 @@ if __name__ == '__main__':
                     # Walk over to said fort
                     session.walkTo(fort.latitude, fort.longitude)
 
-                # Give it a spin
-                fortResponse = session.getFortSearch(fort)
-                logging.info(fortResponse)
+                    # Give it a spin
+                    fortResponse = session.getFortSearch(fort)
+                    logging.info(fortResponse)
 
     else:
         logging.critical('Session not created successfully')
