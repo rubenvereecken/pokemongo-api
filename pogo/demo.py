@@ -3,9 +3,10 @@ import argparse
 import logging
 import time
 import sys
+from custom_exceptions import GeneralPogoException
 
-import api
-import location
+from api import PokeAuthSession
+from location import Location
 
 
 def setupLogger():
@@ -27,13 +28,13 @@ def getProfile(session):
 
 
 # Grab the nearest pokemon details
-def findClosetPokemon(session):
+def findClosestPokemon(session):
     # Get Map details and print pokemon
     logging.info("Printing Nearby Pokemon:")
     cells = session.getMapObjects()
     closest = float("Inf")
     pokemonBest = None
-    latitude, longitude, _ = session.getLocation()
+    latitude, longitude, _ = session.getCoordinates()
     for cell in cells.map_cells:
         for pokemon in cell.wild_pokemons:
             # Log the pokemon found
@@ -44,7 +45,7 @@ def findClosetPokemon(session):
             ))
 
             # Fins distance to pokemon
-            dist = location.getDistance(
+            dist = Location.getDistance(
                 latitude,
                 longitude,
                 pokemon.latitude,
@@ -71,15 +72,19 @@ def getInventory(session):
     logging.info(session.getInventory())
 
 
+# Basic solution to spinning all forts.
+# Since traveling salesman problem, not
+# true solution. But at least you get
+# those step in
 def sortCloseForts(session):
     # Sort nearest forts (pokestop)
     logging.info("Sorting Nearest Forts:")
     cells = session.getMapObjects()
-    latitude, longitude, _ = session.getLocation()
+    latitude, longitude, _ = session.getCoordinates()
     ordered_forts = []
     for cell in cells.map_cells:
         for fort in cell.forts:
-            dist = location.getDistance(
+            dist = Location.getDistance(
                 latitude,
                 longitude,
                 fort.latitude,
@@ -92,28 +97,15 @@ def sortCloseForts(session):
     return [instance['fort'] for instance in ordered_forts]
 
 
-def findClosestPokemon(session):
+# Find the fort closest to user
+def findClosestFort(session):
     # Find nearest fort (pokestop)
     logging.info("Finding Nearest Fort:")
-    cells = session.getMapObjects()
-    closest = float("Inf")
-    fortBest = None
-    latitude, longitude, _ = session.getLocation()
-    for cell in cells.map_cells:
-        for fort in cell.forts:
-            dist = location.getDistance(
-                latitude,
-                longitude,
-                fort.latitude,
-                fort.longitude
-            )
-            if dist < closest and fort.type == 1:
-                closest = dist
-                fortBest = fort
-    return fortBest
+    return sortCloseForts(session)[0]
 
 
-def walkAndSpin(session, forts):
+# Walk to fort and spin
+def walkAndSpin(session, fort):
     # No fort, demo == over
     if fort:
         logging.info("Spinning a Fort:")
@@ -134,7 +126,7 @@ def walkAndSpinMany(session, forts):
 def evolveAllPokemon(session):
     inventory = session.checkInventory()
     for pokemon in inventory["party"]:
-        session.evolvePokemon(pokemon)
+        logging.info(session.evolvePokemon(pokemon))
         time.sleep(1)
 
 
@@ -144,6 +136,15 @@ def releaseAllPokemon(session):
     for pokemon in inventory["party"]:
         session.releasePokemon(pokemon)
         time.sleep(1)
+
+
+# Just incase you didn't want any revives
+def tossRevives(session):
+    bag = session.checkInventory()["bag"]
+
+    # 201 are revives.
+    # TODO: We should have a reverse lookup here
+    return session.recycleItem(201, bag[201])
 
 
 # Set an egg to an incubator
@@ -161,12 +162,32 @@ def setEgg(session):
 
 # Basic bot
 def simpleBot(session):
+    # Trying not to flood the servers
+    cooldown = 1
+
+    # Run the bot
     while True:
-        forts = sortCloseForts(session)
-        for fort in forts:
-            pokemon = findClosestPokemon(session)
-            walkAndCatch(session, pokemon)
-            walkAndSpin(session, fort)
+        try:
+            forts = sortCloseForts(session)
+            for fort in forts:
+                pokemon = findClosestPokemon(session)
+                walkAndCatch(session, pokemon)
+                walkAndSpin(session, fort)
+                cooldown = 1
+                time.sleep(1)
+
+        # Catch problems and reauthenticate
+        except GeneralPogoException as e:
+            logging.critical('GeneralPogoException raised: %s', e)
+            session = poko_session.reauthenticate(session)
+            time.sleep(cooldown)
+            cooldown *= 2
+
+        except Exception as e:
+            logging.critical('Exception raised: %s', e)
+            session = poko_session.reauthenticate(session)
+            time.sleep(cooldown)
+            cooldown *= 2
 
 # Entry point
 # Start off authentication and demo
@@ -176,12 +197,11 @@ if __name__ == '__main__':
 
     # Read in args
     parser = argparse.ArgumentParser()
-    parser.add_argument("-a", "--auth", help="Auth Service",
-                        required=True)
+    parser.add_argument("-a", "--auth", help="Auth Service", required=True)
     parser.add_argument("-u", "--username", help="Username", required=True)
     parser.add_argument("-p", "--password", help="Password", required=True)
     parser.add_argument("-l", "--location", help="Location", required=True)
-    parser.add_argument("-s", "--client_secret", help="PTC Client Secret")
+    parser.add_argument("-g", "--geo_key", help="GEO API Secret")
     args = parser.parse_args()
 
     # Check service
@@ -189,19 +209,18 @@ if __name__ == '__main__':
         logging.error('Invalid auth service {}'.format(args.auth))
         sys.exit(-1)
 
-    # Authenticate
-    if args.auth == 'ptc':
-        session = api.createPTCSession(
-            args.username,
-            args.password,
-            args.location
-        )
-    elif args.auth == 'google':
-        session = api.createGoogleSession(
-            args.username,
-            args.password,
-            args.location
-        )
+    # Create PokoAuthObject
+    poko_session = PokeAuthSession(
+        args.username,
+        args.password,
+        args.auth,
+        geo_key=args.geo_key
+    )
+
+    # Authenticate with a given location
+    # Location is not inherent in authentication
+    # But is important to session
+    session = poko_session.authenticate(args.location)
 
     # Time to show off what we can do
     if session:
@@ -211,7 +230,7 @@ if __name__ == '__main__':
         getInventory(session)
 
         # Pokemon related
-        pokemon = findClosetPokemon(session)
+        pokemon = findClosestPokemon(session)
         walkAndCatch(session, pokemon)
 
         # Pokestop related

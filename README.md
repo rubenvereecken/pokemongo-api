@@ -8,6 +8,51 @@ based on object-oriented principles.
 
 Additions welcome.
 
+# Current implementation
+Our current implementaion covers most of the basics of gameplay. The following methods are availible:
+
+```
+# Get profile
+def getProfile(self):
+
+# Get Location
+def getMapObjects(self, radius=10):
+
+# Spin a pokestop
+def getFortSearch(self, fort):
+
+# Get encounter
+def encounterPokemon(self, pokemon):
+
+# Upon Encounter, try and catch
+def catchPokemon(self, pokemon, pokeball=1):
+
+# Evolve Pokemon
+def evolvePokemon(self, pokemon):
+
+# Transfer Pokemon
+def releasePokemon(self, pokemon):
+
+# Throw away items
+def recycleItem(self, item_id, count):
+
+# set an Egg into an incubator
+def setEgg(self, item, pokemon):
+
+# Get Eggs
+def getEggs(self):
+
+# Get Inventory
+def getInventory(self):
+
+# Get Badges
+def getBadges(self):
+
+# Get Settings
+def getDownloadSettings(self):
+```
+Every method has been tested. Pull requests are encouraged.
+
 ## Demo
 `demo.py` includes a demo of the API.
 

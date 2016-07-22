@@ -3,21 +3,23 @@ from POGOProtos.Networking.Requests import Request_pb2
 from POGOProtos.Networking.Requests import RequestType_pb2
 from POGOProtos.Networking.Envelopes import ResponseEnvelope_pb2
 from POGOProtos.Networking.Envelopes import RequestEnvelope_pb2
-from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
+from POGOProtos.Networking.Requests.Messages import EncounterMessage_pb2
+from POGOProtos.Networking.Requests.Messages import FortSearchMessage_pb2
+from POGOProtos.Networking.Requests.Messages import CatchPokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import GetInventoryMessage_pb2
 from POGOProtos.Networking.Requests.Messages import GetMapObjectsMessage_pb2
-from POGOProtos.Networking.Requests.Messages import FortSearchMessage_pb2
-from POGOProtos.Networking.Requests.Messages import EncounterMessage_pb2
-from POGOProtos.Networking.Requests.Messages import CatchPokemonMessage_pb2
-from POGOProtos.Networking.Requests.Messages import ReleasePokemonMessage_pb2
-from POGOProtos.Networking.Requests.Messages import UseItemEggIncubatorMessage_pb2
 from POGOProtos.Networking.Requests.Messages import EvolvePokemonMessage_pb2
+from POGOProtos.Networking.Requests.Messages import ReleasePokemonMessage_pb2
+from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
+from POGOProtos.Networking.Requests.Messages import UseItemEggIncubatorMessage_pb2
+from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_pb2
 
 # Load local
 import api
-from location import (getCoords, getDistance, getCells)
-from state import State
+from custom_exceptions import GeneralPogoException
 from inventory import Inventory
+from location import Location
+from state import State
 
 import requests
 import logging
@@ -27,17 +29,16 @@ import time
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-
 API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
 
 
 class PogoSession(object):
 
-    def __init__(self, session, authProvider, accessToken, loc):
+    def __init__(self, session, authProvider, accessToken, location):
         self.session = session
         self.authProvider = authProvider
         self.accessToken = accessToken
-        self.location = loc
+        self.location = location
         self.state = State()
 
         self.authTicket = None
@@ -58,16 +59,12 @@ class PogoSession(object):
         )
         return s
 
-    def setLocation(self, loc):
-        self.location = loc
+    def setCoordinates(self, latitude, longitude):
+        self.location.setCoordinates(latitude, longitude)
         self.getMapObjects(radius=1)
 
-    def setCoords(self, latitude, longitude):
-        self.location = getCoords(latitude, longitude)
-        self.getMapObjects(radius=1)
-
-    def getLocation(self):
-        return self.location.latitude, self.location.longitude, self.location.altitude
+    def getCoordinates(self):
+        return self.location.getCoordinates()
 
     def createApiEndpoint(self):
         payload = []
@@ -97,7 +94,7 @@ class PogoSession(object):
             )
 
         # Build Envelope
-        latitude, longitude, altitude = self.getLocation()
+        latitude, longitude, altitude = self.getCoordinates()
         req = RequestEnvelope_pb2.RequestEnvelope(
             status_code=2,
             request_id=api.getRPCId(),
@@ -137,9 +134,8 @@ class PogoSession(object):
         try:
             return self.requestOrThrow(req, url)
         except Exception as e:
-            logging.critical('Probably server fires.')
             logging.error(e)
-            raise
+            raise GeneralPogoException('Probably server fires.')
 
     def wrapAndRequest(self, payload, defaults=True):
         res = self.request(self.wrapInRequest(payload, defaults=defaults))
@@ -187,10 +183,14 @@ class PogoSession(object):
 
     # Parse the default responses
     def parseDefault(self, res):
-        self.state.eggs.ParseFromString(res.returns[1])
-        self.state.inventory.ParseFromString(res.returns[2])
-        self.state.badges.ParseFromString(res.returns[3])
-        self.state.settings.ParseFromString(res.returns[4])
+        try:
+            self.state.eggs.ParseFromString(res.returns[1])
+            self.state.inventory.ParseFromString(res.returns[2])
+            self.state.badges.ParseFromString(res.returns[3])
+            self.state.settings.ParseFromString(res.returns[4])
+        except Exception as e:
+            logging.error(e)
+            raise GeneralPogoException("Error parsing response. Malformed response")
 
         # Finally make inventory usable
         items = self.state.inventory.inventory_delta.inventory_items
@@ -214,7 +214,7 @@ class PogoSession(object):
         self.getProfile()
         return self.state.settings
 
-    # Checkers, so we don't have to start another request
+    # Check, so we don't have to start another request
     def checkEggs(self):
         return self.state.eggs
 
@@ -247,8 +247,8 @@ class PogoSession(object):
     # Get Location
     def getMapObjects(self, radius=10):
         # Work out location details
-        cells = getCells(self.location, radius)
-        latitude, longitude, _ = self.getLocation()
+        cells = self.location.getCells(radius)
+        latitude, longitude, _ = self.getCoordinates()
         timestamps = [0, ] * len(cells)
 
         # Create request
@@ -344,7 +344,7 @@ class PogoSession(object):
         # Return everything
         return self.state.catch
 
-    # Transfer Pokemon
+    # Evolve Pokemon
     def evolvePokemon(self, pokemon):
 
         # Create request
@@ -384,6 +384,27 @@ class PogoSession(object):
         # Return everything
         return self.state.release
 
+    # Throw away items
+    def recycleItem(self, item_id, count):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type=RequestType_pb2.RECYCLE_INVENTORY_ITEM,
+            request_message=RecycleInventoryItemMessage_pb2.RecycleInventoryItemMessage(
+                item_id=item_id,
+                count=count
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self.state.recycle.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self.state.recycle
+
     # set an Egg into an incubator
     def setEgg(self, item, pokemon):
 
@@ -413,8 +434,8 @@ class PogoSession(object):
             raise Exception("Walk may never converge")
 
         # Calculate distance to position
-        latitude, longitude, _ = self.getLocation()
-        dist = closest = getDistance(
+        latitude, longitude, _ = self.getCoordinates()
+        dist = closest = Location.getDistance(
             latitude,
             longitude,
             olatitude,
@@ -429,12 +450,17 @@ class PogoSession(object):
             logging.info("%f m -> %f m away", closest - dist, closest)
             latitude -= dLat
             longitude -= dLon
-            self.setCoords(
+            self.setCoordinates(
                 latitude,
                 longitude
             )
             time.sleep(1)
-            dist = getDistance(latitude, longitude, olatitude, olongitude)
+            dist = Location.getDistance(
+                latitude,
+                longitude,
+                olatitude,
+                olongitude
+            )
 
     # Wrap both for ease
     # TODO: Should probably check for success
