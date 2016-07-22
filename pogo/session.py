@@ -2,6 +2,8 @@ import requests
 import logging
 import time
 
+from custom_exceptions import GeneralPogoException
+
 from POGOProtos.Networking.Envelopes import ResponseEnvelope_pb2
 from POGOProtos.Networking.Envelopes import RequestEnvelope_pb2
 from POGOProtos.Networking.Requests import Request_pb2
@@ -12,6 +14,7 @@ from POGOProtos.Networking.Requests.Messages import GetMapObjectsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import FortSearchMessage_pb2
 from POGOProtos.Networking.Requests.Messages import EncounterMessage_pb2
 from POGOProtos.Networking.Requests.Messages import CatchPokemonMessage_pb2
+GEO_KEY = 'AIzaSyD9K57U3eqVk6CNOBfzr8nIiYfx4UNB3p8'
 
 import api
 from location import (getCoords, getDistance, getCells)
@@ -47,7 +50,7 @@ class PogoSession(object):
         self.getMapObjects(radius=1)
 
     def setCoords(self, latitude, longitude):
-        self.location = getCoords(latitude, longitude)
+        self.location = getCoords(latitude, longitude, api_key=GEO_KEY)
         self.getMapObjects(radius=1)
 
     def getLocation(self):
@@ -123,7 +126,7 @@ class PogoSession(object):
         except Exception as e:
             logging.critical('Probably server fires.')
             logging.error(e)
-            raise
+            raise GeneralPogoException
 
     def wrapAndRequest(self, payload, defaults=True):
         res = self.request(self.wrapInRequest(payload, defaults=defaults))
@@ -171,10 +174,13 @@ class PogoSession(object):
 
     # Parse the default responses
     def parseDefault(self, res):
-        self.state.eggs.ParseFromString(res.returns[1])
-        self.state.inventory.ParseFromString(res.returns[2])
-        self.state.badges.ParseFromString(res.returns[3])
-        self.state.settings.ParseFromString(res.returns[4])
+        try:
+            self.state.eggs.ParseFromString(res.returns[1])
+            self.state.inventory.ParseFromString(res.returns[2])
+            self.state.badges.ParseFromString(res.returns[3])
+            self.state.settings.ParseFromString(res.returns[4])
+        except Exception as e:  # Doing nothing with the error message for now.
+            raise GeneralPogoException
 
     # Walk over to position in meters
     def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5):

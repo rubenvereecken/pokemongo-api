@@ -3,9 +3,11 @@ import argparse
 import logging
 import time
 import sys
+from custom_exceptions import GeneralPogoException
 
-import api
+from api import PokeAuthSession
 import location
+
 
 def setupLogger():
     logger = logging.getLogger()
@@ -23,7 +25,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-a", "--auth", help="Auth Service",
-        required=True)
+                        required=True)
     parser.add_argument("-u", "--username", help="Username", required=True)
     parser.add_argument("-p", "--password", help="Password", required=True)
     parser.add_argument("-l", "--location", help="Location", required=True)
@@ -34,14 +36,14 @@ if __name__ == '__main__':
         logging.error('Invalid auth service {}'.format(args.auth))
         sys.exit(-1)
 
-    if args.auth == 'ptc':
-        session = api.createPTCSession(args.username, args.password, args.location)
-    elif args.auth == 'google':
-        session = api.createGoogleSession(args.username, args.password, args.location)
+    # Create PokoAuthObject
+    poko_session = PokeAuthSession(args.username, args.password, args.auth, args.location)
 
-    if session: # do stuff
+    session = poko_session.authenticate()
 
-        # Get profile        
+    if session:  # do stuff
+
+        # Get profile
         logging.info("Printing Profile:")
         profile = session.getProfile()
         logging.info(profile)
@@ -94,12 +96,19 @@ if __name__ == '__main__':
                 closest = dist
                 # No fort, demo == over
                 if fort:
-                    # Walk over to said fort
-                    session.walkTo(fort.latitude, fort.longitude)
+                    try:
+                        # Walk over to said fort
+                        session.walkTo(fort.latitude, fort.longitude)
 
-                    # Give it a spin
-                    fortResponse = session.getFortSearch(fort)
-                    logging.info(fortResponse)
+                        # Give it a spin
+                        fortResponse = session.getFortSearch(fort)
+                        logging.info(fortResponse)
+                    except GeneralPogoException as e:
+                        logging.critical('GeneralPogoException raised: %s', e)
+                        session = poko_session.authenticate()
+                    except Exception:
+                        logging.critical('Exception raised: %s', e)
+                        session = poko_session.authenticate()
 
     else:
         logging.critical('Session not created successfully')

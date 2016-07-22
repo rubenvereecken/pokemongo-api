@@ -1,20 +1,23 @@
 from math import sin, cos, sqrt, atan2, radians
 from geopy.geocoders import GoogleV3
 from s2sphere import CellId, LatLng
+from custom_exceptions import GeneralPogoException
+import time
 
 geolocator = GoogleV3()
 
 
-def getLocation(search):
-    loc = geolocator.geocode(search)
+def getLocation(search, api_key=''):
+    loc = GoogleV3(api_key=api_key).geocode(search)
     return loc
 
 
-def getCoords(latitude, longitude):
+def getCoords(latitude, longitude, api_key):
     try:
-        loc = geolocator.reverse((latitude, longitude))
+        loc = GoogleV3(api_key=api_key).reverse((latitude, longitude))
+        time.sleep(1)
     except IOError:
-        return False
+        raise GeneralPogoException
     return loc[0]
 
 
