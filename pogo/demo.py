@@ -119,7 +119,7 @@ def walkAndSpin(session, fort):
 # Walk and spin everywhere
 def walkAndSpinMany(session, forts):
     for fort in forts:
-        walkAndSpin(fort)
+        walkAndSpin(session, fort)
 
 
 # A very brute force approach to evolving
