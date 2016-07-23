@@ -55,6 +55,7 @@ def findClosestPokemon(session):
             # Greedy for closest
             if dist < closest:
                 pokemonBest = pokemon
+                closest = dist
     return pokemonBest
 
 
