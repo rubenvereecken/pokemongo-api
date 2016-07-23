@@ -160,6 +160,44 @@ def setEgg(session):
     return session.setEgg(incubator, egg)
 
 
+def cleanPokemon(session):
+    party = session.checkInventory()["party"]
+    candies = session.checkInventory()["candies"][16]
+    pidgeys = []
+    for pokemon in party:
+        if pokemon.pokemon_id == 16:  # The pdigey id ccording to google
+            pidgeys.append(pokemon)
+            continue
+
+        if pokemon.cp < 250:
+            session.releasePokemon(pokemon)
+
+    while candies / 12 > len(pidgeys):
+        session.releasePokemon(pidgeys.pop())
+        time.sleep(1)
+        candies += 1
+
+    for pidgey in pidgeys:
+        logging.info(session.evolvePokemon(pidgey))
+        time.sleep(1)
+        session.releasePokemon(pidgey)
+        time.sleep(1)
+
+
+def cleanInventory(session):
+    bag = session.checkInventory()["bag"]
+    print(bag)
+    tossable = [101, 102, 103, 104, 201, 202]
+    for toss in tossable:
+        if toss in bag and bag[toss]:
+            session.recycleItem(toss, bag[toss])
+
+    balls = [1, 2, 3]
+    for ball in balls:
+        if ball in bag and bag[ball] > 100:
+            session.recycleItem(ball, bag[ball] - 100)
+
+
 # Basic bot
 def simpleBot(session):
     # Trying not to flood the servers
@@ -169,6 +207,8 @@ def simpleBot(session):
     while True:
         try:
             forts = sortCloseForts(session)
+            cleanPokemon(session)
+            cleanInventory(session)
             for fort in forts:
                 pokemon = findClosestPokemon(session)
                 walkAndCatch(session, pokemon)
@@ -237,5 +277,6 @@ if __name__ == '__main__':
         fort = findClosestFort(session)
         walkAndSpin(session, fort)
 
+        simpleBot(session)
     else:
         logging.critical('Session not created successfully')
