@@ -8,6 +8,7 @@ from custom_exceptions import GeneralPogoException
 from api import PokeAuthSession
 from location import Location
 
+from enums import pokedex
 
 def setupLogger():
     logger = logging.getLogger()
@@ -30,16 +31,17 @@ def getProfile(session):
 # Grab the nearest pokemon details
 def findClosestPokemon(session):
     # Get Map details and print pokemon
-    logging.info("Printing Nearby Pokemon:")
+    logging.info("Finding Nearby Pokemon:")
     cells = session.getMapObjects()
     closest = float("Inf")
     pokemonBest = None
     latitude, longitude, _ = session.getCoordinates()
+    logging.info("Current pos: %f, %f" % (latitude, longitude))
     for cell in cells.map_cells:
         for pokemon in cell.wild_pokemons:
             # Log the pokemon found
-            logging.info("%i at %f,%f" % (
-                pokemon.pokemon_data.pokemon_id,
+            logging.info("%s at %f,%f" % (
+                pokedex[pokemon.pokemon_data.pokemon_id],
                 pokemon.latitude,
                 pokemon.longitude
             ))
@@ -63,7 +65,7 @@ def findClosestPokemon(session):
 def walkAndCatch(session, pokemon):
     if pokemon:
         logging.info("Catching nearest pokemon:")
-        session.walkTo(pokemon.latitude, pokemon.longitude)
+        session.walkTo(pokemon.latitude, pokemon.longitude, step=3.2)
         logging.info(session.encounterAndCatch(pokemon))
 
 
@@ -111,7 +113,7 @@ def walkAndSpin(session, fort):
     if fort:
         logging.info("Spinning a Fort:")
         # Walk over
-        session.walkTo(fort.latitude, fort.longitude)
+        session.walkTo(fort.latitude, fort.longitude, step=3.2)
         # Give it a spin
         fortResponse = session.getFortSearch(fort)
         logging.info(fortResponse)
@@ -231,12 +233,9 @@ if __name__ == '__main__':
         getInventory(session)
 
         # Pokemon related
-        pokemon = findClosestPokemon(session)
-        walkAndCatch(session, pokemon)
-
-        # Pokestop related
-        fort = findClosestFort(session)
-        walkAndSpin(session, fort)
+        # 
+        simpleBot(session)
+        
 
     else:
         logging.critical('Session not created successfully')

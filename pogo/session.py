@@ -446,8 +446,11 @@ class PogoSession(object):
         divisions = closest / step
         dLat = (latitude - olatitude) / divisions
         dLon = (longitude - olongitude) / divisions
+
+        logging.info("Walking %f meters. This will take %f seconds..." % (dist, dist/step))
+
         while dist > epsilon:
-            logging.info("%f m -> %f m away", closest - dist, closest)
+            logging.debug("%f m -> %f m away", closest - dist, closest)
             latitude -= dLat
             longitude -= dLon
             self.setCoordinates(
