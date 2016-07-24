@@ -113,6 +113,7 @@ def walkAndSpin(session, fort):
         # Walk over
         session.walkTo(fort.latitude, fort.longitude)
         # Give it a spin
+        logging.info(session.getFortDetails(fort))
         fortResponse = session.getFortSearch(fort)
         logging.info(fortResponse)
 
@@ -237,6 +238,7 @@ if __name__ == '__main__':
         # Pokestop related
         fort = findClosestFort(session)
         walkAndSpin(session, fort)
+
 
     else:
         logging.critical('Session not created successfully')

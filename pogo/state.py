@@ -5,6 +5,7 @@ from Networking.Responses import GetHatchedEggsResponse_pb2
 from Networking.Responses import GetMapObjectsResponse_pb2
 from Networking.Responses import GetPlayerResponse_pb2
 from Networking.Responses import FortSearchResponse_pb2
+from Networking.Responses import FortDetailsResponse_pb2
 from Networking.Responses import EncounterResponse_pb2
 from Networking.Responses import CatchPokemonResponse_pb2
 from Networking.Responses import EvolvePokemonResponse_pb2
@@ -23,6 +24,7 @@ class State(object):
         self.settings = DownloadSettingsResponse_pb2.DownloadSettingsResponse()
         self.mapObjects =  GetMapObjectsResponse_pb2.GetMapObjectsResponse()
         self.fortSearch = FortSearchResponse_pb2.FortSearchResponse()
+        self.fortDetails = FortDetailsResponse_pb2.FortDetailsResponse()
         self.encounter = EncounterResponse_pb2.EncounterResponse()
         self.catch = CatchPokemonResponse_pb2.CatchPokemonResponse()
         self.evolve = EvolvePokemonResponse_pb2.EvolvePokemonResponse()
