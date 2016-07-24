@@ -3,6 +3,7 @@ import argparse
 import logging
 import time
 import sys
+import const
 from custom_exceptions import GeneralPogoException
 
 from api import PokeAuthSession
@@ -163,18 +164,29 @@ def setEgg(session):
 
 def cleanPokemon(session):
     party = session.checkInventory()["party"]
-    candies = session.checkInventory()["candies"][16]
     pidgeys = []
+    rats = []
     for pokemon in party:
         if pokemon.pokemon_id == 16:  # The pdigey id ccording to google
             pidgeys.append(pokemon)
             continue
 
-        if pokemon.cp < 250:
+        if pokemon.pokemon_id == 19:  # The ratatta id
+            rats.append(pokemon)
+            continue
+
+        if pokemon.cp < 250 or pokemon.pokemon_id in [17, 20]:
             session.releasePokemon(pokemon)
 
-    while candies / 12 > len(pidgeys):
+    candies = session.checkInventory()["candies"][16]
+    while candies // 12 < len(pidgeys) and len(pidgeys):
         session.releasePokemon(pidgeys.pop())
+        time.sleep(1)
+        candies += 1
+
+    candies = session.checkInventory()["candies"][19]
+    while candies // 12 < len(rats) and len(rats):
+        session.releasePokemon(rats.pop())
         time.sleep(1)
         candies += 1
 
@@ -182,6 +194,12 @@ def cleanPokemon(session):
         logging.info(session.evolvePokemon(pidgey))
         time.sleep(1)
         session.releasePokemon(pidgey)
+        time.sleep(1)
+
+    for rat in rats:
+        logging.info(session.evolvePokemon(rat))
+        time.sleep(1)
+        session.releasePokemon(rat)
         time.sleep(1)
 
 
