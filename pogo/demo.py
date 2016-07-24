@@ -39,7 +39,14 @@ def findBestPokemon(session):
     latitude, longitude, _ = session.getCoordinates()
     logging.info("Current pos: %f, %f" % (latitude, longitude))
     for cell in cells.map_cells:
-        for pokemon in cell.wild_pokemons:
+        # Heap in pokemon protos where we have long + lat
+        pokemons = [p for p in cell.wild_pokemons] + [p for p in cell.catchable_pokemons]
+        for pokemon in pokemons:
+            # Normalize the ID from different protos
+            pokemonId = getattr(pokemon, "pokemon_id", None)
+            if not pokemonId:
+                pokemonId = pokemon.pokemon_data.pokemon_id
+
             # Find distance to pokemon
             dist = Location.getDistance(
                 latitude,
@@ -50,18 +57,18 @@ def findBestPokemon(session):
 
             # Log the pokemon found
             logging.info("%s, %f meters away" % (
-                pokedex.Pokemons[pokemon.pokemon_data.pokemon_id],
+                pokedex.Pokemons[pokemonId],
                 dist
             ))
 
-            rarity = pokedex.RarityByNumber(pokemon.pokemon_data.pokemon_id)
-            #Greedy for rarest
+            rarity = pokedex.RarityByNumber(pokemonId)
+            # Greedy for rarest
             if rarity > best:
                 pokemonBest = pokemon
                 best = rarity
                 closest = dist
-            # Greedy for closest
-            elif dist < closest:
+            # Greedy for closest of same rarity
+            elif rarity == best and dist < closest:
                 pokemonBest = pokemon
                 closest = dist
     return pokemonBest
@@ -240,10 +247,14 @@ if __name__ == '__main__':
         getInventory(session)
 
         # Pokemon related
-        # 
-        simpleBot(session)
-        
+        pokemon = findBestPokemon(session)
+        walkAndCatch(session, pokemon)
 
+        # Pokestop related
+        fort = findClosestFort(session)
+        walkAndSpin(session, fort)
+
+        # see simpleBot() for logical usecases
 
     else:
         logging.critical('Session not created successfully')
