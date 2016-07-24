@@ -11,6 +11,7 @@ from POGOProtos.Networking.Requests.Messages import GetInventoryMessage_pb2
 from POGOProtos.Networking.Requests.Messages import GetMapObjectsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import EvolvePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import ReleasePokemonMessage_pb2
+from POGOProtos.Networking.Requests.Messages import UseItemCaptureMessage_pb2
 from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemEggIncubatorMessage_pb2
 from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_pb2
@@ -194,8 +195,8 @@ class PogoSession(object):
             raise GeneralPogoException("Error parsing response. Malformed response")
 
         # Finally make inventory usable
-        items = self._state.inventory.inventory_delta.inventory_items
-        self.inventory = Inventory(items)
+        item = self._state.inventory.inventory_delta.inventory_items
+        self.inventory = Inventory(item)
 
     # Hooks for those bundled in default
     # Getters
@@ -366,6 +367,27 @@ class PogoSession(object):
 
         # Return everything
         return self._state.catch
+
+    # Use a razz berry or the like
+    def useItemCapture(self, item_id, pokemon):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type=RequestType_pb2.USE_ITEM_CAPTURE,
+            request_message=UseItemCaptureMessage_pb2.UseItemCaptureMessage(
+                item_id=item_id,
+                encounter_id=pokemon.encounter_id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self._state.itemCapture.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self._state.itemCapture
 
     # Evolve Pokemon
     def evolvePokemon(self, pokemon):

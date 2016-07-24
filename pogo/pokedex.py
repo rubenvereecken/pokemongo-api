@@ -164,10 +164,10 @@ class Pokedex(dict):
         super(dict, self).__init__(self)
 
         # Some reflection, based on uppercase consts.
-        attributes = inspect.getmembers(Pokedex, lambda attr :not(inspect.isroutine(a)))
+        attributes = inspect.getmembers(Pokedex, lambda attr :not(inspect.isroutine(attr)))
         for attr in attributes:
             if attr[0].isupper():
-                self[attr[0]] = attr[1]
+                self[attr[1]] = attr[0]
 
         # Ideally go back and lint for line lengths
         self.rarity[Rarity.MYTHIC] = [self.MEW]
@@ -214,7 +214,7 @@ class Pokedex(dict):
             self.GOLDEEN, self.GEODUDE, self.GASTLY, self.EEVEE, self.EKANS, self.DROWZEE,
             self.DODUO, self.DIGLETT, self.CATERPIE, self.BELLSPROUT
         ]
-        self[Rarity.CRITTER] = [self.ZUBAT, self.PIDGEY, self.RATTATA]
+        self.rarity[Rarity.CRITTER] = [self.ZUBAT, self.PIDGEY, self.RATTATA]
 
         self.evolves = {
             self.MISSINGNO: 0, self.BULBASAUR: 25, self.IVYSAUR: 100, self.VENUSAUR: 0,
@@ -255,7 +255,7 @@ class Pokedex(dict):
 
     def getRarityById(self, pokemonId):
         for rarity in self.rarity:
-            if pokemonId in rarity:
+            if pokemonId in self.rarity[rarity]:
                 return rarity
 
 

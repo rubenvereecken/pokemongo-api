@@ -58,7 +58,7 @@ def findBestPokemon(session):
 
             # Log the pokemon found
             logging.info("%s, %f meters away" % (
-                pokedex.Pokemons[pokemonId],
+                pokedex[pokemonId],
                 dist
             ))
 
@@ -98,7 +98,7 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
 
         # Check for balls and see if we pass
         # wanted threshold
-        for i in range(balls):
+        for i in range(len(balls)):
             if balls[i] in bag:
                 altBall = balls[i]
                 if chances[i] > thresholdP:
@@ -108,7 +108,9 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
         # If we can't determine a ball, try a berry
         # or use a lower class ball
         if bestBall == items.UNKNOWN:
-            if not berried and items.RAZZ_BERRY in bag:
+            if not berried and items.RAZZ_BERRY in bag and bag[items.RAZZ_BERRY]:
+                logging.info("Using a RAZZ_BERRY")
+                session.useItemCapture(items.RAZZ_BERRY, pokemon)
                 berried = True
                 time.sleep(delay)
                 continue
@@ -120,6 +122,7 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
                 bestBall = altBall
 
         # Try to catch it!!
+        logging.info("Using a %s" % items[bestBall])
         attempt = session.catchPokemon(pokemon, bestBall)
         time.sleep(delay)
 
@@ -189,11 +192,12 @@ def findClosestFort(session):
 def walkAndSpin(session, fort):
     # No fort, demo == over
     if fort:
-        logging.info("Spinning a Fort:")
+        details = session.getFortDetails(fort)
+        logging.info("Spinning the Fort \"%s\":" % details.name)
+
         # Walk over
         session.walkTo(fort.latitude, fort.longitude, step=3.2)
         # Give it a spin
-        logging.info(session.getFortDetails(fort))
         fortResponse = session.getFortSearch(fort)
         logging.info(fortResponse)
 
@@ -207,7 +211,7 @@ def walkAndSpinMany(session, forts):
 # A very brute force approach to evolving
 def evolveAllPokemon(session):
     inventory = session.checkInventory()
-    for pokemon in inventory["party"]:
+    for pokemon in inventory.party:
         logging.info(session.evolvePokemon(pokemon))
         time.sleep(1)
 
@@ -215,14 +219,14 @@ def evolveAllPokemon(session):
 # You probably don't want to run this
 def releaseAllPokemon(session):
     inventory = session.checkInventory()
-    for pokemon in inventory["party"]:
+    for pokemon in inventory.party:
         session.releasePokemon(pokemon)
         time.sleep(1)
 
 
 # Just incase you didn't want any revives
 def tossRevives(session):
-    bag = session.checkInventory()["bag"]
+    bag = session.checkInventory().bag
     return session.recycleItem(items.REVIVE, bag[items.REVIVE])
 
 
@@ -231,18 +235,19 @@ def setEgg(session):
     inventory = session.checkInventory()
 
     # If no eggs, nothing we can do
-    if len(inventory["eggs"]) == 0:
+    if len(inventory.eggs) == 0:
         return None
 
-    egg = inventory["eggs"][0]
-    incubator = inventory["incubators"][0]
+    egg = inventory.eggs[0]
+    incubator = inventory.incubators[0]
     return session.setEgg(incubator, egg)
 
 
 # Understand this function before you run it.
 # Otherwise you may flush pokemon you wanted.
 def cleanPokemon(session, thresholdCP=50):
-    party = session.checkInventory()["party"]
+    logging.info("Cleaning out Pokemon...")
+    party = session.checkInventory().party
     evolables = [pokedex.PIDGEY, pokedex.RATTATA]
     toEvolve = {evolve: [] for evolve in evolables}
     for pokemon in party:
@@ -259,7 +264,7 @@ def cleanPokemon(session, thresholdCP=50):
 
     # Evolve those we want
     for evolve in evolables:
-        candies = session.checkInventory()["candies"][evolve]
+        candies = session.checkInventory().candies[evolve]
         pokemons = toEvolve[evolve]
         # release for optimal candies
         while candies // pokedex.evolves[evolve] < len(pokemons):
@@ -275,7 +280,8 @@ def cleanPokemon(session, thresholdCP=50):
 
 
 def cleanInventory(session):
-    bag = session.checkInventory()["bag"]
+    logging.info("Cleaning out Inventory...")
+    bag = session.checkInventory().bag
 
     # Clear out all of a crtain type
     tossable = [items.POTION, items.SUPER_POTION, items.REVIVE]
@@ -302,10 +308,10 @@ def simpleBot(session):
 
     # Run the bot
     while True:
+        forts = sortCloseForts(session)
+        cleanPokemon(session, thresholdCP=300)
+        cleanInventory(session)
         try:
-            forts = sortCloseForts(session)
-            cleanPokemon(session, thresholdCP=50)
-            cleanInventory(session)
             for fort in forts:
                 pokemon = findBestPokemon(session)
                 walkAndCatch(session, pokemon)
@@ -325,6 +331,7 @@ def simpleBot(session):
             session = poko_session.reauthenticate(session)
             time.sleep(cooldown)
             cooldown *= 2
+
 
 # Entry point
 # Start off authentication and demo

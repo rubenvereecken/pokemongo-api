@@ -1,4 +1,5 @@
 from pokedex import pokedex
+import inspect
 
 
 class Items(dict):
@@ -35,12 +36,12 @@ class Items(dict):
     POKEMON_STORAGE_UPGRADE = 1001
     ITEM_STORAGE_UPGRADE = 1002
 
-    def __init__(self, parent):
+    def __init__(self):
         super(dict, self).__init__(self)
-        attributes = inspect.getmembers(Items, lambda attr :not(inspect.isroutine(a)))
+        attributes = inspect.getmembers(Items, lambda attr :not(inspect.isroutine(attr)))
         for attr in attributes:
             if attr[0].isupper():
-                self[attr[0]] = attr[1]
+                self[attr[1]] = attr[0]
 
 items = Items()
 
@@ -52,7 +53,6 @@ class Inventory(object):
         # Assuming sincetimestamp = 0
         # Otherwise have to associate time state,
         # and that's a pain
-        super(dict, self).__init__(self)
         self.incubators = []
         self.pokedex = {}
         self.candies = {}
