@@ -381,7 +381,6 @@ if __name__ == '__main__':
         fort = findClosestFort(session)
         walkAndSpin(session, fort)
 
-        simpleBot(session)
         # see simpleBot() for logical usecases
 
     else:
