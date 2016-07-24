@@ -1,4 +1,3 @@
-from math import sin, cos, sqrt, atan2, radians
 from geopy.geocoders import GoogleV3
 from s2sphere import CellId, LatLng
 from custom_exceptions import GeneralPogoException
@@ -24,7 +23,7 @@ class Location(object):
 
     @staticmethod
     def getDistance(*coords):
-        return gpxpy.geo.haversine_distance(*[coord for coord in coords])
+        return gpxpy.geo.haversine_distance(*coords)
 
     def setLocation(self, search):
         try:
