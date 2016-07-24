@@ -387,7 +387,7 @@ if __name__ == '__main__':
         walkAndSpin(session, fort)
 
         # see simpleBot() for logical usecases
-        simpleBot(session)
+        # eg. simpleBot(session)
 
     else:
         logging.critical('Session not created successfully')
