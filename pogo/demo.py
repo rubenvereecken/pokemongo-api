@@ -58,6 +58,7 @@ def findBestPokemon(session):
             #Greedy for rarest
             if rarity > best:
                 pokemonBest = pokemon
+                best = rarity
                 closest = dist
             # Greedy for closest
             elif dist < closest:
