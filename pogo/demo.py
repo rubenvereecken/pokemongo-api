@@ -248,7 +248,7 @@ def setEgg(session):
 def cleanPokemon(session, thresholdCP=50):
     logging.info("Cleaning out Pokemon...")
     party = session.checkInventory().party
-    evolables = [pokedex.PIDGEY, pokedex.RATTATA]
+    evolables = [pokedex.PIDGEY, pokedex.RATTATA, pokedex.ZUBAT]
     toEvolve = {evolve: [] for evolve in evolables}
     for pokemon in party:
         # If low cp, throw away
@@ -260,6 +260,7 @@ def cleanPokemon(session, thresholdCP=50):
                 continue
 
             # Get rid of low CP, low evolve value
+            logging.info("Releasing %s" % pokedex[pokemon.pokemon_id])
             session.releasePokemon(pokemon)
 
     # Evolve those we want
@@ -268,11 +269,15 @@ def cleanPokemon(session, thresholdCP=50):
         pokemons = toEvolve[evolve]
         # release for optimal candies
         while candies // pokedex.evolves[evolve] < len(pokemons):
-            session.releasePokemon(pokemons.pop())
+            pokemon = pokemons.pop()
+            logging.info("Releasing %s" % pokedex[pokemon.pokemon_id])
+            session.releasePokemon(pokemon)
             time.sleep(1)
             candies += 1
+
         # evolve remainder
         for pokemon in pokemons:
+            logging.info("Evolving %s" % pokedex[pokemon.pokemon_id])
             logging.info(session.evolvePokemon(pokemon))
             time.sleep(1)
             session.releasePokemon(pokemon)
@@ -382,6 +387,7 @@ if __name__ == '__main__':
         walkAndSpin(session, fort)
 
         # see simpleBot() for logical usecases
+        simpleBot(session)
 
     else:
         logging.critical('Session not created successfully')

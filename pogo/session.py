@@ -381,7 +381,7 @@ class PogoSession(object):
         )]
 
         # Send
-        res = self.wrapAndRequest(payload)
+        res = self.wrapAndRequest(payload, defaults=False)
 
         # Parse
         self._state.itemCapture.ParseFromString(res.returns[0])
