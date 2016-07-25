@@ -22,7 +22,7 @@ def setupLogger():
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
-class Obibot(object):
+class Bot(object):
     def __init__(self, session):
         self.session = session
     # Example functions

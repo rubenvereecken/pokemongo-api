@@ -1,6 +1,16 @@
 import struct
 import time
+import logging
 
+
+def setupLogger():
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('Line %(lineno)d,%(filename)s - %(asctime)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
 
 def f2i(float):
     return struct.unpack('<Q', struct.pack('<d', float))[0]
