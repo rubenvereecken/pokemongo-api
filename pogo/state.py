@@ -13,6 +13,7 @@ from Networking.Responses import ReleasePokemonResponse_pb2
 from Networking.Responses import UseItemEggIncubatorResponse_pb2
 from Networking.Responses import RecycleInventoryItemResponse_pb2
 from Networking.Responses import UseItemCaptureResponse_pb2
+from Networking.Responses import NicknamePokemonResponse_pb2
 
 
 class State(object):
@@ -33,3 +34,4 @@ class State(object):
         self.release = ReleasePokemonResponse_pb2.ReleasePokemonResponse()
         self.recycle = RecycleInventoryItemResponse_pb2.RecycleInventoryItemResponse()
         self.incubator = UseItemEggIncubatorResponse_pb2.UseItemEggIncubatorResponse()
+        self.nickname = NicknamePokemonResponse_pb2.NicknamePokemonResponse()
