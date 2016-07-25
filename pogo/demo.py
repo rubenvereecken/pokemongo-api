@@ -44,6 +44,7 @@ if __name__ == '__main__':
     # Time to show off what we can do
     if session:
         trainer = Trainer(session)
+        
         # General
         trainer.getProfile()
         trainer.getInventory()
@@ -55,9 +56,9 @@ if __name__ == '__main__':
         # Pokestop related
         fort = trainer.findClosestFort()
         trainer.walkAndSpin(fort)
-
+        
         # see simpleBot() for logical usecases
-        # eg. simpleBot(session)
+        # eg. trainer.simpleBot(session)
 
     else:
         logging.critical('Session not created successfully')

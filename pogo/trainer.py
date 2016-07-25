@@ -3,6 +3,7 @@ import time
 
 from api import PokeAuthSession
 from location import Location
+from custom_exceptions import GeneralPogoException
 
 from pokedex import pokedex
 from inventory import items
@@ -304,7 +305,7 @@ class Trainer(object):
         # Run the bot
         while True:
             forts = self.sortCloseForts()
-            self.cleanPokemon(thresholdCP=300)
+            #self.cleanPokemon(thresholdCP=200)
             self.cleanInventory()
             try:
                 for fort in forts:
