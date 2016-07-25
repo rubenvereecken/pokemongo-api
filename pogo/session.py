@@ -15,6 +15,7 @@ from POGOProtos.Networking.Requests.Messages import UseItemCaptureMessage_pb2
 from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemEggIncubatorMessage_pb2
 from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_pb2
+from POGOProtos.Networking.Requests.Messages import NicknamePokemonMessage_pb2
 
 # Load local
 import api
@@ -470,6 +471,25 @@ class PogoSession(object):
 
         # Return everything
         return self._state.incubator
+
+    def nicknamePokemon(self, pokemon, nickname):
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type=RequestType_pb2.NICKNAME_POKEMON,
+            request_message=NicknamePokemonMessage_pb2.NicknamePokemonMessage(
+                pokemon_id=pokemon.id,
+                nickname=nickname
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self._state.nickname.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self._state.nickname
 
     # These act as more logical functions.
     # Might be better to break out seperately
