@@ -44,7 +44,7 @@ if __name__ == '__main__':
     # Time to show off what we can do
     if session:
         trainer = Trainer(session)
-        
+
         # General
         trainer.getProfile()
         trainer.getInventory()
@@ -57,7 +57,7 @@ if __name__ == '__main__':
         fort = trainer.findClosestFort()
         trainer.walkAndSpin(fort)
         
-        # see simpleBot() for logical usecases
+        # see Trainer.simpleBot() for logical usecases
         # eg. trainer.simpleBot(poko_session)
 
     else:

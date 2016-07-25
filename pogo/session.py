@@ -247,9 +247,9 @@ class PogoSession(object):
         return self._state.profile
 
     # Get Location
-    def getMapObjects(self, radius=10):
+    def getMapObjects(self, radius=10, bothDirections=True):
         # Work out location details
-        cells = self.location.getCells(radius)
+        cells = self.location.getCells(radius, bothDirections)
         latitude, longitude, _ = self.getCoordinates()
         timestamps = [0, ] * len(cells)
 
