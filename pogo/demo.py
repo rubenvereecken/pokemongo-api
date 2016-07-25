@@ -377,7 +377,7 @@ if __name__ == '__main__':
     if args.location:
         session = poko_session.authenticate(locationLookup=args.location)
     else:
-        session = poko_session.authenticate(noop=True)
+        session = poko_session.authenticate()
 
     # Time to show off what we can do
     if session:

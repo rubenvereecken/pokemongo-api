@@ -139,14 +139,15 @@ class PokeAuthSession(object):
             noop=noop
         )
 
-    def authenticate(self, locationLookup='', noop=False):
+    def authenticate(self, locationLookup=None):
         """We already have all information, authenticate"""
+        noop = locationLookup is None
         return {
             "google": self.createGoogleSession,
             "ptc": self.createPTCSession
         }[self.provider](locationLookup=locationLookup, noop=noop)
 
-    def reauthenticate(self, session, noop=False):
+    def reauthenticate(self, session):
         """Reauthenticate from an old session"""
         return {
             "google": self.createGoogleSession,
