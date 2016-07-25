@@ -1,8 +1,7 @@
-from math import sin, cos, sqrt, atan2, radians
 from geopy.geocoders import GoogleV3
 from s2sphere import CellId, LatLng
 from custom_exceptions import GeneralPogoException
-
+import gpxpy.geo
 
 # Wrapper for location
 class Location(object):
@@ -23,24 +22,8 @@ class Location(object):
         return s
 
     @staticmethod
-    def getRadianDistance(latitude, longitude, olatitude, olongitude):
-        # approximate radius of earth in km
-        R = 6373e3
-
-        # delta angles
-        dLat = olatitude - latitude
-        dLon = olongitude - longitude
-
-        # do the math
-        # stackoverflow/questions/19412462/
-        a = sin(dLat / 2)**2
-        a += cos(latitude) * cos(olatitude) * sin(dLon / 2)**2
-        c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        return R * c
-
-    @staticmethod
     def getDistance(*coords):
-        return Location.getRadianDistance(*[radians(coord) for coord in coords])
+        return gpxpy.geo.haversine_distance(*coords)
 
     @staticmethod
     def getRadianVector(latitude, longitude, olatitude, olongitude):
