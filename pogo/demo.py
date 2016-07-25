@@ -127,7 +127,7 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
         time.sleep(delay)
 
         # Success or run away
-        if attempt.status in [1, 2]:
+        if attempt.status == 1:
             return attempt
 
         # CATCH_FLEE is bad news
