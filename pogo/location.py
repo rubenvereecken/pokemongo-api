@@ -42,6 +42,21 @@ class Location(object):
     def getDistance(*coords):
         return Location.getRadianDistance(*[radians(coord) for coord in coords])
 
+    @staticmethod
+    def getRadianVector(latitude, longitude, olatitude, olongitude):
+        # this is imprecise, but i need a vector, not a dumb haversine distance
+        r = 6373e3
+        dlon = olongitude - longitude 
+        dlat = latitude - olatitude
+
+        x = dlon * r * 100
+        y = dlat * r * 100
+        return (x, y)
+
+    @staticmethod
+    def getDistanceVector(*coords):
+        return Location.getRadianVector(*[radians(coord) for coord in coords])
+
     def setLocation(self, search):
         try:
             geo = self.locator.geocode(search)

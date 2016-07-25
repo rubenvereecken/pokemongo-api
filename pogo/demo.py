@@ -71,7 +71,7 @@ def findBestPokemon(session):
 def walkAndCatch(session, pokemon):
     if pokemon:
         logging.info("Catching %s:" % pokedex.Pokemons[pokemon.pokemon_data.pokemon_id])
-        session.walkTo(pokemon.latitude, pokemon.longitude, step=3.2)
+        session.walkTo(pokemon.latitude, pokemon.longitude, step=4.2)
         logging.info(session.encounterAndCatch(pokemon))
 
 
@@ -172,7 +172,7 @@ def setEgg(session):
 # Basic bot
 def simpleBot(session):
     # Trying not to flood the servers
-    cooldown = 1
+    cooldown = 30
 
     # Run the bot
     while True:
