@@ -58,7 +58,7 @@ if __name__ == '__main__':
         trainer.walkAndSpin(fort)
         
         # see simpleBot() for logical usecases
-        # eg. trainer.simpleBot(session)
+        # eg. trainer.simpleBot(poko_session)
 
     else:
         logging.critical('Session not created successfully')

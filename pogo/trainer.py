@@ -298,7 +298,7 @@ class Trainer(object):
 
 
     # Basic bot
-    def simpleBot(self):
+    def simpleBot(self, poko_session):
         # Trying not to flood the servers
         cooldown = 1
 
