@@ -12,6 +12,7 @@ from Networking.Responses import EvolvePokemonResponse_pb2
 from Networking.Responses import ReleasePokemonResponse_pb2
 from Networking.Responses import UseItemEggIncubatorResponse_pb2
 from Networking.Responses import RecycleInventoryItemResponse_pb2
+from Networking.Responses import UseItemCaptureResponse_pb2
 
 
 class State(object):
@@ -27,6 +28,7 @@ class State(object):
         self.fortDetails = FortDetailsResponse_pb2.FortDetailsResponse()
         self.encounter = EncounterResponse_pb2.EncounterResponse()
         self.catch = CatchPokemonResponse_pb2.CatchPokemonResponse()
+        self.itemCapture = UseItemCaptureResponse_pb2.UseItemCaptureResponse()
         self.evolve = EvolvePokemonResponse_pb2.EvolvePokemonResponse()
         self.release = ReleasePokemonResponse_pb2.ReleasePokemonResponse()
         self.recycle = RecycleInventoryItemResponse_pb2.RecycleInventoryItemResponse()
