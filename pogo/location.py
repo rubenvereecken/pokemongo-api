@@ -1,6 +1,7 @@
 from geopy.geocoders import GoogleV3
 from s2sphere import CellId, LatLng
 from custom_exceptions import GeneralPogoException
+from math import radians
 import gpxpy.geo
 
 # Wrapper for location
