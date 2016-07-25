@@ -386,9 +386,6 @@ if __name__ == '__main__':
         getProfile(session)
         getInventory(session)
 
-        # Set a Nickname
-        setNickname(session)
-
         # Things we need GPS for
         if args.location:
             # Pokemon related
@@ -398,7 +395,6 @@ if __name__ == '__main__':
             # Pokestop related
             fort = findClosestFort(session)
             walkAndSpin(session, fort)
-
 
         # see simpleBot() for logical usecases
         # eg. simpleBot(session)
