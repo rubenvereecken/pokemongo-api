@@ -11,6 +11,7 @@ from POGOProtos.Networking.Requests.Messages import GetInventoryMessage_pb2
 from POGOProtos.Networking.Requests.Messages import GetMapObjectsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import EvolvePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import ReleasePokemonMessage_pb2
+from POGOProtos.Networking.Requests.Messages import UseItemCaptureMessage_pb2
 from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemEggIncubatorMessage_pb2
 from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_pb2
@@ -18,7 +19,7 @@ from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_
 # Load local
 import api
 from custom_exceptions import GeneralPogoException
-from inventory import Inventory
+from inventory import Inventory, items
 from location import Location
 from state import State
 
@@ -194,8 +195,8 @@ class PogoSession(object):
             raise GeneralPogoException("Error parsing response. Malformed response")
 
         # Finally make inventory usable
-        items = self._state.inventory.inventory_delta.inventory_items
-        self.inventory = Inventory(items)
+        item = self._state.inventory.inventory_delta.inventory_items
+        self.inventory = Inventory(item)
 
     # Hooks for those bundled in default
     # Getters
@@ -367,6 +368,27 @@ class PogoSession(object):
         # Return everything
         return self._state.catch
 
+    # Use a razz berry or the like
+    def useItemCapture(self, item_id, pokemon):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type=RequestType_pb2.USE_ITEM_CAPTURE,
+            request_message=UseItemCaptureMessage_pb2.UseItemCaptureMessage(
+                item_id=item_id,
+                encounter_id=pokemon.encounter_id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload, defaults=False)
+
+        # Parse
+        self._state.itemCapture.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self._state.itemCapture
+
     # Evolve Pokemon
     def evolvePokemon(self, pokemon):
 
@@ -454,7 +476,7 @@ class PogoSession(object):
     # Walk over to position in meters
     def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5):
         if step >= epsilon:
-            raise Exception("Walk may never converge")
+            raise GeneralPogoException("Walk may never converge")
 
         # Calculate distance to position
         latitude, longitude, _ = self.getCoordinates()
@@ -470,8 +492,7 @@ class PogoSession(object):
         dLat = (latitude - olatitude) / divisions
         dLon = (longitude - olongitude) / divisions
 
-        logging.info("Walking %f meters. This will take %f seconds..." % (dist, dist/step))
-
+        logging.info("Walking %f meters. This will take %f seconds..." % (dist, dist / step))
         while dist > epsilon:
             logging.debug("%f m -> %f m away", closest - dist, closest)
             latitude -= dLat
@@ -487,10 +508,3 @@ class PogoSession(object):
                 olatitude,
                 olongitude
             )
-
-    # Wrap both for ease
-    # TODO: Should probably check for success
-    def encounterAndCatch(self, pokemon, pokeball=1, delay=2):
-        self.encounterPokemon(pokemon)
-        time.sleep(delay)
-        return self.catchPokemon(pokemon, pokeball)
