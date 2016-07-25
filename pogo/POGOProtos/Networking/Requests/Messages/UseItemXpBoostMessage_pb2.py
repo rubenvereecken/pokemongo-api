@@ -13,16 +13,16 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from POGOProtos.Inventory import ItemId_pb2 as POGOProtos_dot_Inventory_dot_ItemId__pb2
+from POGOProtos.Inventory.Item import ItemId_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/UseItemXpBoostMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nCPOGOProtos/Networking/Requests/Messages/UseItemXpBoostMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a!POGOProtos/Inventory/ItemId.proto\"F\n\x15UseItemXpBoostMessage\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemIdb\x06proto3')
+  serialized_pb=_b('\nCPOGOProtos/Networking/Requests/Messages/UseItemXpBoostMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a&POGOProtos/Inventory/Item/ItemId.proto\"K\n\x15UseItemXpBoostMessage\x12\x32\n\x07item_id\x18\x01 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemIdb\x06proto3')
   ,
-  dependencies=[POGOProtos_dot_Inventory_dot_ItemId__pb2.DESCRIPTOR,])
+  dependencies=[POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -54,11 +54,11 @@ _USEITEMXPBOOSTMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=147,
-  serialized_end=217,
+  serialized_start=152,
+  serialized_end=227,
 )
 
-_USEITEMXPBOOSTMESSAGE.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_ItemId__pb2._ITEMID
+_USEITEMXPBOOSTMESSAGE.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2._ITEMID
 DESCRIPTOR.message_types_by_name['UseItemXpBoostMessage'] = _USEITEMXPBOOSTMESSAGE
 
 UseItemXpBoostMessage = _reflection.GeneratedProtocolMessageType('UseItemXpBoostMessage', (_message.Message,), dict(

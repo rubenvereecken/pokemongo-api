@@ -49,13 +49,15 @@ class PokeAuthSession(object):
         session.verify = False
         return session
 
-    def createPogoSession(self, provider=None, locationLookup='', session=None):
+    def createPogoSession(self, provider=None, locationLookup='', session=None, noop=False):
         if self.provider:
             self.provider = provider
 
         # determine location
         location = None
-        if session:
+        if noop:
+            location = Location.Noop()
+        elif session:
             location = session.location
         elif locationLookup:
             location = Location(locationLookup, self.geo_key)
@@ -76,7 +78,7 @@ class PokeAuthSession(object):
             logging.critical('Access token not generated')
         return None
 
-    def createGoogleSession(self, locationLookup='', session=None):
+    def createGoogleSession(self, locationLookup='', session=None, noop=False):
 
         logging.info('Creating Google session for %s', self.username)
 
@@ -94,10 +96,11 @@ class PokeAuthSession(object):
         return self.createPogoSession(
             provider='google',
             locationLookup=locationLookup,
-            session=session
+            session=session,
+            noop=noop
         )
 
-    def createPTCSession(self, locationLookup='', session=None):
+    def createPTCSession(self, locationLookup='', session=None, noop=False):
         instance = self.createRequestsSession()
         logging.info('Creating PTC session for %s', self.username)
         r = instance.get(LOGIN_URL)
@@ -132,17 +135,18 @@ class PokeAuthSession(object):
         return self.createPogoSession(
             provider='ptc',
             locationLookup=locationLookup,
-            session=session
+            session=session,
+            noop=noop
         )
 
-    def authenticate(self, locationLookup):
+    def authenticate(self, locationLookup='', noop=False):
         """We already have all information, authenticate"""
         return {
             "google": self.createGoogleSession,
             "ptc": self.createPTCSession
-        }[self.provider](locationLookup=locationLookup)
+        }[self.provider](locationLookup=locationLookup, noop=noop)
 
-    def reauthenticate(self, session):
+    def reauthenticate(self, session, noop=False):
         """Reauthenticate from an old session"""
         return {
             "google": self.createGoogleSession,

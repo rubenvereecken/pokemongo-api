@@ -13,16 +13,16 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from POGOProtos.Inventory import ItemId_pb2 as POGOProtos_dot_Inventory_dot_ItemId__pb2
+from POGOProtos.Inventory.Item import ItemId_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/UseItemGymMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\n?POGOProtos/Networking/Requests/Messages/UseItemGymMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a!POGOProtos/Inventory/ItemId.proto\"\x85\x01\n\x11UseItemGymMessage\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x0e\n\x06gym_id\x18\x02 \x01(\t\x12\x17\n\x0fplayer_latitude\x18\x03 \x01(\x01\x12\x18\n\x10player_longitude\x18\x04 \x01(\x01\x62\x06proto3')
+  serialized_pb=_b('\n?POGOProtos/Networking/Requests/Messages/UseItemGymMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a&POGOProtos/Inventory/Item/ItemId.proto\"\x8a\x01\n\x11UseItemGymMessage\x12\x32\n\x07item_id\x18\x01 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemId\x12\x0e\n\x06gym_id\x18\x02 \x01(\t\x12\x17\n\x0fplayer_latitude\x18\x03 \x01(\x01\x12\x18\n\x10player_longitude\x18\x04 \x01(\x01\x62\x06proto3')
   ,
-  dependencies=[POGOProtos_dot_Inventory_dot_ItemId__pb2.DESCRIPTOR,])
+  dependencies=[POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -75,11 +75,11 @@ _USEITEMGYMMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=144,
-  serialized_end=277,
+  serialized_start=149,
+  serialized_end=287,
 )
 
-_USEITEMGYMMESSAGE.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_ItemId__pb2._ITEMID
+_USEITEMGYMMESSAGE.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2._ITEMID
 DESCRIPTOR.message_types_by_name['UseItemGymMessage'] = _USEITEMGYMMESSAGE
 
 UseItemGymMessage = _reflection.GeneratedProtocolMessageType('UseItemGymMessage', (_message.Message,), dict(

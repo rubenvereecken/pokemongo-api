@@ -13,16 +13,16 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from POGOProtos.Inventory import ItemId_pb2 as POGOProtos_dot_Inventory_dot_ItemId__pb2
+from POGOProtos.Inventory.Item import ItemId_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/AddFortModifierMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nDPOGOProtos/Networking/Requests/Messages/AddFortModifierMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a!POGOProtos/Inventory/ItemId.proto\"\x91\x01\n\x16\x41\x64\x64\x46ortModifierMessage\x12\x33\n\rmodifier_type\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x0f\n\x07\x66ort_id\x18\x02 \x01(\t\x12\x17\n\x0fplayer_latitude\x18\x03 \x01(\x01\x12\x18\n\x10player_longitude\x18\x04 \x01(\x01\x62\x06proto3')
+  serialized_pb=_b('\nDPOGOProtos/Networking/Requests/Messages/AddFortModifierMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a&POGOProtos/Inventory/Item/ItemId.proto\"\x96\x01\n\x16\x41\x64\x64\x46ortModifierMessage\x12\x38\n\rmodifier_type\x18\x01 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemId\x12\x0f\n\x07\x66ort_id\x18\x02 \x01(\t\x12\x17\n\x0fplayer_latitude\x18\x03 \x01(\x01\x12\x18\n\x10player_longitude\x18\x04 \x01(\x01\x62\x06proto3')
   ,
-  dependencies=[POGOProtos_dot_Inventory_dot_ItemId__pb2.DESCRIPTOR,])
+  dependencies=[POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -75,11 +75,11 @@ _ADDFORTMODIFIERMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=149,
-  serialized_end=294,
+  serialized_start=154,
+  serialized_end=304,
 )
 
-_ADDFORTMODIFIERMESSAGE.fields_by_name['modifier_type'].enum_type = POGOProtos_dot_Inventory_dot_ItemId__pb2._ITEMID
+_ADDFORTMODIFIERMESSAGE.fields_by_name['modifier_type'].enum_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2._ITEMID
 DESCRIPTOR.message_types_by_name['AddFortModifierMessage'] = _ADDFORTMODIFIERMESSAGE
 
 AddFortModifierMessage = _reflection.GeneratedProtocolMessageType('AddFortModifierMessage', (_message.Message,), dict(

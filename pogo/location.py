@@ -3,9 +3,21 @@ from s2sphere import CellId, LatLng
 from custom_exceptions import GeneralPogoException
 import gpxpy.geo
 
+
 # Wrapper for location
 class Location(object):
-    def __init__(self, locationLookup, geo_key):
+    def __init__(self, locationLookup, geo_key, noop=False):
+        # Blank location
+        if noop:
+            self.noop = True
+            self.geo_key = None
+            self.locator = None
+            self.latitude = None
+            self.longitude = None
+            self.altitude = None
+            return
+
+        self.noop = False
         self.geo_key = geo_key
         self.locator = GoogleV3()
         if geo_key:
@@ -24,6 +36,10 @@ class Location(object):
     @staticmethod
     def getDistance(*coords):
         return gpxpy.geo.haversine_distance(*coords)
+
+    @staticmethod
+    def Noop():
+        return Location(None, None, noop=True)
 
     def setLocation(self, search):
         try:

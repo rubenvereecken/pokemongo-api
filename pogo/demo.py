@@ -29,6 +29,11 @@ def getProfile(session):
         logging.info(profile)
 
 
+def setNickname(session):
+    pokemon = session.checkInventory().party[0]
+    session.nicknamePokemon(pokemon, "Testing")
+
+
 # Grab the nearest pokemon details
 def findBestPokemon(session):
     # Get Map details and print pokemon
@@ -99,7 +104,7 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
         # Check for balls and see if we pass
         # wanted threshold
         for i in range(len(balls)):
-            if balls[i] in bag:
+            if balls[i] in bag and bag[balls[i]] > 0:
                 altBall = balls[i]
                 if chances[i] > thresholdP:
                     bestBall = balls[i]
@@ -349,7 +354,7 @@ if __name__ == '__main__':
     parser.add_argument("-a", "--auth", help="Auth Service", required=True)
     parser.add_argument("-u", "--username", help="Username", required=True)
     parser.add_argument("-p", "--password", help="Password", required=True)
-    parser.add_argument("-l", "--location", help="Location", required=True)
+    parser.add_argument("-l", "--location", help="Location")
     parser.add_argument("-g", "--geo_key", help="GEO API Secret")
     args = parser.parse_args()
 
@@ -369,7 +374,10 @@ if __name__ == '__main__':
     # Authenticate with a given location
     # Location is not inherent in authentication
     # But is important to session
-    session = poko_session.authenticate(args.location)
+    if args.location:
+        session = poko_session.authenticate(locationLookup=args.location)
+    else:
+        session = poko_session.authenticate(noop=True)
 
     # Time to show off what we can do
     if session:
@@ -378,13 +386,19 @@ if __name__ == '__main__':
         getProfile(session)
         getInventory(session)
 
-        # Pokemon related
-        pokemon = findBestPokemon(session)
-        walkAndCatch(session, pokemon)
+        # Set a Nickname
+        setNickname(session)
 
-        # Pokestop related
-        fort = findClosestFort(session)
-        walkAndSpin(session, fort)
+        # Things we need GPS for
+        if args.location:
+            # Pokemon related
+            pokemon = findBestPokemon(session)
+            walkAndCatch(session, pokemon)
+
+            # Pokestop related
+            fort = findClosestFort(session)
+            walkAndSpin(session, fort)
+
 
         # see simpleBot() for logical usecases
         # eg. simpleBot(session)

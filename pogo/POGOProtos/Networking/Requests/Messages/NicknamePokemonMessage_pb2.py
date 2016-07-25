@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/NicknamePokemonMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nDPOGOProtos/Networking/Requests/Messages/NicknamePokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\">\n\x16NicknamePokemonMessage\x12\x12\n\npokemon_id\x18\x01 \x01(\x04\x12\x10\n\x08nickname\x18\x02 \x01(\tb\x06proto3')
+  serialized_pb=_b('\nDPOGOProtos/Networking/Requests/Messages/NicknamePokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\">\n\x16NicknamePokemonMessage\x12\x12\n\npokemon_id\x18\x01 \x01(\x06\x12\x10\n\x08nickname\x18\x02 \x01(\tb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 

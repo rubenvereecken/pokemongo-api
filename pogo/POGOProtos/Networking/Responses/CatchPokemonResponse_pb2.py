@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Responses/CatchPokemonResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n:POGOProtos/Networking/Responses/CatchPokemonResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a*POGOProtos/Data/Capture/CaptureAward.proto\"\xc1\x02\n\x14\x43\x61tchPokemonResponse\x12Q\n\x06status\x18\x01 \x01(\x0e\x32\x41.POGOProtos.Networking.Responses.CatchPokemonResponse.CatchStatus\x12\x14\n\x0cmiss_percent\x18\x02 \x01(\x01\x12\x1b\n\x13\x63\x61ptured_pokemon_id\x18\x03 \x01(\x04\x12<\n\rcapture_award\x18\x04 \x01(\x0b\x32%.POGOProtos.Data.Capture.CaptureAward\"e\n\x0b\x43\x61tchStatus\x12\x0f\n\x0b\x43\x41TCH_ERROR\x10\x00\x12\x11\n\rCATCH_SUCCESS\x10\x01\x12\x10\n\x0c\x43\x41TCH_ESCAPE\x10\x02\x12\x0e\n\nCATCH_FLEE\x10\x03\x12\x10\n\x0c\x43\x41TCH_MISSED\x10\x04\x62\x06proto3')
+  serialized_pb=_b('\n:POGOProtos/Networking/Responses/CatchPokemonResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a*POGOProtos/Data/Capture/CaptureAward.proto\"\xc1\x02\n\x14\x43\x61tchPokemonResponse\x12Q\n\x06status\x18\x01 \x01(\x0e\x32\x41.POGOProtos.Networking.Responses.CatchPokemonResponse.CatchStatus\x12\x14\n\x0cmiss_percent\x18\x02 \x01(\x01\x12\x1b\n\x13\x63\x61ptured_pokemon_id\x18\x03 \x01(\x06\x12<\n\rcapture_award\x18\x04 \x01(\x0b\x32%.POGOProtos.Data.Capture.CaptureAward\"e\n\x0b\x43\x61tchStatus\x12\x0f\n\x0b\x43\x41TCH_ERROR\x10\x00\x12\x11\n\rCATCH_SUCCESS\x10\x01\x12\x10\n\x0c\x43\x41TCH_ESCAPE\x10\x02\x12\x0e\n\nCATCH_FLEE\x10\x03\x12\x10\n\x0c\x43\x41TCH_MISSED\x10\x04\x62\x06proto3')
   ,
   dependencies=[POGOProtos_dot_Data_dot_Capture_dot_CaptureAward__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -85,7 +85,7 @@ _CATCHPOKEMONRESPONSE = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='captured_pokemon_id', full_name='POGOProtos.Networking.Responses.CatchPokemonResponse.captured_pokemon_id', index=2,
-      number=3, type=4, cpp_type=4, label=1,
+      number=3, type=6, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,

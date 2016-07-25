@@ -13,16 +13,16 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from POGOProtos.Inventory import ItemId_pb2 as POGOProtos_dot_Inventory_dot_ItemId__pb2
+from POGOProtos.Inventory.Item import ItemId_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/UseItemPotionMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nBPOGOProtos/Networking/Requests/Messages/UseItemPotionMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a!POGOProtos/Inventory/ItemId.proto\"Y\n\x14UseItemPotionMessage\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x12\n\npokemon_id\x18\x02 \x01(\x04\x62\x06proto3')
+  serialized_pb=_b('\nBPOGOProtos/Networking/Requests/Messages/UseItemPotionMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a&POGOProtos/Inventory/Item/ItemId.proto\"^\n\x14UseItemPotionMessage\x12\x32\n\x07item_id\x18\x01 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemId\x12\x12\n\npokemon_id\x18\x02 \x01(\x04\x62\x06proto3')
   ,
-  dependencies=[POGOProtos_dot_Inventory_dot_ItemId__pb2.DESCRIPTOR,])
+  dependencies=[POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -61,11 +61,11 @@ _USEITEMPOTIONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=146,
-  serialized_end=235,
+  serialized_start=151,
+  serialized_end=245,
 )
 
-_USEITEMPOTIONMESSAGE.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_ItemId__pb2._ITEMID
+_USEITEMPOTIONMESSAGE.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2._ITEMID
 DESCRIPTOR.message_types_by_name['UseItemPotionMessage'] = _USEITEMPOTIONMESSAGE
 
 UseItemPotionMessage = _reflection.GeneratedProtocolMessageType('UseItemPotionMessage', (_message.Message,), dict(

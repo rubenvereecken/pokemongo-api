@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/UpgradePokemonMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nCPOGOProtos/Networking/Requests/Messages/UpgradePokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"+\n\x15UpgradePokemonMessage\x12\x12\n\npokemon_id\x18\x01 \x01(\x04\x62\x06proto3')
+  serialized_pb=_b('\nCPOGOProtos/Networking/Requests/Messages/UpgradePokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"+\n\x15UpgradePokemonMessage\x12\x12\n\npokemon_id\x18\x01 \x01(\x06\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -35,7 +35,7 @@ _UPGRADEPOKEMONMESSAGE = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='pokemon_id', full_name='POGOProtos.Networking.Requests.Messages.UpgradePokemonMessage.pokemon_id', index=0,
-      number=1, type=4, cpp_type=4, label=1,
+      number=1, type=6, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
