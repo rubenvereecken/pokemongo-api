@@ -13,7 +13,7 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from POGOProtos.Inventory import ItemId_pb2 as POGOProtos_dot_Inventory_dot_ItemId__pb2
+from POGOProtos.Inventory.Item import ItemId_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2
 from POGOProtos.Inventory import InventoryUpgradeType_pb2 as POGOProtos_dot_Inventory_dot_InventoryUpgradeType__pb2
 
 
@@ -21,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Inventory/InventoryUpgrade.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n+POGOProtos/Inventory/InventoryUpgrade.proto\x12\x14POGOProtos.Inventory\x1a!POGOProtos/Inventory/ItemId.proto\x1a/POGOProtos/Inventory/InventoryUpgradeType.proto\"\x9f\x01\n\x10InventoryUpgrade\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12@\n\x0cupgrade_type\x18\x02 \x01(\x0e\x32*.POGOProtos.Inventory.InventoryUpgradeType\x12\x1a\n\x12\x61\x64\x64itional_storage\x18\x03 \x01(\x05\x62\x06proto3')
+  serialized_pb=_b('\n+POGOProtos/Inventory/InventoryUpgrade.proto\x12\x14POGOProtos.Inventory\x1a&POGOProtos/Inventory/Item/ItemId.proto\x1a/POGOProtos/Inventory/InventoryUpgradeType.proto\"\xa4\x01\n\x10InventoryUpgrade\x12\x32\n\x07item_id\x18\x01 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemId\x12@\n\x0cupgrade_type\x18\x02 \x01(\x0e\x32*.POGOProtos.Inventory.InventoryUpgradeType\x12\x1a\n\x12\x61\x64\x64itional_storage\x18\x03 \x01(\x05\x62\x06proto3')
   ,
-  dependencies=[POGOProtos_dot_Inventory_dot_ItemId__pb2.DESCRIPTOR,POGOProtos_dot_Inventory_dot_InventoryUpgradeType__pb2.DESCRIPTOR,])
+  dependencies=[POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2.DESCRIPTOR,POGOProtos_dot_Inventory_dot_InventoryUpgradeType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -69,11 +69,11 @@ _INVENTORYUPGRADE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=154,
-  serialized_end=313,
+  serialized_start=159,
+  serialized_end=323,
 )
 
-_INVENTORYUPGRADE.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_ItemId__pb2._ITEMID
+_INVENTORYUPGRADE.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2._ITEMID
 _INVENTORYUPGRADE.fields_by_name['upgrade_type'].enum_type = POGOProtos_dot_Inventory_dot_InventoryUpgradeType__pb2._INVENTORYUPGRADETYPE
 DESCRIPTOR.message_types_by_name['InventoryUpgrade'] = _INVENTORYUPGRADE
 

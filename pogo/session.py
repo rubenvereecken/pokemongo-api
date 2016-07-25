@@ -42,6 +42,9 @@ class PogoSession(object):
         self.authProvider = authProvider
         self.accessToken = accessToken
         self.location = location
+        if self.location.noop:
+            logging.info("Limited functionality. No location provided")
+
         self._state = State()
 
         self.authTicket = None
@@ -353,7 +356,7 @@ class PogoSession(object):
                 encounter_id=pokemon.encounter_id,
                 pokeball=pokeball,
                 normalized_reticle_size=1.950,
-                spawn_point_guid=pokemon.spawn_point_id,
+                spawn_point_id=pokemon.spawn_point_id,
                 hit_pokemon=True,
                 spin_modifier=0.850,
                 normalized_hit_position=1.0
@@ -497,6 +500,9 @@ class PogoSession(object):
     def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5):
         if step >= epsilon:
             raise GeneralPogoException("Walk may never converge")
+
+        if self.location.noop:
+            raise GeneralPogoException("Location not set")
 
         # Calculate distance to position
         latitude, longitude, _ = self.getCoordinates()

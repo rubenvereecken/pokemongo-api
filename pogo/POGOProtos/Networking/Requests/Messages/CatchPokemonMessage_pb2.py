@@ -13,14 +13,16 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
+from POGOProtos.Inventory.Item import ItemId_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/CatchPokemonMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nAPOGOProtos/Networking/Requests/Messages/CatchPokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"\xc5\x01\n\x13\x43\x61tchPokemonMessage\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x01(\x06\x12\x10\n\x08pokeball\x18\x02 \x01(\x05\x12\x1f\n\x17normalized_reticle_size\x18\x03 \x01(\x01\x12\x18\n\x10spawn_point_guid\x18\x04 \x01(\t\x12\x13\n\x0bhit_pokemon\x18\x05 \x01(\x08\x12\x15\n\rspin_modifier\x18\x06 \x01(\x01\x12\x1f\n\x17normalized_hit_position\x18\x07 \x01(\x01\x62\x06proto3')
-)
+  serialized_pb=_b('\nAPOGOProtos/Networking/Requests/Messages/CatchPokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a&POGOProtos/Inventory/Item/ItemId.proto\"\xe6\x01\n\x13\x43\x61tchPokemonMessage\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x01(\x06\x12\x33\n\x08pokeball\x18\x02 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemId\x12\x1f\n\x17normalized_reticle_size\x18\x03 \x01(\x01\x12\x16\n\x0espawn_point_id\x18\x04 \x01(\t\x12\x13\n\x0bhit_pokemon\x18\x05 \x01(\x08\x12\x15\n\rspin_modifier\x18\x06 \x01(\x01\x12\x1f\n\x17normalized_hit_position\x18\x07 \x01(\x01\x62\x06proto3')
+  ,
+  dependencies=[POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -42,7 +44,7 @@ _CATCHPOKEMONMESSAGE = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='pokeball', full_name='POGOProtos.Networking.Requests.Messages.CatchPokemonMessage.pokeball', index=1,
-      number=2, type=5, cpp_type=1, label=1,
+      number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -55,7 +57,7 @@ _CATCHPOKEMONMESSAGE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='spawn_point_guid', full_name='POGOProtos.Networking.Requests.Messages.CatchPokemonMessage.spawn_point_guid', index=3,
+      name='spawn_point_id', full_name='POGOProtos.Networking.Requests.Messages.CatchPokemonMessage.spawn_point_id', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -94,10 +96,11 @@ _CATCHPOKEMONMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=111,
-  serialized_end=308,
+  serialized_start=151,
+  serialized_end=381,
 )
 
+_CATCHPOKEMONMESSAGE.fields_by_name['pokeball'].enum_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2._ITEMID
 DESCRIPTOR.message_types_by_name['CatchPokemonMessage'] = _CATCHPOKEMONMESSAGE
 
 CatchPokemonMessage = _reflection.GeneratedProtocolMessageType('CatchPokemonMessage', (_message.Message,), dict(

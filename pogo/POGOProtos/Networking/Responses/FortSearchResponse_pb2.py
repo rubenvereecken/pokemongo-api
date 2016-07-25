@@ -14,16 +14,16 @@ _sym_db = _symbol_database.Default()
 
 
 from POGOProtos.Data import PokemonData_pb2 as POGOProtos_dot_Data_dot_PokemonData__pb2
-from POGOProtos.Inventory import ItemAward_pb2 as POGOProtos_dot_Inventory_dot_ItemAward__pb2
+from POGOProtos.Inventory.Item import ItemAward_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemAward__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Responses/FortSearchResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n8POGOProtos/Networking/Responses/FortSearchResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a!POGOProtos/Data/PokemonData.proto\x1a$POGOProtos/Inventory/ItemAward.proto\"\xb6\x03\n\x12\x46ortSearchResponse\x12J\n\x06result\x18\x01 \x01(\x0e\x32:.POGOProtos.Networking.Responses.FortSearchResponse.Result\x12\x36\n\ritems_awarded\x18\x02 \x03(\x0b\x32\x1f.POGOProtos.Inventory.ItemAward\x12\x14\n\x0cgems_awarded\x18\x03 \x01(\x05\x12\x36\n\x10pokemon_data_egg\x18\x04 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12\x1a\n\x12\x65xperience_awarded\x18\x05 \x01(\x05\x12&\n\x1e\x63ooldown_complete_timestamp_ms\x18\x06 \x01(\x03\x12\"\n\x1a\x63hain_hack_sequence_number\x18\x07 \x01(\x05\"f\n\x06Result\x12\x11\n\rNO_RESULT_SET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x10\n\x0cOUT_OF_RANGE\x10\x02\x12\x16\n\x12IN_COOLDOWN_PERIOD\x10\x03\x12\x12\n\x0eINVENTORY_FULL\x10\x04\x62\x06proto3')
+  serialized_pb=_b('\n8POGOProtos/Networking/Responses/FortSearchResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a!POGOProtos/Data/PokemonData.proto\x1a)POGOProtos/Inventory/Item/ItemAward.proto\"\xbb\x03\n\x12\x46ortSearchResponse\x12J\n\x06result\x18\x01 \x01(\x0e\x32:.POGOProtos.Networking.Responses.FortSearchResponse.Result\x12;\n\ritems_awarded\x18\x02 \x03(\x0b\x32$.POGOProtos.Inventory.Item.ItemAward\x12\x14\n\x0cgems_awarded\x18\x03 \x01(\x05\x12\x36\n\x10pokemon_data_egg\x18\x04 \x01(\x0b\x32\x1c.POGOProtos.Data.PokemonData\x12\x1a\n\x12\x65xperience_awarded\x18\x05 \x01(\x05\x12&\n\x1e\x63ooldown_complete_timestamp_ms\x18\x06 \x01(\x03\x12\"\n\x1a\x63hain_hack_sequence_number\x18\x07 \x01(\x05\"f\n\x06Result\x12\x11\n\rNO_RESULT_SET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x10\n\x0cOUT_OF_RANGE\x10\x02\x12\x16\n\x12IN_COOLDOWN_PERIOD\x10\x03\x12\x12\n\x0eINVENTORY_FULL\x10\x04\x62\x06proto3')
   ,
-  dependencies=[POGOProtos_dot_Data_dot_PokemonData__pb2.DESCRIPTOR,POGOProtos_dot_Inventory_dot_ItemAward__pb2.DESCRIPTOR,])
+  dependencies=[POGOProtos_dot_Data_dot_PokemonData__pb2.DESCRIPTOR,POGOProtos_dot_Inventory_dot_Item_dot_ItemAward__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -57,8 +57,8 @@ _FORTSEARCHRESPONSE_RESULT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=503,
-  serialized_end=605,
+  serialized_start=513,
+  serialized_end=615,
 )
 _sym_db.RegisterEnumDescriptor(_FORTSEARCHRESPONSE_RESULT)
 
@@ -132,12 +132,12 @@ _FORTSEARCHRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=167,
-  serialized_end=605,
+  serialized_start=172,
+  serialized_end=615,
 )
 
 _FORTSEARCHRESPONSE.fields_by_name['result'].enum_type = _FORTSEARCHRESPONSE_RESULT
-_FORTSEARCHRESPONSE.fields_by_name['items_awarded'].message_type = POGOProtos_dot_Inventory_dot_ItemAward__pb2._ITEMAWARD
+_FORTSEARCHRESPONSE.fields_by_name['items_awarded'].message_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemAward__pb2._ITEMAWARD
 _FORTSEARCHRESPONSE.fields_by_name['pokemon_data_egg'].message_type = POGOProtos_dot_Data_dot_PokemonData__pb2._POKEMONDATA
 _FORTSEARCHRESPONSE_RESULT.containing_type = _FORTSEARCHRESPONSE
 DESCRIPTOR.message_types_by_name['FortSearchResponse'] = _FORTSEARCHRESPONSE

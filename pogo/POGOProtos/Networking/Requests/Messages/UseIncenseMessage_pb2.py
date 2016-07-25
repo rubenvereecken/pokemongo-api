@@ -13,16 +13,16 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from POGOProtos.Inventory import ItemId_pb2 as POGOProtos_dot_Inventory_dot_ItemId__pb2
+from POGOProtos.Inventory.Item import ItemId_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/UseIncenseMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\n?POGOProtos/Networking/Requests/Messages/UseIncenseMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a!POGOProtos/Inventory/ItemId.proto\"G\n\x11UseIncenseMessage\x12\x32\n\x0cincense_type\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemIdb\x06proto3')
+  serialized_pb=_b('\n?POGOProtos/Networking/Requests/Messages/UseIncenseMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a&POGOProtos/Inventory/Item/ItemId.proto\"L\n\x11UseIncenseMessage\x12\x37\n\x0cincense_type\x18\x01 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemIdb\x06proto3')
   ,
-  dependencies=[POGOProtos_dot_Inventory_dot_ItemId__pb2.DESCRIPTOR,])
+  dependencies=[POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -54,11 +54,11 @@ _USEINCENSEMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=143,
-  serialized_end=214,
+  serialized_start=148,
+  serialized_end=224,
 )
 
-_USEINCENSEMESSAGE.fields_by_name['incense_type'].enum_type = POGOProtos_dot_Inventory_dot_ItemId__pb2._ITEMID
+_USEINCENSEMESSAGE.fields_by_name['incense_type'].enum_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2._ITEMID
 DESCRIPTOR.message_types_by_name['UseIncenseMessage'] = _USEINCENSEMESSAGE
 
 UseIncenseMessage = _reflection.GeneratedProtocolMessageType('UseIncenseMessage', (_message.Message,), dict(

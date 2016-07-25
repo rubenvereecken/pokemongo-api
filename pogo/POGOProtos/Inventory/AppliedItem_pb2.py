@@ -13,17 +13,17 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
-from POGOProtos.Inventory import ItemId_pb2 as POGOProtos_dot_Inventory_dot_ItemId__pb2
-from POGOProtos.Inventory import ItemType_pb2 as POGOProtos_dot_Inventory_dot_ItemType__pb2
+from POGOProtos.Inventory.Item import ItemId_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2
+from POGOProtos.Inventory.Item import ItemType_pb2 as POGOProtos_dot_Inventory_dot_Item_dot_ItemType__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Inventory/AppliedItem.proto',
   package='POGOProtos.Inventory',
   syntax='proto3',
-  serialized_pb=_b('\n&POGOProtos/Inventory/AppliedItem.proto\x12\x14POGOProtos.Inventory\x1a!POGOProtos/Inventory/ItemId.proto\x1a#POGOProtos/Inventory/ItemType.proto\"\x96\x01\n\x0b\x41ppliedItem\x12-\n\x07item_id\x18\x01 \x01(\x0e\x32\x1c.POGOProtos.Inventory.ItemId\x12\x31\n\titem_type\x18\x02 \x01(\x0e\x32\x1e.POGOProtos.Inventory.ItemType\x12\x11\n\texpire_ms\x18\x03 \x01(\x03\x12\x12\n\napplied_ms\x18\x04 \x01(\x03\x62\x06proto3')
+  serialized_pb=_b('\n&POGOProtos/Inventory/AppliedItem.proto\x12\x14POGOProtos.Inventory\x1a&POGOProtos/Inventory/Item/ItemId.proto\x1a(POGOProtos/Inventory/Item/ItemType.proto\"\xa0\x01\n\x0b\x41ppliedItem\x12\x32\n\x07item_id\x18\x01 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemId\x12\x36\n\titem_type\x18\x02 \x01(\x0e\x32#.POGOProtos.Inventory.Item.ItemType\x12\x11\n\texpire_ms\x18\x03 \x01(\x03\x12\x12\n\napplied_ms\x18\x04 \x01(\x03\x62\x06proto3')
   ,
-  dependencies=[POGOProtos_dot_Inventory_dot_ItemId__pb2.DESCRIPTOR,POGOProtos_dot_Inventory_dot_ItemType__pb2.DESCRIPTOR,])
+  dependencies=[POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2.DESCRIPTOR,POGOProtos_dot_Inventory_dot_Item_dot_ItemType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -76,12 +76,12 @@ _APPLIEDITEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=137,
-  serialized_end=287,
+  serialized_start=147,
+  serialized_end=307,
 )
 
-_APPLIEDITEM.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_ItemId__pb2._ITEMID
-_APPLIEDITEM.fields_by_name['item_type'].enum_type = POGOProtos_dot_Inventory_dot_ItemType__pb2._ITEMTYPE
+_APPLIEDITEM.fields_by_name['item_id'].enum_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2._ITEMID
+_APPLIEDITEM.fields_by_name['item_type'].enum_type = POGOProtos_dot_Inventory_dot_Item_dot_ItemType__pb2._ITEMTYPE
 DESCRIPTOR.message_types_by_name['AppliedItem'] = _APPLIEDITEM
 
 AppliedItem = _reflection.GeneratedProtocolMessageType('AppliedItem', (_message.Message,), dict(
