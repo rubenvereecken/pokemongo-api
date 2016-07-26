@@ -8,7 +8,8 @@ from inventory import items
 
 
 class Trainer(object):
-    def __init__(self, session):
+    def __init__(self, auth, session):
+        self.auth = auth
         self.session = session
 
     # Example functions
@@ -20,7 +21,7 @@ class Trainer(object):
 
     # Eg to set nickname for a pokemon
     def setNickname(self):
-        pokemon = self.session.checkInventory().party[0]
+        pokemon = self.session.inventory.party[0]
         self.session.nicknamePokemon(pokemon, "Testing")
 
     # Grab the nearest pokemon details
@@ -77,7 +78,7 @@ class Trainer(object):
         # Grab needed data from proto
         chances = encounter.capture_probability.capture_probability
         balls = encounter.capture_probability.pokeball_type
-        bag = self.session.checkInventory().bag
+        bag = self.session.inventory.bag
 
         # Have we used a razz berry yet?
         berried = False
@@ -92,11 +93,11 @@ class Trainer(object):
 
             # Check for balls and see if we pass
             # wanted threshold
-            for i in range(len(balls)):
-                if bag.get(balls[i], 0) > 0:
-                    altBall = balls[i]
+            for i, ball in enumerate(balls):
+                if bag.get(ball, 0) > 0:
+                    altBall = ball
                     if chances[i] > thresholdP:
-                        bestBall = balls[i]
+                        bestBall = ball
                         break
 
             # If we can't determine a ball, try a berry
@@ -239,26 +240,26 @@ class Trainer(object):
 
     # A very brute force approach to evolving
     def evolveAllPokemon(self):
-        inventory = self.session.checkInventory()
+        inventory = self.session.inventory
         for pokemon in inventory.party:
             logging.info(self.session.evolvePokemon(pokemon))
             time.sleep(1)
 
     # You probably don't want to run this
     def releaseAllPokemon(self):
-        inventory = self.session.checkInventory()
+        inventory = self.session.inventory
         for pokemon in inventory.party:
             self.session.releasePokemon(pokemon)
             time.sleep(1)
 
     # Just incase you didn't want any revives
     def tossRevives(self):
-        bag = self.session.checkInventory().bag
+        bag = self.session.inventory.bag
         return self.session.recycleItem(items.REVIVE, bag[items.REVIVE])
 
     # Set an egg to an incubator
     def setEggs(self):
-        inventory = self.session.checkInventory()
+        inventory = self.session.inventory
 
         # If no eggs, nothing we can do
         if len(inventory.eggs) == 0:
@@ -272,7 +273,7 @@ class Trainer(object):
     # Otherwise you may flush pokemon you wanted.
     def cleanPokemon(self, thresholdCP=50):
         logging.info("Cleaning out Pokemon...")
-        party = self.session.checkInventory().party
+        party = self.session.inventory.party
         evolables = [pokedex.PIDGEY, pokedex.RATTATA, pokedex.ZUBAT]
         toEvolve = {evolve: [] for evolve in evolables}
         for pokemon in party:
@@ -290,7 +291,7 @@ class Trainer(object):
 
         # Evolve those we want
         for evolve in evolables:
-            candies = self.session.checkInventory().candies[evolve]
+            candies = self.session.inventory.candies[evolve]
             pokemons = toEvolve[evolve]
             # release for optimal candies
             while candies // pokedex.evolves[evolve] < len(pokemons):
@@ -310,7 +311,7 @@ class Trainer(object):
 
     def cleanInventory(self):
         logging.info("Cleaning out Inventory...")
-        bag = self.session.checkInventory().bag
+        bag = self.session.inventory.bag
 
         # Clear out all of a crtain type
         tossable = [items.POTION, items.SUPER_POTION, items.REVIVE]
@@ -330,7 +331,7 @@ class Trainer(object):
                 self.session.recycleItem(limit, bag[limit] - limited[limit])
 
     # Basic bot
-    def simpleBot(self, poko_session):
+    def simpleBot(self):
         # Trying not to flood the servers
         cooldown = 1
 
@@ -350,12 +351,12 @@ class Trainer(object):
             # Catch problems and reauthenticate
             except GeneralPogoException as e:
                 logging.critical('GeneralPogoException raised: %s', e)
-                self.session = poko_session.reauthenticate(self.session)
+                self.session = self.session.reauthenticate()
                 time.sleep(cooldown)
                 cooldown *= 2
 
             except Exception as e:
                 logging.critical('Exception raised: %s', e)
-                self.session = poko_session.reauthenticate(self.session)
+                self.session = self.session.reauthenticate()
                 time.sleep(cooldown)
                 cooldown *= 2

@@ -38,12 +38,13 @@ class Items(dict):
 
     def __init__(self):
         super(dict, self).__init__(self)
-        attributes = inspect.getmembers(Items, lambda attr :not(inspect.isroutine(attr)))
+        attributes = inspect.getmembers(Items, lambda attr: not(inspect.isroutine(attr)))
         for attr in attributes:
             if attr[0].isupper():
                 self[attr[1]] = attr[0]
 
 items = Items()
+
 
 class Inventory(object):
 
@@ -102,13 +103,16 @@ class Inventory(object):
             return 0
 
     def __str__(self):
+        def clean(S):
+            return str(S).replace("\n", "\n\t")
+
         s = "Inventory:"
 
-        s += "\n-- Stats: {0}".format(str(self.stats).replace("\n", "\n\t"))
+        s += "\n-- Stats: {0}".format(clean(self.stats))
 
         s += "\n-- Pokedex:"
         for pokemon in self.pokedex:
-            s += "\n\t{0}: {1}".format(pokemon, str(self.pokedex[pokemon]).replace("\n", "\n\t"))
+            s += "\n\t{0}: {1}".format(pokemon, clean(self.pokedex[pokemon]))
 
         s += "\n-- Candies:"
         for key in self.candies:
@@ -116,11 +120,11 @@ class Inventory(object):
 
         s += "\n-- Party:"
         for pokemon in self.party:
-            s += "\n\t{0}".format(str(pokemon).replace("\n", "\n\t"))
+            s += "\n\t{0}".format(clean(pokemon))
 
         s += "\n-- Eggs:"
         for egg in self.eggs:
-            s += "\n\t{0}".format(str(egg).replace("\n", "\n\t"))
+            s += "\n\t{0}".format(clean(egg))
 
         s += "\n-- Bag:"
         for key in self.bag:
@@ -128,6 +132,6 @@ class Inventory(object):
 
         s += "\n-- Incubators:"
         for incubator in self.incubators:
-            s += "\n\t{0}".format(str(incubator).replace("\n", "\n\t"))
+            s += "\n\t{0}".format(clean(incubator))
 
         return s

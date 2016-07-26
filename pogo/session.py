@@ -18,38 +18,41 @@ from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_
 from POGOProtos.Networking.Requests.Messages import NicknamePokemonMessage_pb2
 
 # Load local
-import api
 from custom_exceptions import GeneralPogoException
-from inventory import Inventory, items
-from location import Location
+from inventory import Inventory
 from state import State
 
 import requests
 import logging
-import time
+import random
 
 # Hide errors (Yes this is terrible, but prettier)
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
+RPC_ID = int(random.random() * 10 ** 12)
+
+
+def getRPCId():
+    global RPC_ID
+    RPC_ID = RPC_ID + 1
+    return RPC_ID
 
 
 class PogoSession(object):
 
-    def __init__(self, session, authProvider, accessToken, location):
-        self.session = session
-        self.authProvider = authProvider
-        self.accessToken = accessToken
-        self.location = location
-        if self.location.noop:
+    def __init__(self, authSession, location):
+        self._authSession = authSession
+        self._location = location
+        if self._location.noop:
             logging.info("Limited functionality. No location provided")
 
         self._state = State()
 
-        self.authTicket = None
-        self.endpoint = None
-        self.endpoint = 'https://{0}{1}'.format(
+        self._authTicket = None
+        self._endpoint = None
+        self._endpoint = 'https://{0}{1}'.format(
             self.createApiEndpoint(),
             '/rpc'
         )
@@ -59,12 +62,47 @@ class PogoSession(object):
 
     def __str__(self):
         s = 'Access Token: {0}\nEndpoint: {1}\nLocation: {2}'.format(
-            self.accessToken,
-            self.endpoint,
-            self.location
+            self._authSession.accessToken,
+            self._endpoint,
+            self._location
         )
         return s
 
+    # Properties
+    @property
+    def authSession(self):
+        return self._authSession
+
+    @property
+    def location(self):
+        return self._location
+
+    @property
+    def authTicket(self):
+        return self._authTicket
+
+    @property
+    def endpoint(self):
+        return self._endpoint
+
+    # Messages bundled in result
+    @property
+    def eggs(self):
+        return self._state.eggs
+
+    @property
+    def inventory(self):
+        return self._inventory
+
+    @property
+    def badges(self):
+        return self._state.badges
+
+    @property
+    def downloadSettings(self):
+        return self._state.settings
+
+    # Helper functions
     def setCoordinates(self, latitude, longitude):
         self.location.setCoordinates(latitude, longitude)
         self.getMapObjects(radius=1)
@@ -86,15 +124,20 @@ class PogoSession(object):
 
         return res.api_url
 
+    # Reauthenticate
+    def reauthenticate(self):
+        self._authSession.reauthenticate(self)
+
+    # Request wrapping
     def wrapInRequest(self, payload, defaults=True):
 
         # If we haven't authenticated before
         info = None
-        if not self.authTicket:
+        if not self._authTicket:
             info = RequestEnvelope_pb2.RequestEnvelope.AuthInfo(
-                provider=self.authProvider,
+                provider=self._authSession.provider,
                 token=RequestEnvelope_pb2.RequestEnvelope.AuthInfo.JWT(
-                    contents=self.accessToken,
+                    contents=self._authSession.accessToken,
                     unknown2=59
                 )
             )
@@ -103,11 +146,11 @@ class PogoSession(object):
         latitude, longitude, altitude = self.getCoordinates()
         req = RequestEnvelope_pb2.RequestEnvelope(
             status_code=2,
-            request_id=api.getRPCId(),
+            request_id=getRPCId(),
             longitude=longitude,
             latitude=latitude,
             altitude=altitude,
-            auth_ticket=self.authTicket,
+            auth_ticket=self._authTicket,
             unknown12=989,
             auth_info=info
         )
@@ -121,10 +164,13 @@ class PogoSession(object):
 
     def requestOrThrow(self, req, url=None):
         if url is None:
-            url = self.endpoint
+            url = self._endpoint
 
         # Send request
-        rawResponse = self.session.post(url, data=req.SerializeToString())
+        rawResponse = self._authSession.requestSession.post(
+            url,
+            data=req.SerializeToString()
+        )
 
         # Parse it out
         res = ResponseEnvelope_pb2.ResponseEnvelope()
@@ -132,7 +178,7 @@ class PogoSession(object):
 
         # Update Auth ticket if it exists
         if res.auth_ticket.start:
-            self.authTicket = res.auth_ticket
+            self._authTicket = res.auth_ticket
 
         return res
 
@@ -200,38 +246,7 @@ class PogoSession(object):
 
         # Finally make inventory usable
         item = self._state.inventory.inventory_delta.inventory_items
-        self.inventory = Inventory(item)
-
-    # Hooks for those bundled in default
-    # Getters
-    def getEggs(self):
-        self.getProfile()
-        return self._state.eggs
-
-    def getInventory(self):
-        self.getProfile()
-        return self.inventory
-
-    def getBadges(self):
-        self.getProfile()
-        return self._state.badges
-
-    def getDownloadSettings(self):
-        self.getProfile()
-        return self._state.settings
-
-    # Check, so we don't have to start another request
-    def checkEggs(self):
-        return self._state.eggs
-
-    def checkInventory(self):
-        return self.inventory
-
-    def checkBadges(self):
-        return self._state.badges
-
-    def checkDownloadSettings(self):
-        return self._state.settings
+        self._inventory = Inventory(item)
 
     # Core api calls
     # Get profile
@@ -249,6 +264,23 @@ class PogoSession(object):
 
         # Return everything
         return self._state.profile
+
+    # Hooks for those bundled in default
+    def getEggs(self):
+        self.getProfile()
+        return self._state.eggs
+
+    def getInventory(self):
+        self.getProfile()
+        return self._inventory
+
+    def getBadges(self):
+        self.getProfile()
+        return self._state.badges
+
+    def getDownloadSettings(self):
+        self.getProfile()
+        return self._state.settings
 
     # Get Location
     def getMapObjects(self, radius=10, bothDirections=True):

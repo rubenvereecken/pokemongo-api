@@ -1,13 +1,13 @@
+import logging
+import json
 import requests
 import re
-import json
-import random
-import logging
 
 from session import PogoSession
 from location import Location
 
-from gpsoauth import perform_master_login, perform_oauth
+from gpsoauth import perform_master_login
+from gpsoauth import perform_oauth
 
 # Callbacks and Constants
 API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
@@ -19,25 +19,17 @@ SERVICE = 'audience:server:client_id:848232511240-7so421jotr2609rmqakceuu1luuq0p
 APP = 'com.nianticlabs.pokemongo'
 CLIENT_SIG = '321187995bc7cdc2b5fc91b11a96e2baa8602c62'
 
-RPC_ID = int(random.random() * 10 ** 12)
-
-
-def getRPCId():
-    global RPC_ID
-    RPC_ID = RPC_ID + 1
-    return RPC_ID
-
 
 class PokeAuthSession(object):
     def __init__(self, username, password, provider='google', geo_key=None):
-        self.session = self.createRequestsSession()
+        self.requestSession = self.createRequestsSession()
         self.provider = provider
 
         # User credentials
         self.username = username
         self.password = password
 
-        self.access_token = ''
+        self.accessToken = ''
         self.geo_key = geo_key
 
     @staticmethod
@@ -49,7 +41,7 @@ class PokeAuthSession(object):
         session.verify = False
         return session
 
-    def createPogoSession(self, provider=None, locationLookup='', session=None, noop=False):
+    def createPogoSession(self, provider=None, locationLookup=None, session=None, noop=False):
         if self.provider:
             self.provider = provider
 
@@ -63,22 +55,17 @@ class PokeAuthSession(object):
             location = Location(locationLookup, self.geo_key)
             logging.info(location)
 
-        if self.access_token and location:
-            return PogoSession(
-                self.session,
-                self.provider,
-                self.access_token,
-                location
-            )
+        if self.accessToken and location:
+            return PogoSession(self, location)
 
         # else something has gone wrong
         elif location is None:
             logging.critical('Location not found')
-        elif self.access_token is None:
+        elif self.accessToken is None:
             logging.critical('Access token not generated')
         return None
 
-    def createGoogleSession(self, locationLookup='', session=None, noop=False):
+    def createGoogleSession(self, locationLookup=None, session=None, noop=False):
 
         logging.info('Creating Google session for %s', self.username)
 
@@ -92,7 +79,7 @@ class PokeAuthSession(object):
             CLIENT_SIG
         )
 
-        self.access_token = r2.get('Auth')  # access token
+        self.accessToken = r2.get('Auth')  # access token
         return self.createPogoSession(
             provider='google',
             locationLookup=locationLookup,
@@ -100,7 +87,7 @@ class PokeAuthSession(object):
             noop=noop
         )
 
-    def createPTCSession(self, locationLookup='', session=None, noop=False):
+    def createPTCSession(self, locationLookup=None, session=None, noop=False):
         instance = self.createRequestsSession()
         logging.info('Creating PTC session for %s', self.username)
         r = instance.get(LOGIN_URL)
@@ -116,7 +103,11 @@ class PokeAuthSession(object):
 
         ticket = None
         try:
-            ticket = re.sub('.*ticket=', '', authResponse.history[0].headers['Location'])
+            ticket = re.sub(
+                '.*ticket=',
+                '',
+                authResponse.history[0].headers['Location']
+            )
         except:
             logging.error(authResponse.json()['errors'][0])
             raise
@@ -129,8 +120,16 @@ class PokeAuthSession(object):
             'code': ticket,
         }
         r2 = instance.post(LOGIN_OAUTH, data=data1)
-        self.access_token = re.sub('&expires.*', '', r2.content.decode('utf-8'))
-        self.access_token = re.sub('.*access_token=', '', self.access_token)
+        self.accessToken = re.sub(
+            '&expires.*',
+            '',
+            r2.content.decode('utf-8')
+        )
+        self.accessToken = re.sub(
+            '.*access_token=',
+            '',
+            self.accessToken
+        )
 
         return self.createPogoSession(
             provider='ptc',

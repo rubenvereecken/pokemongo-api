@@ -29,7 +29,7 @@ if __name__ == '__main__':
         sys.exit(-1)
 
     # Create PokoAuthObject
-    poko_session = PokeAuthSession(
+    auth_session = PokeAuthSession(
         args.username,
         args.password,
         args.auth,
@@ -40,13 +40,13 @@ if __name__ == '__main__':
     # Location is not inherent in authentication
     # But is important to session
     if args.location:
-        session = poko_session.authenticate(locationLookup=args.location)
+        session = auth_session.authenticate(locationLookup=args.location)
     else:
-        session = poko_session.authenticate()
+        session = auth_session.authenticate()
 
     # Time to show off what we can do
     if session:
-        trainer = Trainer(session)
+        trainer = Trainer(auth_session, session)
 
         # General
         trainer.getProfile()
@@ -63,7 +63,7 @@ if __name__ == '__main__':
             trainer.walkAndSpin(fort)
 
             # see Trainer.simpleBot() for logical usecases
-            # eg. trainer.simpleBot(session)
+            trainer.simpleBot()
 
     else:
         logging.critical('Session not created successfully')
