@@ -251,9 +251,9 @@ class PogoSession(object):
         return self._state.profile
 
     # Get Location
-    def getMapObjects(self, radius=10):
+    def getMapObjects(self, radius=10, bothDirections=True):
         # Work out location details
-        cells = self.location.getCells(radius)
+        cells = self.location.getCells(radius, bothDirections)
         latitude, longitude, _ = self.getCoordinates()
         timestamps = [0, ] * len(cells)
 
@@ -493,44 +493,3 @@ class PogoSession(object):
 
         # Return everything
         return self._state.nickname
-
-    # These act as more logical functions.
-    # Might be better to break out seperately
-    # Walk over to position in meters
-    def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5):
-        if step >= epsilon:
-            raise GeneralPogoException("Walk may never converge")
-
-        if self.location.noop:
-            raise GeneralPogoException("Location not set")
-
-        # Calculate distance to position
-        latitude, longitude, _ = self.getCoordinates()
-        dist = closest = Location.getDistance(
-            latitude,
-            longitude,
-            olatitude,
-            olongitude
-        )
-
-        # Run walk
-        divisions = closest / step
-        dLat = (latitude - olatitude) / divisions
-        dLon = (longitude - olongitude) / divisions
-
-        logging.info("Walking %f meters. This will take %f seconds..." % (dist, dist / step))
-        while dist > epsilon:
-            logging.debug("%f m -> %f m away", closest - dist, closest)
-            latitude -= dLat
-            longitude -= dLon
-            self.setCoordinates(
-                latitude,
-                longitude
-            )
-            time.sleep(1)
-            dist = Location.getDistance(
-                latitude,
-                longitude,
-                olatitude,
-                olongitude
-            )
