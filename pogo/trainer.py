@@ -343,8 +343,6 @@ class Trainer(object):
                 for fort in forts:
                     pokemon = self.findBestPokemon()
                     self.walkAndCatch(pokemon)
-                    pokemon = self.findBestPokemon()
-                    self.walkAndCatch(pokemon)
                     self.walkAndSpin(fort)
                     cooldown = 1
                     time.sleep(1)
