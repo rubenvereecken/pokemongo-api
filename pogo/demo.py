@@ -179,7 +179,7 @@ def sortCloseForts(session):
                 fort.latitude,
                 fort.longitude
             )
-            if fort.type == 1:
+            if fort.type == 1 and fort.cooldown_complete_timestamp_ms<time.time():
                 ordered_forts.append({'distance': dist, 'fort': fort})
 
     ordered_forts = sorted(ordered_forts, key=lambda k: k['distance'])
