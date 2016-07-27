@@ -25,6 +25,7 @@ from location import Location
 from state import State
 
 import requests
+import random
 import logging
 import time
 
@@ -347,7 +348,7 @@ class PogoSession(object):
         return self._state.encounter
 
     # Upon Encounter, try and catch
-    def catchPokemon(self, pokemon, pokeball=1):
+    def catchPokemon(self, pokemon, pokeball=items.POKE_BALL, normalized_reticle_size=1.950, hit_pokemon=True, spin_modifier=0.850, normalized_hit_position=1.0):
 
         # Create request
         payload = [Request_pb2.Request(
@@ -355,11 +356,11 @@ class PogoSession(object):
             request_message=CatchPokemonMessage_pb2.CatchPokemonMessage(
                 encounter_id=pokemon.encounter_id,
                 pokeball=pokeball,
-                normalized_reticle_size=1.950,
+                normalized_reticle_size=normalized_reticle_size,
                 spawn_point_id=pokemon.spawn_point_id,
-                hit_pokemon=True,
-                spin_modifier=0.850,
-                normalized_hit_position=1.0
+                hit_pokemon=hit_pokemon,
+                spin_modifier=spin_modifier,
+                normalized_hit_position=normalized_hit_position
             ).SerializeToString()
         )]
 
