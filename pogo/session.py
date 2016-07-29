@@ -18,6 +18,7 @@ from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_
 from POGOProtos.Networking.Requests.Messages import NicknamePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemPotionMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemReviveMessage_pb2
+from POGOProtos.Networking.Requests.Messages import SetPlayerTeamMessage_pb2
 
 # Load local
 import api
@@ -537,6 +538,26 @@ class PogoSession(object):
 
         # Return everything
         return self._state.nickname
+
+    # Choose player's team: "BLUE","RED", or "YELLOW".
+    def setPlayerTeam(team)
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.SETPLAYERTEAMMESSAGE,
+            request_message = SetPlayerTeamMessage_pb2.SetPlayerTeamMessage(
+                team = team
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload, defaults=False)
+
+        # Parse
+        self._state.playerTeam.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self._state.playerTeam
 
     # These act as more logical functions.
     # Might be better to break out seperately
