@@ -137,7 +137,10 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
 
         # CATCH_FLEE is bad news
         if attempt.status == 3:
-            logging.info("Possible soft ban.")
+            if count == 0:
+                logging.info("Possible soft ban.")
+            else:
+                logging.info("Pokemon fleed at %dth attempt" % (count + 1))
             return attempt
 
         # Only try up to x attempts
@@ -267,9 +270,13 @@ def cleanPokemon(session, thresholdCP=50):
             # Get rid of low CP, low evolve value
             logging.info("Releasing %s" % pokedex[pokemon.pokemon_id])
             session.releasePokemon(pokemon)
+            time.sleep(2)
 
     # Evolve those we want
     for evolve in evolables:
+        # if we don't have any candies of that type e.g. not caught that pokemon yet
+        if evolve not in session.checkInventory().candies:
+            continue
         candies = session.checkInventory().candies[evolve]
         pokemons = toEvolve[evolve]
         # release for optimal candies
