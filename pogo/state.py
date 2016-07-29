@@ -16,6 +16,7 @@ from Networking.Responses import UseItemCaptureResponse_pb2
 from Networking.Responses import NicknamePokemonResponse_pb2
 from Networking.Responses import UseItemPotionResponse_pb2
 from Networking.Responses import UseItemReviveResponse_pb2
+from Networking.Responses import SetPlayerTeamResponse_pb2
 
 class State(object):
     """Class to wrap the current state of responses"""
@@ -38,3 +39,4 @@ class State(object):
         self.recycle = RecycleInventoryItemResponse_pb2.RecycleInventoryItemResponse()
         self.incubator = UseItemEggIncubatorResponse_pb2.UseItemEggIncubatorResponse()
         self.nickname = NicknamePokemonResponse_pb2.NicknamePokemonResponse()
+        self.playerTeam = SetPlayerTeamResponse_pb2.SetPlayerTeamResponse()
