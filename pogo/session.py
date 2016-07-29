@@ -17,6 +17,7 @@ from POGOProtos.Networking.Requests.Messages import UseItemEggIncubatorMessage_p
 from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_pb2
 from POGOProtos.Networking.Requests.Messages import NicknamePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemPotionMessage_pb2
+from POGOProtos.Networking.Requests.Messages import UseItemReviveMessage_pb2
 
 # Load local
 import api
@@ -414,6 +415,27 @@ class PogoSession(object):
 
         # Return everything
         return self._state.itemPotion
+
+    # Use a Revive
+    def useItemRevive(self, item_id,pokemon):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.USEITEMREVIVEMESSAGE,
+            request_message = UseItemReviveMessage_pb2.UseItemReviveMessage(
+                item_id = item_id
+                pokemon_id = pokemon.id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload, defaults=False)
+
+        # Parse
+        self._state.itemRevive.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self._state.itemRevive
 
     # Evolve Pokemon
     def evolvePokemon(self, pokemon):
