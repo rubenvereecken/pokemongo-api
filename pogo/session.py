@@ -403,7 +403,7 @@ class PogoSession(object):
 
         # Create Request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.USEITEMPOTIONMESSAGE,
+            request_type = RequestType_pb2.USE_ITEM_POTION,
             request_message = UseItemPotionMessage_pb2.UseItemPotionMessage(
                 item_id = item_id,
                 pokemon_id = pokemon.id
@@ -424,7 +424,7 @@ class PogoSession(object):
 
         # Create request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.USEITEMREVIVEMESSAGE,
+            request_type = RequestType_pb2.USE_ITEM_REVIVE,
             request_message = UseItemReviveMessage_pb2.UseItemReviveMessage(
                 item_id = item_id,
                 pokemon_id = pokemon.id
@@ -546,7 +546,7 @@ class PogoSession(object):
 
         # Create Request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.SETFAVORITEPOKEMONMESSAGE,
+            request_type = RequestType_pb2.SET_FAVORITE_POKEMON,
             request_message = SetFavoritePokemonMessage_pb2.SetFavoritePokemonMessage(
                 pokemon_id = pokemon.id,
                 is_favorite = is_favorite
@@ -567,7 +567,7 @@ class PogoSession(object):
 
         # Create request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.UPGRADEPOKEMONMESSAGE,
+            request_type = RequestType_pb2.UPGRADE_POKEMON,
             request_message = UpgradePokemonMessage_pb2.UpgradePokemonMessage(
                 pokemon_id = pokemon.id
             ).SerializeToString()
@@ -587,7 +587,7 @@ class PogoSession(object):
 
         # Create request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.SETPLAYERTEAMMESSAGE,
+            request_type = RequestType_pb2.SET_PLAYER_TEAM,
             request_message = SetPlayerTeamMessage_pb2.SetPlayerTeamMessage(
                 team = team
             ).SerializeToString()
