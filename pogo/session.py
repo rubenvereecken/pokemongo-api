@@ -562,7 +562,7 @@ class PogoSession(object):
         return self._state.favoritePokemon
 
     # Choose player's team: "BLUE","RED", or "YELLOW".
-    def setPlayerTeam(self, team)
+    def setPlayerTeam(self, team):
 
         # Create request
         payload = [Request_pb2.Request(
