@@ -20,6 +20,7 @@ from POGOProtos.Networking.Requests.Messages import UseItemPotionMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemReviveMessage_pb2
 from POGOProtos.Networking.Requests.Messages import SetPlayerTeamMessage_pb2
 from POGOProtos.Networking.Requests.Messages import SetFavoritePokemonMessage_pb2
+from POGOProtos.Networking.Requests.Messages import UpgradePokemonMessage_pb2
 
 # Load local
 import api
@@ -560,6 +561,26 @@ class PogoSession(object):
 
         # Return Everything
         return self._state.favoritePokemon
+
+    # Upgrade a Pokemon's CP
+    def upgradePokemon(self, pokemon)
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.UPGRADEPOKEMONMESSAGE,
+            request_message = UpgradePokemonMessage_pb2.UpgradePokemonMessage(
+                pokemon_id = pokemon.id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload, defaults=False)
+
+        # Parse
+        self._state.upgradePokemon.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self._state.upgradePokemon
 
     # Choose player's team: "BLUE","RED", or "YELLOW".
     def setPlayerTeam(self, team)
