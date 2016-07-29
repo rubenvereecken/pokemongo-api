@@ -563,7 +563,7 @@ class PogoSession(object):
         return self._state.favoritePokemon
 
     # Upgrade a Pokemon's CP
-    def upgradePokemon(self, pokemon)
+    def upgradePokemon(self, pokemon):
 
         # Create request
         payload = [Request_pb2.Request(
