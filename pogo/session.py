@@ -20,6 +20,7 @@ from POGOProtos.Networking.Requests.Messages import UseItemPotionMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemReviveMessage_pb2
 from POGOProtos.Networking.Requests.Messages import SetPlayerTeamMessage_pb2
 from POGOProtos.Networking.Requests.Messages import SetFavoritePokemonMessage_pb2
+from POGOProtos.Networking.Requests.Messages import UpgradePokemonMessage_pb2
 
 # Load local
 import api
@@ -403,7 +404,7 @@ class PogoSession(object):
 
         # Create Request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.USEITEMPOTIONMESSAGE,
+            request_type = RequestType_pb2.USE_ITEM_POTION,
             request_message = UseItemPotionMessage_pb2.UseItemPotionMessage(
                 item_id = item_id,
                 pokemon_id = pokemon.id
@@ -424,7 +425,7 @@ class PogoSession(object):
 
         # Create request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.USEITEMREVIVEMESSAGE,
+            request_type = RequestType_pb2.USE_ITEM_REVIVE,
             request_message = UseItemReviveMessage_pb2.UseItemReviveMessage(
                 item_id = item_id,
                 pokemon_id = pokemon.id
@@ -546,7 +547,7 @@ class PogoSession(object):
 
         # Create Request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.SETFAVORITEPOKEMONMESSAGE,
+            request_type = RequestType_pb2.SET_FAVORITE_POKEMON,
             request_message = SetFavoritePokemonMessage_pb2.SetFavoritePokemonMessage(
                 pokemon_id = pokemon.id,
                 is_favorite = is_favorite
@@ -562,12 +563,32 @@ class PogoSession(object):
         # Return Everything
         return self._state.favoritePokemon
 
+    # Upgrade a Pokemon's CP
+    def upgradePokemon(self, pokemon):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.UPGRADE_POKEMON,
+            request_message = UpgradePokemonMessage_pb2.UpgradePokemonMessage(
+                pokemon_id = pokemon.id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload, defaults=False)
+
+        # Parse
+        self._state.upgradePokemon.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self._state.upgradePokemon
+
     # Choose player's team: "BLUE","RED", or "YELLOW".
     def setPlayerTeam(self, team):
 
         # Create request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.SETPLAYERTEAMMESSAGE,
+            request_type = RequestType_pb2.SET_PLAYER_TEAM,
             request_message = SetPlayerTeamMessage_pb2.SetPlayerTeamMessage(
                 team = team
             ).SerializeToString()
