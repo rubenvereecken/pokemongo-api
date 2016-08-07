@@ -395,6 +395,9 @@ if __name__ == '__main__':
     # Time to show off what we can do
     if session:
 
+    	# wait for a second to prevent GeneralPogoException
+        time.sleep(1)
+
         # General
         getProfile(session)
         getInventory(session)
