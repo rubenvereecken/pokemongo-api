@@ -5,3 +5,4 @@ pycryptodomex==3.4.2
 requests==2.10.0
 s2sphere==0.2.4
 gpxpy==1.1.1
+xxhash==0.6.1

@@ -29,6 +29,8 @@ import xxhash
 import ctypes
 import os
 
+from binascii import unhexlify
+
 def f2i(float):
     return struct.unpack('<Q', struct.pack('<d', float))[0]
 
@@ -41,9 +43,9 @@ def h2f(hex):
     return struct.unpack('<d', struct.pack('<Q', int(hex, 16)))[0]
 
 def d2h(f):
-   hex = f2h(f)[2:].replace('L','')
-   hex = ("0" * (len(hex) % 2)) + hex
-   return  hex.decode("hex")
+   hex_str = f2h(f)[2:].replace('L','')
+   hex_str = ("0" * (len(hex_str) % 2)) + hex_str
+   return unhexlify(hex_str)
 
 def encodeLocation(loc):
     return (f2i(loc.latitude), f2i(loc.longitude), f2i(loc.altitude))
@@ -83,7 +85,7 @@ def hashSignature(signature, libraryPath):
         ctypes.c_size_t, # size_t  *iv_size
         ctypes.POINTER(ctypes.c_ubyte), # unsigned char * output
         ctypes.POINTER(ctypes.c_size_t) # size_t* output_size
-    ] 
+    ]
     library.restype  = ctypes.c_int # Retun int
 
     iv = os.urandom(32)
