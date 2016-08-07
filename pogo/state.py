@@ -18,6 +18,8 @@ from Networking.Responses import UseItemPotionResponse_pb2
 from Networking.Responses import UseItemReviveResponse_pb2
 from Networking.Responses import SetPlayerTeamResponse_pb2
 from Networking.Responses import SetFavoritePokemonResponse_pb2
+from Networking.Responses import LevelUpRewardsResponse_pb2
+from Networking.Responses import UseItemXpBoostResponse_pb2
 
 class State(object):
     """Class to wrap the current state of responses"""
@@ -42,3 +44,5 @@ class State(object):
         self.nickname = NicknamePokemonResponse_pb2.NicknamePokemonResponse()
         self.playerTeam = SetPlayerTeamResponse_pb2.SetPlayerTeamResponse()
         self.favoritePokemon = SetFavoritePokemonResponse_pb2.SetFavoritePokemonResponse()
+        self.levelUp = LevelUpRewardsResponse_pb2.LevelUpRewardsResponse()
+        self.xpBoost = UseItemXpBoostResponse_pb2.UseItemXpBoostResponse()
