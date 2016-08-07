@@ -29,9 +29,6 @@ from custom_exceptions import GeneralPogoException
 import logging
 import time
 
-API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
-
-
 class PogoSession(PogoSessionBare):
     # Hooks for those bundled in default
     # Getters
