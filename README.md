@@ -1,14 +1,15 @@
 # Pokemon Go API for Python
 
-This was originally based on tejado's **original** demo,
-[this API](https://github.com/tejado/pgoapi/tree/eb788ebbde46664013527a2e5f6c16e98d59d5e3/old-demo).
-You can view this as an advanced
-and cleaned up version
-based on object-oriented principles.
+## Installation
 
-Additions welcome.
+We do not yet have this installable as a pip package,
+though some headway has been made.
+Clone this or use this however you like.
 
-# Current implementation
+*Important note*: `libencrypt.so` or `encrypt.dll` is needed in order for this to work.
+
+## Features
+
 Our current implementaion covers most of the basics of gameplay. The following methods are availible:
 
 ```

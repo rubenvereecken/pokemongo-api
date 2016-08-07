@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/SetFavoritePokemonMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nGPOGOProtos/Networking/Requests/Messages/SetFavoritePokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"D\n\x19SetFavoritePokemonMessage\x12\x12\n\npokemon_id\x18\x01 \x01(\x04\x12\x13\n\x0bis_favorite\x18\x02 \x01(\x08\x62\x06proto3')
+  serialized_pb=_b('\nGPOGOProtos/Networking/Requests/Messages/SetFavoritePokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"D\n\x19SetFavoritePokemonMessage\x12\x12\n\npokemon_id\x18\x01 \x01(\x03\x12\x13\n\x0bis_favorite\x18\x02 \x01(\x08\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -35,7 +35,7 @@ _SETFAVORITEPOKEMONMESSAGE = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='pokemon_id', full_name='POGOProtos.Networking.Requests.Messages.SetFavoritePokemonMessage.pokemon_id', index=0,
-      number=1, type=4, cpp_type=4, label=1,
+      number=1, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/IncenseEncounterMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nEPOGOProtos/Networking/Requests/Messages/IncenseEncounterMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"K\n\x17IncenseEncounterMessage\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x01(\x03\x12\x1a\n\x12\x65ncounter_location\x18\x02 \x01(\tb\x06proto3')
+  serialized_pb=_b('\nEPOGOProtos/Networking/Requests/Messages/IncenseEncounterMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"K\n\x17IncenseEncounterMessage\x12\x14\n\x0c\x65ncounter_id\x18\x01 \x01(\x04\x12\x1a\n\x12\x65ncounter_location\x18\x02 \x01(\tb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -35,7 +35,7 @@ _INCENSEENCOUNTERMESSAGE = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='encounter_id', full_name='POGOProtos.Networking.Requests.Messages.IncenseEncounterMessage.encounter_id', index=0,
-      number=1, type=3, cpp_type=2, label=1,
+      number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,

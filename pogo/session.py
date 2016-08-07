@@ -1,18 +1,14 @@
-# Load Generated Protobuf
 from POGOProtos.Networking.Requests import Request_pb2
 from POGOProtos.Networking.Requests import RequestType_pb2
-from POGOProtos.Networking.Envelopes import ResponseEnvelope_pb2
-from POGOProtos.Networking.Envelopes import RequestEnvelope_pb2
+
 from POGOProtos.Networking.Requests.Messages import EncounterMessage_pb2
 from POGOProtos.Networking.Requests.Messages import FortSearchMessage_pb2
 from POGOProtos.Networking.Requests.Messages import FortDetailsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import CatchPokemonMessage_pb2
-from POGOProtos.Networking.Requests.Messages import GetInventoryMessage_pb2
 from POGOProtos.Networking.Requests.Messages import GetMapObjectsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import EvolvePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import ReleasePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemCaptureMessage_pb2
-from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemEggIncubatorMessage_pb2
 from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_pb2
 from POGOProtos.Networking.Requests.Messages import NicknamePokemonMessage_pb2
@@ -22,16 +18,15 @@ from POGOProtos.Networking.Requests.Messages import SetPlayerTeamMessage_pb2
 from POGOProtos.Networking.Requests.Messages import SetFavoritePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import LevelUpRewardsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemXpBoostMessage_pb2
+from POGOProtos.Networking.Requests.Messages import UpgradePokemonMessage_pb2
 
-# Load local
-import api
-from custom_exceptions import GeneralPogoException
-from inventory import Inventory, items
+from inventory import items
 from location import Location
 from state import State
 import copy
+from session_bare import PogoSessionBare
+from custom_exceptions import GeneralPogoException
 
-import requests
 import logging
 import time
 
@@ -209,7 +204,10 @@ class PogoSession(object):
         # Finally make inventory usable
         item = self._state.inventory.inventory_delta.inventory_items
         self.inventory = Inventory(item)
+=======
+>>>>>>> b3bc6da0bdb12a8737908caa5394ea0a60786f0b
 
+class PogoSession(PogoSessionBare):
     # Hooks for those bundled in default
     # Getters
     def getEggs(self):
@@ -355,7 +353,7 @@ class PogoSession(object):
         return self._state.encounter
 
     # Upon Encounter, try and catch
-    def catchPokemon(self, pokemon, pokeball=1):
+    def catchPokemon(self, pokemon, pokeball=items.POKE_BALL, normalized_reticle_size=1.950, hit_pokemon=True, spin_modifier=0.850, normalized_hit_position=1.0):
 
         # Create request
         payload = [Request_pb2.Request(
@@ -363,11 +361,11 @@ class PogoSession(object):
             request_message=CatchPokemonMessage_pb2.CatchPokemonMessage(
                 encounter_id=pokemon.encounter_id,
                 pokeball=pokeball,
-                normalized_reticle_size=1.950,
+                normalized_reticle_size=normalized_reticle_size,
                 spawn_point_id=pokemon.spawn_point_id,
-                hit_pokemon=True,
-                spin_modifier=0.850,
-                normalized_hit_position=1.0
+                hit_pokemon=hit_pokemon,
+                spin_modifier=spin_modifier,
+                normalized_hit_position=normalized_hit_position
             ).SerializeToString()
         )]
 
@@ -406,7 +404,7 @@ class PogoSession(object):
 
         # Create Request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.USEITEMPOTIONMESSAGE,
+            request_type = RequestType_pb2.USE_ITEM_POTION,
             request_message = UseItemPotionMessage_pb2.UseItemPotionMessage(
                 item_id = item_id,
                 pokemon_id = pokemon.id
@@ -427,7 +425,7 @@ class PogoSession(object):
 
         # Create request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.USEITEMREVIVEMESSAGE,
+            request_type = RequestType_pb2.USE_ITEM_REVIVE,
             request_message = UseItemReviveMessage_pb2.UseItemReviveMessage(
                 item_id = item_id,
                 pokemon_id = pokemon.id
@@ -603,7 +601,7 @@ class PogoSession(object):
 
         # Create Request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.SETFAVORITEPOKEMONMESSAGE,
+            request_type = RequestType_pb2.SET_FAVORITE_POKEMON,
             request_message = SetFavoritePokemonMessage_pb2.SetFavoritePokemonMessage(
                 pokemon_id = pokemon.id,
                 is_favorite = is_favorite
@@ -619,12 +617,32 @@ class PogoSession(object):
         # Return Everything
         return self._state.favoritePokemon
 
+    # Upgrade a Pokemon's CP
+    def upgradePokemon(self, pokemon):
+
+        # Create request
+        payload = [Request_pb2.Request(
+            request_type = RequestType_pb2.UPGRADE_POKEMON,
+            request_message = UpgradePokemonMessage_pb2.UpgradePokemonMessage(
+                pokemon_id = pokemon.id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload, defaults=False)
+
+        # Parse
+        self._state.upgradePokemon.ParseFromString(res.returns[0])
+
+        # Return everything
+        return self._state.upgradePokemon
+
     # Choose player's team: "BLUE","RED", or "YELLOW".
     def setPlayerTeam(self, team):
 
         # Create request
         payload = [Request_pb2.Request(
-            request_type = RequestType_pb2.SETPLAYERTEAMMESSAGE,
+            request_type = RequestType_pb2.SET_PLAYER_TEAM,
             request_message = SetPlayerTeamMessage_pb2.SetPlayerTeamMessage(
                 team = team
             ).SerializeToString()
