@@ -154,7 +154,6 @@ class PogoSessionBare(object):
 
         # Parse it out
         try:
-            print(rawResponse)
             res = ResponseEnvelope_pb2.ResponseEnvelope()
             res.ParseFromString(rawResponse.content)
 
@@ -165,7 +164,6 @@ class PogoSessionBare(object):
             return res
 
         except:
-            print(rawResponse.content)
             raise Exception('Woops')
 
     def request(self, req, url=None):
@@ -228,7 +226,6 @@ class PogoSessionBare(object):
             self._state.settings.ParseFromString(res.returns[4])
         except Exception as e:
             logging.error(e)
-            print(res.content)
             raise GeneralPogoException("Error parsing response. Malformed response")
 
         # Finally make inventory usable
