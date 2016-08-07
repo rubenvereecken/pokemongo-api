@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Envelopes/Unknown6.proto',
   package='POGOProtos.Networking.Envelopes',
   syntax='proto3',
-  serialized_pb=_b('\n.POGOProtos/Networking/Envelopes/Unknown6.proto\x12\x1fPOGOProtos.Networking.Envelopes\"\x85\x01\n\x08Unknown6\x12\x14\n\x0crequest_type\x18\x01 \x01(\x05\x12\x44\n\x08unknown2\x18\x02 \x01(\x0b\x32\x32.POGOProtos.Networking.Envelopes.Unknown6.Unknown2\x1a\x1d\n\x08Unknown2\x12\x11\n\tsignature\x18\x01 \x01(\x0c\x62\x06proto3')
+  serialized_pb=_b('\n.POGOProtos/Networking/Envelopes/Unknown6.proto\x12\x1fPOGOProtos.Networking.Envelopes\"\x8f\x01\n\x08Unknown6\x12\x14\n\x0crequest_type\x18\x01 \x01(\x05\x12\x44\n\x08unknown2\x18\x02 \x01(\x0b\x32\x32.POGOProtos.Networking.Envelopes.Unknown6.Unknown2\x1a\'\n\x08Unknown2\x12\x1b\n\x13\x65ncrypted_signature\x18\x01 \x01(\x0c\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -34,7 +34,7 @@ _UNKNOWN6_UNKNOWN2 = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='signature', full_name='POGOProtos.Networking.Envelopes.Unknown6.Unknown2.signature', index=0,
+      name='encrypted_signature', full_name='POGOProtos.Networking.Envelopes.Unknown6.Unknown2.encrypted_signature', index=0,
       number=1, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
@@ -53,7 +53,7 @@ _UNKNOWN6_UNKNOWN2 = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=188,
-  serialized_end=217,
+  serialized_end=227,
 )
 
 _UNKNOWN6 = _descriptor.Descriptor(
@@ -90,7 +90,7 @@ _UNKNOWN6 = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=84,
-  serialized_end=217,
+  serialized_end=227,
 )
 
 _UNKNOWN6_UNKNOWN2.containing_type = _UNKNOWN6

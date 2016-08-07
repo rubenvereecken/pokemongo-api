@@ -31,6 +31,7 @@ import os
 
 from binascii import unhexlify
 
+
 def f2i(float):
     return struct.unpack('<Q', struct.pack('<d', float))[0]
 
@@ -42,10 +43,12 @@ def f2h(float):
 def h2f(hex):
     return struct.unpack('<d', struct.pack('<Q', int(hex, 16)))[0]
 
+
 def d2h(f):
-   hex_str = f2h(f)[2:].replace('L','')
-   hex_str = ("0" * (len(hex_str) % 2)) + hex_str
-   return unhexlify(hex_str)
+    hex_str = f2h(f)[2:].replace('L', '')
+    hex_str = ("0" * (len(hex_str) % 2)) + hex_str
+    return unhexlify(hex_str)
+
 
 def encodeLocation(loc):
     return (f2i(loc.latitude), f2i(loc.longitude), f2i(loc.altitude))
@@ -62,14 +65,14 @@ def hashLocation(authTicket, latitude, longitude, altitude):
     # Using serialized Auth Ticket
     hashA = xxhash.xxh32(locationBytes, seed=baseHash).intdigest()
 
-    #Hash of location using static seed 0x1B845238
+    # Hash of location using static seed 0x1B845238
     hashB = xxhash.xxh32(locationBytes, seed=0x1B845238).intdigest()
     return hashA, hashB
-    
+
 
 def hashRequests(authTicket, payload):
     baseHash = xxhash.xxh64(authTicket.SerializeToString(), seed=0x1B845238).intdigest()
-    return xxhash.xxh64(payload.SerializeToString(), seed=baseHash).intdigest() # for request in payload]
+    return [xxhash.xxh64(request.SerializeToString(), seed=baseHash).intdigest() for request in payload]
 
 
 # Assuming the encrypt.dll file floating around out there
@@ -79,14 +82,14 @@ def hashSignature(signature, libraryPath):
 
     library = ctypes.cdll.LoadLibrary(libraryPath)
     library.argtypes = [
-        ctypes.c_char_p, # const unsigned char *input
-        ctypes.c_size_t, # size_t input_size
-        ctypes.c_char_p, # const unsigned char *iv
-        ctypes.c_size_t, # size_t  *iv_size
-        ctypes.POINTER(ctypes.c_ubyte), # unsigned char * output
-        ctypes.POINTER(ctypes.c_size_t) # size_t* output_size
+        ctypes.c_char_p,  # const unsigned char *input
+        ctypes.c_size_t,  # size_t input_size
+        ctypes.c_char_p,  # const unsigned char *iv
+        ctypes.c_size_t,  # size_t  *iv_size
+        ctypes.POINTER(ctypes.c_ubyte),  # unsigned char * output
+        ctypes.POINTER(ctypes.c_size_t)  # size_t* output_size
     ]
-    library.restype  = ctypes.c_int # Retun int
+    library.restype = ctypes.c_int  # Retun int
 
     iv = os.urandom(32)
     outputSize = ctypes.c_size_t()
