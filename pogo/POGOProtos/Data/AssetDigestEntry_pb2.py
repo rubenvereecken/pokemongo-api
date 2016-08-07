@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Data/AssetDigestEntry.proto',
   package='POGOProtos.Data',
   syntax='proto3',
-  serialized_pb=_b('\n&POGOProtos/Data/AssetDigestEntry.proto\x12\x0fPOGOProtos.Data\"w\n\x10\x41ssetDigestEntry\x12\x10\n\x08\x61sset_id\x18\x01 \x01(\t\x12\x13\n\x0b\x62undle_name\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\x03\x12\x10\n\x08\x63hecksum\x18\x04 \x01(\r\x12\x0c\n\x04size\x18\x05 \x01(\x05\x12\x0b\n\x03key\x18\x06 \x01(\x0c\x62\x06proto3')
+  serialized_pb=_b('\n&POGOProtos/Data/AssetDigestEntry.proto\x12\x0fPOGOProtos.Data\"w\n\x10\x41ssetDigestEntry\x12\x10\n\x08\x61sset_id\x18\x01 \x01(\t\x12\x13\n\x0b\x62undle_name\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\x03\x12\x10\n\x08\x63hecksum\x18\x04 \x01(\x07\x12\x0c\n\x04size\x18\x05 \x01(\x05\x12\x0b\n\x03key\x18\x06 \x01(\x0c\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -56,7 +56,7 @@ _ASSETDIGESTENTRY = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='checksum', full_name='POGOProtos.Data.AssetDigestEntry.checksum', index=3,
-      number=4, type=13, cpp_type=3, label=1,
+      number=4, type=7, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,

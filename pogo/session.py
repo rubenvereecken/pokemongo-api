@@ -30,7 +30,6 @@ from location import Location
 from state import State
 
 import requests
-import random
 import logging
 import time
 

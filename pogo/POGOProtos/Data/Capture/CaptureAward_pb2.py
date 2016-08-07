@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Data/Capture/CaptureAward.proto',
   package='POGOProtos.Data.Capture',
   syntax='proto3',
-  serialized_pb=_b('\n*POGOProtos/Data/Capture/CaptureAward.proto\x12\x17POGOProtos.Data.Capture\x1a#POGOProtos/Enums/ActivityType.proto\"r\n\x0c\x43\x61ptureAward\x12\x35\n\ractivity_type\x18\x01 \x03(\x0e\x32\x1e.POGOProtos.Enums.ActivityType\x12\n\n\x02xp\x18\x02 \x03(\x05\x12\r\n\x05\x63\x61ndy\x18\x03 \x03(\x05\x12\x10\n\x08stardust\x18\x04 \x03(\x05\x62\x06proto3')
+  serialized_pb=_b('\n*POGOProtos/Data/Capture/CaptureAward.proto\x12\x17POGOProtos.Data.Capture\x1a#POGOProtos/Enums/ActivityType.proto\"\x82\x01\n\x0c\x43\x61ptureAward\x12\x39\n\ractivity_type\x18\x01 \x03(\x0e\x32\x1e.POGOProtos.Enums.ActivityTypeB\x02\x10\x01\x12\x0e\n\x02xp\x18\x02 \x03(\x05\x42\x02\x10\x01\x12\x11\n\x05\x63\x61ndy\x18\x03 \x03(\x05\x42\x02\x10\x01\x12\x14\n\x08stardust\x18\x04 \x03(\x05\x42\x02\x10\x01\x62\x06proto3')
   ,
   dependencies=[POGOProtos_dot_Enums_dot_ActivityType__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -41,28 +41,28 @@ _CAPTUREAWARD = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))),
     _descriptor.FieldDescriptor(
       name='xp', full_name='POGOProtos.Data.Capture.CaptureAward.xp', index=1,
       number=2, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))),
     _descriptor.FieldDescriptor(
       name='candy', full_name='POGOProtos.Data.Capture.CaptureAward.candy', index=2,
       number=3, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))),
     _descriptor.FieldDescriptor(
       name='stardust', full_name='POGOProtos.Data.Capture.CaptureAward.stardust', index=3,
       number=4, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=_descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))),
   ],
   extensions=[
   ],
@@ -75,8 +75,8 @@ _CAPTUREAWARD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=108,
-  serialized_end=222,
+  serialized_start=109,
+  serialized_end=239,
 )
 
 _CAPTUREAWARD.fields_by_name['activity_type'].enum_type = POGOProtos_dot_Enums_dot_ActivityType__pb2._ACTIVITYTYPE
@@ -90,4 +90,12 @@ CaptureAward = _reflection.GeneratedProtocolMessageType('CaptureAward', (_messag
 _sym_db.RegisterMessage(CaptureAward)
 
 
+_CAPTUREAWARD.fields_by_name['activity_type'].has_options = True
+_CAPTUREAWARD.fields_by_name['activity_type']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))
+_CAPTUREAWARD.fields_by_name['xp'].has_options = True
+_CAPTUREAWARD.fields_by_name['xp']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))
+_CAPTUREAWARD.fields_by_name['candy'].has_options = True
+_CAPTUREAWARD.fields_by_name['candy']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))
+_CAPTUREAWARD.fields_by_name['stardust'].has_options = True
+_CAPTUREAWARD.fields_by_name['stardust']._options = _descriptor._ParseOptions(descriptor_pb2.FieldOptions(), _b('\020\001'))
 # @@protoc_insertion_point(module_scope)

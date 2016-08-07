@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/UseItemReviveMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nBPOGOProtos/Networking/Requests/Messages/UseItemReviveMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a&POGOProtos/Inventory/Item/ItemId.proto\"^\n\x14UseItemReviveMessage\x12\x32\n\x07item_id\x18\x01 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemId\x12\x12\n\npokemon_id\x18\x02 \x01(\x04\x62\x06proto3')
+  serialized_pb=_b('\nBPOGOProtos/Networking/Requests/Messages/UseItemReviveMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\x1a&POGOProtos/Inventory/Item/ItemId.proto\"^\n\x14UseItemReviveMessage\x12\x32\n\x07item_id\x18\x01 \x01(\x0e\x32!.POGOProtos.Inventory.Item.ItemId\x12\x12\n\npokemon_id\x18\x02 \x01(\x06\x62\x06proto3')
   ,
   dependencies=[POGOProtos_dot_Inventory_dot_Item_dot_ItemId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -44,7 +44,7 @@ _USEITEMREVIVEMESSAGE = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='pokemon_id', full_name='POGOProtos.Networking.Requests.Messages.UseItemReviveMessage.pokemon_id', index=1,
-      number=2, type=4, cpp_type=4, label=1,
+      number=2, type=6, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,

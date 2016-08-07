@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/StartGymBattleMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nCPOGOProtos/Networking/Requests/Messages/StartGymBattleMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"\x97\x01\n\x15StartGymBattleMessage\x12\x0e\n\x06gym_id\x18\x01 \x01(\t\x12\x1d\n\x15\x61ttacking_pokemon_ids\x18\x02 \x03(\x06\x12\x1c\n\x14\x64\x65\x66\x65nding_pokemon_id\x18\x03 \x01(\x04\x12\x17\n\x0fplayer_latitude\x18\x04 \x01(\x01\x12\x18\n\x10player_longitude\x18\x05 \x01(\x01\x62\x06proto3')
+  serialized_pb=_b('\nCPOGOProtos/Networking/Requests/Messages/StartGymBattleMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"\x97\x01\n\x15StartGymBattleMessage\x12\x0e\n\x06gym_id\x18\x01 \x01(\t\x12\x1d\n\x15\x61ttacking_pokemon_ids\x18\x02 \x03(\x06\x12\x1c\n\x14\x64\x65\x66\x65nding_pokemon_id\x18\x03 \x01(\x06\x12\x17\n\x0fplayer_latitude\x18\x04 \x01(\x01\x12\x18\n\x10player_longitude\x18\x05 \x01(\x01\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -49,7 +49,7 @@ _STARTGYMBATTLEMESSAGE = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='defending_pokemon_id', full_name='POGOProtos.Networking.Requests.Messages.StartGymBattleMessage.defending_pokemon_id', index=2,
-      number=3, type=4, cpp_type=4, label=1,
+      number=3, type=6, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
