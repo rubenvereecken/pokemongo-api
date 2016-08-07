@@ -159,6 +159,7 @@ class Pokedex(dict):
 
     rarity = {}
     evolves = {}
+    candy_type ={}
 
     def __init__(self):
         super(dict, self).__init__(self)
@@ -249,6 +250,12 @@ class Pokedex(dict):
             self.ZAPDOS: 0, self.MOLTRES: 0, self.DRATINI: 25, self.DRAGONAIR: 100, self.DRAGONITE: 0,
             self.MEWTWO: 0, self.MEW: 0
         }
+        
+        candy = None
+        for pokemon_id in range(1, len(self)):
+            if self.evolves[pokemon_id-1] == 0:
+                candy = self[pokemon_id]
+            self.candy_type[self[pokemon_id]] = candy
 
     def getRarityByName(self, name):
         return self.RarityById(self[name])
