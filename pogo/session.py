@@ -1,18 +1,14 @@
-# Load Generated Protobuf
 from POGOProtos.Networking.Requests import Request_pb2
 from POGOProtos.Networking.Requests import RequestType_pb2
-from POGOProtos.Networking.Envelopes import ResponseEnvelope_pb2
-from POGOProtos.Networking.Envelopes import RequestEnvelope_pb2
+
 from POGOProtos.Networking.Requests.Messages import EncounterMessage_pb2
 from POGOProtos.Networking.Requests.Messages import FortSearchMessage_pb2
 from POGOProtos.Networking.Requests.Messages import FortDetailsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import CatchPokemonMessage_pb2
-from POGOProtos.Networking.Requests.Messages import GetInventoryMessage_pb2
 from POGOProtos.Networking.Requests.Messages import GetMapObjectsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import EvolvePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import ReleasePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemCaptureMessage_pb2
-from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UseItemEggIncubatorMessage_pb2
 from POGOProtos.Networking.Requests.Messages import RecycleInventoryItemMessage_pb2
 from POGOProtos.Networking.Requests.Messages import NicknamePokemonMessage_pb2
@@ -22,192 +18,16 @@ from POGOProtos.Networking.Requests.Messages import SetPlayerTeamMessage_pb2
 from POGOProtos.Networking.Requests.Messages import SetFavoritePokemonMessage_pb2
 from POGOProtos.Networking.Requests.Messages import UpgradePokemonMessage_pb2
 
-# Load local
-import api
-from custom_exceptions import GeneralPogoException
-from inventory import Inventory, items
+from inventory import items
 from location import Location
-from state import State
+from session_bare import PogoSessionBare
+from custom_exceptions import GeneralPogoException
 
-import requests
-import random
 import logging
 import time
 
-# Hide errors (Yes this is terrible, but prettier)
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
-
-
-class PogoSession(object):
-
-    def __init__(self, session, authProvider, accessToken, location):
-        self.session = session
-        self.authProvider = authProvider
-        self.accessToken = accessToken
-        self.location = location
-        if self.location.noop:
-            logging.info("Limited functionality. No location provided")
-
-        self._state = State()
-
-        self.authTicket = None
-        self.endpoint = None
-        self.endpoint = 'https://{0}{1}'.format(
-            self.createApiEndpoint(),
-            '/rpc'
-        )
-
-        # Set up Inventory
-        self.getInventory()
-
-    def __str__(self):
-        s = 'Access Token: {0}\nEndpoint: {1}\nLocation: {2}'.format(
-            self.accessToken,
-            self.endpoint,
-            self.location
-        )
-        return s
-
-    def setCoordinates(self, latitude, longitude):
-        self.location.setCoordinates(latitude, longitude)
-        self.getMapObjects(radius=1)
-
-    def getCoordinates(self):
-        return self.location.getCoordinates()
-
-    def createApiEndpoint(self):
-        payload = []
-        msg = Request_pb2.Request(
-            request_type=RequestType_pb2.GET_PLAYER
-        )
-        payload.append(msg)
-        req = self.wrapInRequest(payload)
-        res = self.request(req, API_URL)
-        if res is None:
-            logging.critical('Servers seem to be busy. Exiting.')
-            raise Exception('Could not connect to servers')
-
-        return res.api_url
-
-    def wrapInRequest(self, payload, defaults=True):
-
-        # If we haven't authenticated before
-        info = None
-        if not self.authTicket:
-            info = RequestEnvelope_pb2.RequestEnvelope.AuthInfo(
-                provider=self.authProvider,
-                token=RequestEnvelope_pb2.RequestEnvelope.AuthInfo.JWT(
-                    contents=self.accessToken,
-                    unknown2=59
-                )
-            )
-
-        # Build Envelope
-        latitude, longitude, altitude = self.getCoordinates()
-        req = RequestEnvelope_pb2.RequestEnvelope(
-            status_code=2,
-            request_id=api.getRPCId(),
-            longitude=longitude,
-            latitude=latitude,
-            altitude=altitude,
-            auth_ticket=self.authTicket,
-            unknown12=989,
-            auth_info=info
-        )
-
-        # Add requests
-        if defaults:
-            payload += self.getDefaults()
-        req.requests.extend(payload)
-
-        return req
-
-    def requestOrThrow(self, req, url=None):
-        if url is None:
-            url = self.endpoint
-
-        # Send request
-        rawResponse = self.session.post(url, data=req.SerializeToString())
-
-        # Parse it out
-        res = ResponseEnvelope_pb2.ResponseEnvelope()
-        res.ParseFromString(rawResponse.content)
-
-        # Update Auth ticket if it exists
-        if res.auth_ticket.start:
-            self.authTicket = res.auth_ticket
-
-        return res
-
-    def request(self, req, url=None):
-        try:
-            return self.requestOrThrow(req, url)
-        except Exception as e:
-            logging.error(e)
-            raise GeneralPogoException('Probably server fires.')
-
-    def wrapAndRequest(self, payload, defaults=True):
-        res = self.request(self.wrapInRequest(payload, defaults=defaults))
-        if defaults:
-            self.parseDefault(res)
-        if res is None:
-            logging.critical(res)
-            logging.critical('Servers seem to be busy. Exiting.')
-            raise Exception('No Valid Response.')
-
-        return res
-
-    @staticmethod
-    def getDefaults():
-        # Allocate for 4 default requests
-        data = [None, ] * 4
-
-        # Create Egg request
-        data[0] = Request_pb2.Request(
-            request_type=RequestType_pb2.GET_HATCHED_EGGS
-        )
-
-        # Create Inventory Request
-        data[1] = Request_pb2.Request(
-            request_type=RequestType_pb2.GET_INVENTORY,
-            request_message=GetInventoryMessage_pb2.GetInventoryMessage(
-                last_timestamp_ms=0
-            ).SerializeToString()
-        )
-
-        # Create Badge request
-        data[2] = Request_pb2.Request(
-            request_type=RequestType_pb2.CHECK_AWARDED_BADGES
-        )
-
-        # Create Settings request
-        data[3] = Request_pb2.Request(
-            request_type=RequestType_pb2.DOWNLOAD_SETTINGS,
-            request_message=DownloadSettingsMessage_pb2.DownloadSettingsMessage(
-                hash="4a2e9bc330dae60e7b74fc85b98868ab4700802e"
-            ).SerializeToString()
-        )
-
-        return data
-
-    # Parse the default responses
-    def parseDefault(self, res):
-        try:
-            self._state.eggs.ParseFromString(res.returns[1])
-            self._state.inventory.ParseFromString(res.returns[2])
-            self._state.badges.ParseFromString(res.returns[3])
-            self._state.settings.ParseFromString(res.returns[4])
-        except Exception as e:
-            logging.error(e)
-            raise GeneralPogoException("Error parsing response. Malformed response")
-
-        # Finally make inventory usable
-        item = self._state.inventory.inventory_delta.inventory_items
-        self.inventory = Inventory(item)
-
+class PogoSession(PogoSessionBare):
     # Hooks for those bundled in default
     # Getters
     def getEggs(self):

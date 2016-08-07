@@ -193,7 +193,11 @@ def sortCloseForts(session):
 def findClosestFort(session):
     # Find nearest fort (pokestop)
     logging.info("Finding Nearest Fort:")
-    return sortCloseForts(session)[0]
+    forts = sortCloseForts(session)
+    if forts:
+        return forts[0]
+    logging.info("No forts found..")
+    return None
 
 
 # Walk to fort and spin
@@ -361,8 +365,9 @@ if __name__ == '__main__':
     parser.add_argument("-a", "--auth", help="Auth Service", required=True)
     parser.add_argument("-u", "--username", help="Username", required=True)
     parser.add_argument("-p", "--password", help="Password", required=True)
-    parser.add_argument("-l", "--location", help="Location")
+    parser.add_argument("-e", "--encrypt_lib", help="Encryption Library")
     parser.add_argument("-g", "--geo_key", help="GEO API Secret")
+    parser.add_argument("-l", "--location", help="Location")
     args = parser.parse_args()
 
     # Check service
@@ -375,6 +380,7 @@ if __name__ == '__main__':
         args.username,
         args.password,
         args.auth,
+        args.encrypt_lib,
         geo_key=args.geo_key
     )
 

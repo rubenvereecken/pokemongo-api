@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Envelopes/ResponseEnvelope.proto',
   package='POGOProtos.Networking.Envelopes',
   syntax='proto3',
-  serialized_pb=_b('\n6POGOProtos/Networking/Envelopes/ResponseEnvelope.proto\x12\x1fPOGOProtos.Networking.Envelopes\x1a\x30POGOProtos/Networking/Envelopes/AuthTicket.proto\x1a\x36POGOProtos/Networking/Envelopes/Unknown6Response.proto\"\xb8\x02\n\x10ResponseEnvelope\x12\x13\n\x0bstatus_code\x18\x01 \x01(\x05\x12\x12\n\nrequest_id\x18\x02 \x01(\x04\x12\x0f\n\x07\x61pi_url\x18\x03 \x01(\t\x12\x43\n\x08unknown6\x18\x06 \x01(\x0b\x32\x31.POGOProtos.Networking.Envelopes.Unknown6Response\x12@\n\x0b\x61uth_ticket\x18\x07 \x01(\x0b\x32+.POGOProtos.Networking.Envelopes.AuthTicket\x12\x0f\n\x07returns\x18\x64 \x03(\x0c\x12\r\n\x05\x65rror\x18\x65 \x01(\t\x1a\x43\n\x08Unknown7\x12\x11\n\tunknown71\x18\x01 \x01(\x0c\x12\x11\n\tunknown72\x18\x02 \x01(\x03\x12\x11\n\tunknown73\x18\x03 \x01(\x0c\x62\x06proto3')
+  serialized_pb=_b('\n6POGOProtos/Networking/Envelopes/ResponseEnvelope.proto\x12\x1fPOGOProtos.Networking.Envelopes\x1a\x30POGOProtos/Networking/Envelopes/AuthTicket.proto\x1a\x36POGOProtos/Networking/Envelopes/Unknown6Response.proto\"\xb8\x02\n\x10ResponseEnvelope\x12\x13\n\x0bstatus_code\x18\x01 \x01(\x05\x12\x12\n\nrequest_id\x18\x02 \x01(\x04\x12\x0f\n\x07\x61pi_url\x18\x03 \x01(\t\x12\x43\n\x08unknown6\x18\x06 \x03(\x0b\x32\x31.POGOProtos.Networking.Envelopes.Unknown6Response\x12@\n\x0b\x61uth_ticket\x18\x07 \x01(\x0b\x32+.POGOProtos.Networking.Envelopes.AuthTicket\x12\x0f\n\x07returns\x18\x64 \x03(\x0c\x12\r\n\x05\x65rror\x18\x65 \x01(\t\x1a\x43\n\x08Unknown7\x12\x11\n\tunknown71\x18\x01 \x01(\x0c\x12\x11\n\tunknown72\x18\x02 \x01(\x03\x12\x11\n\tunknown73\x18\x03 \x01(\x0c\x62\x06proto3')
   ,
   dependencies=[POGOProtos_dot_Networking_dot_Envelopes_dot_AuthTicket__pb2.DESCRIPTOR,POGOProtos_dot_Networking_dot_Envelopes_dot_Unknown6Response__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -103,8 +103,8 @@ _RESPONSEENVELOPE = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='unknown6', full_name='POGOProtos.Networking.Envelopes.ResponseEnvelope.unknown6', index=3,
-      number=6, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      number=6, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/FortDeployPokemonMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nFPOGOProtos/Networking/Requests/Messages/FortDeployPokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"r\n\x18\x46ortDeployPokemonMessage\x12\x0f\n\x07\x66ort_id\x18\x01 \x01(\t\x12\x12\n\npokemon_id\x18\x02 \x01(\x04\x12\x17\n\x0fplayer_latitude\x18\x03 \x01(\x01\x12\x18\n\x10player_longitude\x18\x04 \x01(\x01\x62\x06proto3')
+  serialized_pb=_b('\nFPOGOProtos/Networking/Requests/Messages/FortDeployPokemonMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"r\n\x18\x46ortDeployPokemonMessage\x12\x0f\n\x07\x66ort_id\x18\x01 \x01(\t\x12\x12\n\npokemon_id\x18\x02 \x01(\x06\x12\x17\n\x0fplayer_latitude\x18\x03 \x01(\x01\x12\x18\n\x10player_longitude\x18\x04 \x01(\x01\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -42,7 +42,7 @@ _FORTDEPLOYPOKEMONMESSAGE = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='pokemon_id', full_name='POGOProtos.Networking.Requests.Messages.FortDeployPokemonMessage.pokemon_id', index=1,
-      number=2, type=4, cpp_type=4, label=1,
+      number=2, type=6, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,

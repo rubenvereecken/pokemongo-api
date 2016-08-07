@@ -72,8 +72,8 @@ class Inventory(object):
                 self.pokedex[pokedexEntry.pokemon_id] = data.pokedex_entry
                 continue
 
-            pokemonFamily = getattr(data, "pokemon_family", None)
-            if data.HasField("pokemon_family"):
+            pokemonFamily = getattr(data, "candy", None)
+            if data.HasField("candy"):
                 self.candies[pokemonFamily.family_id] = pokemonFamily.candy
                 continue
 
