@@ -115,3 +115,7 @@ This thing is under heavy development after all.
 
 ## Protocol
 We currently use [AeonLucid's Pokemon Go Protobuf protocol](https://github.com/AeonLucid/POGOProtos).
+
+## Contributors
+Thanks @dmadisetti for keeping this baby up and giving it the love it deserves,
+along with everybody else who took the time to set up a PR!
