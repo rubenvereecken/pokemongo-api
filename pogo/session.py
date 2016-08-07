@@ -22,7 +22,6 @@ from POGOProtos.Networking.Requests.Messages import UpgradePokemonMessage_pb2
 
 from inventory import items
 from location import Location
-import copy
 from session_bare import PogoSessionBare
 from custom_exceptions import GeneralPogoException
 
@@ -268,64 +267,40 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.itemRevive
 
-    def evolvePokemons(self, pokemons):
-        payload = []
-        result = []
-        for i in range(0, len(pokemons), 50):
-            sub_list = pokemons[i:i + 50]
-            for pokemon in sub_list:
-                payload.append(Request_pb2.Request(
-                    request_type=RequestType_pb2.EVOLVE_POKEMON,
-                    request_message=EvolvePokemonMessage_pb2.EvolvePokemonMessage(
-                        pokemon_id=pokemon.id
-                    ).SerializeToString()
-                ))
-
-            # Send
-            res = self.wrapAndRequest(payload)
-
-            # Parse
-            for j in range(0, len(sub_list)):
-                self._state.evolve.ParseFromString(res.returns[j])
-                result.append(copy.copy(self._state.evolve))
-            time.sleep(2)
-
-        # Return everything
-        return result
-
     # Evolve Pokemon
     def evolvePokemon(self, pokemon):
-        self.evolvePokemons([pokemon])
+
+        payload = [Request_pb2.Request(
+            request_type=RequestType_pb2.EVOLVE_POKEMON,
+            request_message=EvolvePokemonMessage_pb2.EvolvePokemonMessage(
+                pokemon_id=pokemon.id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload)
+
+        # Parse
+        self._state.evolve.ParseFromString(res.returns[0])
+
         # Return everything
         return self._state.evolve
 
-    def releasePokemons(self, pokemons):
-        payload = []
-        result = []
-        for i in range(0, len(pokemons), 50):
-            sub_list = pokemons[i:i + 50]
-            for pokemon in sub_list:
-                payload.append(Request_pb2.Request(
-                    request_type=RequestType_pb2.RELEASE_POKEMON,
-                    request_message=ReleasePokemonMessage_pb2.ReleasePokemonMessage(
-                        pokemon_id=pokemon.id
-                    ).SerializeToString()
-                ))
-
-            # Send
-            res = self.wrapAndRequest(payload)
-
-            # Parse
-            for i in range(0, len(pokemons)):
-                self._state.release.ParseFromString(res.returns[i])
-                result.append(copy.copy(self._state.release))
-            time.sleep(2)
-
-        # Return everything
-        return result
-
     def releasePokemon(self, pokemon):
-        self.releasePokemons([pokemon])
+
+        payload = [Request_pb2.Request(
+            request_type=RequestType_pb2.RELEASE_POKEMON,
+            request_message=ReleasePokemonMessage_pb2.ReleasePokemonMessage(
+                pokemon_id=pokemon.id
+            ).SerializeToString()
+        )]
+
+        # Send
+        res = self.wrapAndRequest(payload, defaults=False)
+
+        # Parse
+        self._state.release.ParseFromString(res.returns[0])
+
         # Return everything
         return self._state.release
 
@@ -337,10 +312,13 @@ class PogoSession(PogoSessionBare):
                 level=newLevel
             ).SerializeToString()
         )]
+
         # Send
         res = self.wrapAndRequest(payload, defaults=False)
+
         # Parse
         self._state.levelUp.ParseFromString(res.returns[0])
+
         # Return everything
         return self._state.levelUp
 
@@ -352,10 +330,13 @@ class PogoSession(PogoSessionBare):
                 item_id=items.LUCKY_EGG
             ).SerializeToString()
         )]
+
         # Send
         res = self.wrapAndRequest(payload, defaults=False)
+
         # Parse
         self._state.xpBoost.ParseFromString(res.returns[0])
+
         # Return everything
         return self._state.xpBoost
 
