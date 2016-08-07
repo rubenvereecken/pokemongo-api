@@ -12,7 +12,7 @@ from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
 import api
 from state import State
 from inventory import Inventory
-from custom_exceptions import GeneralPogoException
+from custom_exceptions import GeneralPogoException, PogoResponseException
 from util import hashLocation, hashRequests, hashSignature, getMs
 
 import os
@@ -219,14 +219,19 @@ class PogoSessionBare(object):
 
     # Parse the default responses
     def parseDefault(self, res):
+        l = len(res.returns)
+        if l < 5:
+            logging.error(res)
+            raise PogoResponseException("Expected response not returned")
+
         try:
-            self._state.eggs.ParseFromString(res.returns[1])
-            self._state.inventory.ParseFromString(res.returns[2])
-            self._state.badges.ParseFromString(res.returns[3])
-            self._state.settings.ParseFromString(res.returns[4])
+            self._state.eggs.ParseFromString(res.returns[l - 4])
+            self._state.inventory.ParseFromString(res.returns[l - 3])
+            self._state.badges.ParseFromString(res.returns[l - 2])
+            self._state.settings.ParseFromString(res.returns[l - 1])
         except Exception as e:
             logging.error(e)
-            raise GeneralPogoException("Error parsing response. Malformed response")
+            raise PogoResponseException("Error parsing response. Malformed response")
 
         # Finally make inventory usable
         item = self._state.inventory.inventory_delta.inventory_items

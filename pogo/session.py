@@ -29,6 +29,7 @@ from custom_exceptions import GeneralPogoException
 import logging
 import time
 
+
 class PogoSession(PogoSessionBare):
     # Hooks for those bundled in default
     # Getters
@@ -267,23 +268,22 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.itemRevive
 
-   
-    
     def evolvePokemons(self, pokemons):
         payload = []
-        result=[]
-        
+        result = []
         for i in range(0, len(pokemons), 50):
-            sub_list = pokemons[i:i+50]
+            sub_list = pokemons[i:i + 50]
             for pokemon in sub_list:
                 payload.append(Request_pb2.Request(
                     request_type=RequestType_pb2.EVOLVE_POKEMON,
                     request_message=EvolvePokemonMessage_pb2.EvolvePokemonMessage(
-                        pokemon_id=pokemon.id).SerializeToString()))
+                        pokemon_id=pokemon.id
+                    ).SerializeToString()
+                ))
 
             # Send
             res = self.wrapAndRequest(payload)
-            
+
             # Parse
             for j in range(0, len(sub_list)):
                 self._state.evolve.ParseFromString(res.returns[j])
@@ -292,75 +292,73 @@ class PogoSession(PogoSessionBare):
 
         # Return everything
         return result
-    
-     # Evolve Pokemon
+
+    # Evolve Pokemon
     def evolvePokemon(self, pokemon):
-
         self.evolvePokemons([pokemon])
-
         # Return everything
         return self._state.evolve
 
     def releasePokemons(self, pokemons):
         payload = []
-        result=[]
+        result = []
         for i in range(0, len(pokemons), 50):
-            sub_list = pokemons[i:i+50]
+            sub_list = pokemons[i:i + 50]
             for pokemon in sub_list:
                 payload.append(Request_pb2.Request(
                     request_type=RequestType_pb2.RELEASE_POKEMON,
                     request_message=ReleasePokemonMessage_pb2.ReleasePokemonMessage(
-                    pokemon_id=pokemon.id
-                    ).SerializeToString()))
+                        pokemon_id=pokemon.id
+                    ).SerializeToString()
+                ))
 
             # Send
             res = self.wrapAndRequest(payload)
-        
-            result=[]
+
             # Parse
             for i in range(0, len(pokemons)):
                 self._state.release.ParseFromString(res.returns[i])
                 result.append(copy.copy(self._state.release))
             time.sleep(2)
+
         # Return everything
         return result
-        
-    def releasePokemon(self, pokemon):
 
+    def releasePokemon(self, pokemon):
         self.releasePokemons([pokemon])
         # Return everything
         return self._state.release
 
     def getLevelUp(self, newLevel):
-		
+
         payload = [Request_pb2.Request(
-                    request_type = RequestType_pb2.LEVEL_UP_REWARDS,
-                    request_message = LevelUpRewardsMessage_pb2.LevelUpRewardsMessage(
-                    level = newLevel
-                    ).SerializeToString()
-                    )]
+            request_type=RequestType_pb2.LEVEL_UP_REWARDS,
+            request_message=LevelUpRewardsMessage_pb2.LevelUpRewardsMessage(
+                level=newLevel
+            ).SerializeToString()
+        )]
         # Send
         res = self.wrapAndRequest(payload, defaults=False)
         # Parse
         self._state.levelUp.ParseFromString(res.returns[0])
         # Return everything
         return self._state.levelUp
-	
+
     def useXpBoost(self):
-		
+
         payload = [Request_pb2.Request(
-                request_type = RequestType_pb2.USE_ITEM_XP_BOOST,
-                request_message = UseItemXpBoostMessage_pb2.UseItemXpBoostMessage(
-                item_id = items.LUCKY_EGG
-                ).SerializeToString()
-                )]
+            request_type=RequestType_pb2.USE_ITEM_XP_BOOST,
+            request_message=UseItemXpBoostMessage_pb2.UseItemXpBoostMessage(
+                item_id=items.LUCKY_EGG
+            ).SerializeToString()
+        )]
         # Send
         res = self.wrapAndRequest(payload, defaults=False)
         # Parse
         self._state.xpBoost.ParseFromString(res.returns[0])
         # Return everything
         return self._state.xpBoost
-        
+
     # Throw away items
     def recycleItem(self, item_id, count):
 
