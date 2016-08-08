@@ -115,7 +115,7 @@ class PogoSessionBare(object):
             proto = Signature_pb2.Signature(
                 location_hash1=hashA,
                 location_hash2=hashB,
-                unk22=os.urandom(32),
+                unknown22=os.urandom(32),
                 timestamp=getMs(),
                 timestamp_since_start=getMs() - self._start,
                 request_hash=hashRequests(self.authTicket, payload)
@@ -127,17 +127,17 @@ class PogoSessionBare(object):
         req = RequestEnvelope_pb2.RequestEnvelope(
             status_code=2,
             request_id=api.getRPCId(),
-            unknown6=[Unknown6_pb2.Unknown6(
+            unknown6=Unknown6_pb2.Unknown6(
                 request_type=6,
                 unknown2=Unknown6_pb2.Unknown6.Unknown2(
                     encrypted_signature=signature
                 )
-            )],
+            ),
             longitude=longitude,
             latitude=latitude,
             altitude=altitude,
             auth_ticket=self.authTicket,
-            unknown12=3352,
+            unknown12=741,
             auth_info=info
         )
 
@@ -179,6 +179,14 @@ class PogoSessionBare(object):
             logging.critical(res)
             logging.critical('Servers seem to be busy. Exiting.')
             raise Exception('No Valid Response.')
+
+        # Try again.
+        if res.status_code == 53:
+            self.endpoint = res.api_url
+            # Does python somehow fanagle tail recursion optimization?
+            # Hopefully won't result in a stack overflow
+            return self.wrapAndRequest(payload, defaults=defaults)
+
         if defaults:
             self.parseDefault(res)
 

@@ -395,7 +395,8 @@ if __name__ == '__main__':
     # Time to show off what we can do
     if session:
 
-    	# wait for a second to prevent GeneralPogoException
+        # Wait for a second to prevent GeneralPogoException
+        # Goodnight moon. Goodnight moon.
         time.sleep(1)
 
         # General
@@ -404,9 +405,16 @@ if __name__ == '__main__':
 
         # Things we need GPS for
         if args.location:
+            # We need a solid sleep to get over rate limting
+            # Goodnight cow jumping over the moon.
+            time.sleep(10)
+
             # Pokemon related
             pokemon = findBestPokemon(session)
             walkAndCatch(session, pokemon)
+
+            # Goodnight light and the red balloon.
+            time.sleep(5)
 
             # Pokestop related
             fort = findClosestFort(session)

@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Data/Battle/BattleType.proto',
   package='POGOProtos.Data.Battle',
   syntax='proto3',
-  serialized_pb=_b('\n\'POGOProtos/Data/Battle/BattleType.proto\x12\x16POGOProtos.Data.Battle*=\n\nBattleType\x12\x15\n\x11\x42\x41TTLE_TYPE_UNSET\x10\x00\x12\n\n\x06NORMAL\x10\x01\x12\x0c\n\x08TRAINING\x10\x02\x62\x06proto3')
+  serialized_pb=_b('\n\'POGOProtos/Data/Battle/BattleType.proto\x12\x16POGOProtos.Data.Battle*U\n\nBattleType\x12\x15\n\x11\x42\x41TTLE_TYPE_UNSET\x10\x00\x12\x16\n\x12\x42\x41TTLE_TYPE_NORMAL\x10\x01\x12\x18\n\x14\x42\x41TTLE_TYPE_TRAINING\x10\x02\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -35,25 +35,25 @@ _BATTLETYPE = _descriptor.EnumDescriptor(
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='NORMAL', index=1, number=1,
+      name='BATTLE_TYPE_NORMAL', index=1, number=1,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='TRAINING', index=2, number=2,
+      name='BATTLE_TYPE_TRAINING', index=2, number=2,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=67,
-  serialized_end=128,
+  serialized_end=152,
 )
 _sym_db.RegisterEnumDescriptor(_BATTLETYPE)
 
 BattleType = enum_type_wrapper.EnumTypeWrapper(_BATTLETYPE)
 BATTLE_TYPE_UNSET = 0
-NORMAL = 1
-TRAINING = 2
+BATTLE_TYPE_NORMAL = 1
+BATTLE_TYPE_TRAINING = 2
 
 
 DESCRIPTOR.enum_types_by_name['BattleType'] = _BATTLETYPE
