@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Enums/PokemonRarity.proto',
   package='POGOProtos.Enums',
   syntax='proto3',
-  serialized_pb=_b('\n$POGOProtos/Enums/PokemonRarity.proto\x12\x10POGOProtos.Enums*6\n\rPokemonRarity\x12\n\n\x06NORMAL\x10\x00\x12\r\n\tLEGENDARY\x10\x01\x12\n\n\x06MYTHIC\x10\x02\x62\x06proto3')
+  serialized_pb=_b('\n$POGOProtos/Enums/PokemonRarity.proto\x12\x10POGOProtos.Enums*c\n\rPokemonRarity\x12\x19\n\x15POKEMON_RARITY_NORMAL\x10\x00\x12\x1c\n\x18POKEMON_RARITY_LEGENDARY\x10\x01\x12\x19\n\x15POKEMON_RARITY_MYTHIC\x10\x02\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -31,29 +31,29 @@ _POKEMONRARITY = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='NORMAL', index=0, number=0,
+      name='POKEMON_RARITY_NORMAL', index=0, number=0,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='LEGENDARY', index=1, number=1,
+      name='POKEMON_RARITY_LEGENDARY', index=1, number=1,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='MYTHIC', index=2, number=2,
+      name='POKEMON_RARITY_MYTHIC', index=2, number=2,
       options=None,
       type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=58,
-  serialized_end=112,
+  serialized_end=157,
 )
 _sym_db.RegisterEnumDescriptor(_POKEMONRARITY)
 
 PokemonRarity = enum_type_wrapper.EnumTypeWrapper(_POKEMONRARITY)
-NORMAL = 0
-LEGENDARY = 1
-MYTHIC = 2
+POKEMON_RARITY_NORMAL = 0
+POKEMON_RARITY_LEGENDARY = 1
+POKEMON_RARITY_MYTHIC = 2
 
 
 DESCRIPTOR.enum_types_by_name['PokemonRarity'] = _POKEMONRARITY

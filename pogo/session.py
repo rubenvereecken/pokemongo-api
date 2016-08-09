@@ -38,7 +38,7 @@ class PogoSession(PogoSessionBare):
 
     def getInventory(self):
         self.getProfile()
-        return self.inventory
+        return self._inventory
 
     def getBadges(self):
         self.getProfile()
@@ -46,19 +46,6 @@ class PogoSession(PogoSessionBare):
 
     def getDownloadSettings(self):
         self.getProfile()
-        return self._state.settings
-
-    # Check, so we don't have to start another request
-    def checkEggs(self):
-        return self._state.eggs
-
-    def checkInventory(self):
-        return self.inventory
-
-    def checkBadges(self):
-        return self._state.badges
-
-    def checkDownloadSettings(self):
         return self._state.settings
 
     # Core api calls
@@ -465,7 +452,7 @@ class PogoSession(PogoSessionBare):
     # These act as more logical functions.
     # Might be better to break out seperately
     # Walk over to position in meters
-    def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5):
+    def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5, delay=10):
         if step >= epsilon:
             raise GeneralPogoException("Walk may never converge")
 
@@ -486,19 +473,32 @@ class PogoSession(PogoSessionBare):
         dLat = (latitude - olatitude) / divisions
         dLon = (longitude - olongitude) / divisions
 
-        logging.info("Walking %f meters. This will take %f seconds..." % (dist, dist / step))
+        logging.info("Walking %f meters. This will take ~%f seconds..." % (dist, dist / step))
+        steps = 1
         while dist > epsilon:
             logging.debug("%f m -> %f m away", closest - dist, closest)
             latitude -= dLat
             longitude -= dLon
-            self.setCoordinates(
-                latitude,
-                longitude
-            )
+            steps %= delay
+            if steps == 0:
+                self.setCoordinates(
+                    latitude,
+                    longitude
+                )
             time.sleep(1)
             dist = Location.getDistance(
                 latitude,
                 longitude,
                 olatitude,
                 olongitude
+            )
+            steps += 1
+
+        # Finalize walk
+        steps -= 1
+        if steps % delay > 0:
+            time.sleep(delay - steps)
+            self.setCoordinates(
+                latitude,
+                longitude
             )
