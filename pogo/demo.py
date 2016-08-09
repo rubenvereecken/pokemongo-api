@@ -11,6 +11,7 @@ from location import Location
 from pokedex import pokedex
 from inventory import items
 
+
 def setupLogger():
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
@@ -30,7 +31,7 @@ def getProfile(session):
 
 
 def setNickname(session):
-    pokemon = session.checkInventory().party[0]
+    pokemon = session.inventory.party[0]
     session.nicknamePokemon(pokemon, "Testing")
 
 
@@ -46,7 +47,8 @@ def findBestPokemon(session):
     logging.info("Current pos: %f, %f" % (latitude, longitude))
     for cell in cells.map_cells:
         # Heap in pokemon protos where we have long + lat
-        pokemons = [p for p in cell.wild_pokemons] + [p for p in cell.catchable_pokemons]
+        pokemons = [p for p in cell.wild_pokemons]
+        pokemons += [p for p in cell.catchable_pokemons]
         for pokemon in pokemons:
             # Normalize the ID from different protos
             pokemonId = getattr(pokemon, "pokemon_id", None)
@@ -88,7 +90,7 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
     # Grab needed data from proto
     chances = encounter.capture_probability.capture_probability
     balls = encounter.capture_probability.pokeball_type
-    bag = session.checkInventory().bag
+    bag = session.inventory.bag
 
     # Have we used a razz berry yet?
     berried = False
@@ -159,9 +161,9 @@ def walkAndCatch(session, pokemon):
 
 
 # Do Inventory stuff
-def getInventory(session):
-    logging.info("Get Inventory:")
-    logging.info(session.getInventory())
+def checkInventory(session):
+    logging.info("Checking Inventory:")
+    logging.info(session.inventory)
 
 
 # Basic solution to spinning all forts.
@@ -182,7 +184,7 @@ def sortCloseForts(session):
                 fort.latitude,
                 fort.longitude
             )
-            if fort.type == 1 and fort.cooldown_complete_timestamp_ms<time.time():
+            if fort.type == 1 and fort.cooldown_complete_timestamp_ms < time.time():
                 ordered_forts.append({'distance': dist, 'fort': fort})
 
     ordered_forts = sorted(ordered_forts, key=lambda k: k['distance'])
@@ -222,7 +224,7 @@ def walkAndSpinMany(session, forts):
 
 # A very brute force approach to evolving
 def evolveAllPokemon(session):
-    inventory = session.checkInventory()
+    inventory = session.inventory
     for pokemon in inventory.party:
         logging.info(session.evolvePokemon(pokemon))
         time.sleep(1)
@@ -230,7 +232,7 @@ def evolveAllPokemon(session):
 
 # You probably don't want to run this
 def releaseAllPokemon(session):
-    inventory = session.checkInventory()
+    inventory = session.inventory
     for pokemon in inventory.party:
         session.releasePokemon(pokemon)
         time.sleep(1)
@@ -238,13 +240,13 @@ def releaseAllPokemon(session):
 
 # Just incase you didn't want any revives
 def tossRevives(session):
-    bag = session.checkInventory().bag
+    bag = session.inventory.bag
     return session.recycleItem(items.REVIVE, bag[items.REVIVE])
 
 
 # Set an egg to an incubator
 def setEgg(session):
-    inventory = session.checkInventory()
+    inventory = session.inventory
 
     # If no eggs, nothing we can do
     if len(inventory.eggs) == 0:
@@ -259,7 +261,7 @@ def setEgg(session):
 # Otherwise you may flush pokemon you wanted.
 def cleanPokemon(session, thresholdCP=50):
     logging.info("Cleaning out Pokemon...")
-    party = session.checkInventory().party
+    party = session.inventory.party
     evolables = [pokedex.PIDGEY, pokedex.RATTATA, pokedex.ZUBAT]
     toEvolve = {evolve: [] for evolve in evolables}
     for pokemon in party:
@@ -278,10 +280,11 @@ def cleanPokemon(session, thresholdCP=50):
 
     # Evolve those we want
     for evolve in evolables:
-        # if we don't have any candies of that type e.g. not caught that pokemon yet
-        if evolve not in session.checkInventory().candies:
+        # if we don't have any candies of that type
+        # e.g. not caught that pokemon yet
+        if evolve not in session.inventory.candies:
             continue
-        candies = session.checkInventory().candies[evolve]
+        candies = session.inventory.candies[evolve]
         pokemons = toEvolve[evolve]
         # release for optimal candies
         while candies // pokedex.evolves[evolve] < len(pokemons):
@@ -302,7 +305,7 @@ def cleanPokemon(session, thresholdCP=50):
 
 def cleanInventory(session):
     logging.info("Cleaning out Inventory...")
-    bag = session.checkInventory().bag
+    bag = session.inventory.bag
 
     # Clear out all of a crtain type
     tossable = [items.POTION, items.SUPER_POTION, items.REVIVE]
@@ -401,7 +404,7 @@ if __name__ == '__main__':
 
         # General
         getProfile(session)
-        getInventory(session)
+        checkInventory(session)
 
         # Things we need GPS for
         if args.location:

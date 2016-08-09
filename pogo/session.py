@@ -38,7 +38,7 @@ class PogoSession(PogoSessionBare):
 
     def getInventory(self):
         self.getProfile()
-        return self.inventory
+        return self._inventory
 
     def getBadges(self):
         self.getProfile()
@@ -46,19 +46,6 @@ class PogoSession(PogoSessionBare):
 
     def getDownloadSettings(self):
         self.getProfile()
-        return self._state.settings
-
-    # Check, so we don't have to start another request
-    def checkEggs(self):
-        return self._state.eggs
-
-    def checkInventory(self):
-        return self.inventory
-
-    def checkBadges(self):
-        return self._state.badges
-
-    def checkDownloadSettings(self):
         return self._state.settings
 
     # Core api calls
@@ -487,7 +474,7 @@ class PogoSession(PogoSessionBare):
         dLon = (longitude - olongitude) / divisions
 
         logging.info("Walking %f meters. This will take ~%f seconds..." % (dist, dist / step))
-        steps = 0
+        steps = 1
         while dist > epsilon:
             logging.debug("%f m -> %f m away", closest - dist, closest)
             latitude -= dLat
