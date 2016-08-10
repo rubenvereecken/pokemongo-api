@@ -55,7 +55,7 @@ class Location(object):
     def getCoordinates(self):
         return self.latitude, self.longitude, self.altitude
 
-    def getCells(self, radius=1000):
+    def getCells(self, radius=10):
         origin = CellId.from_lat_lng(
             LatLng.from_degrees(
                 self.latitude,
