@@ -21,6 +21,7 @@ CLIENT_SIG = '321187995bc7cdc2b5fc91b11a96e2baa8602c62'
 
 RPC_ID = int(random.random() * 10 ** 12)
 
+globalProxy = False
 
 def getRPCId():
     global RPC_ID
@@ -29,7 +30,10 @@ def getRPCId():
 
 
 class PokeAuthSession(object):
-    def __init__(self, username, password, provider='google', encrypt_lib=None, geo_key=None):
+    def __init__(self, username, password, provider='google', encrypt_lib=None, geo_key=None, proxy=False):
+        global globalProxy
+        globalProxy = proxy
+        
         self.session = self.createRequestsSession()
         self.provider = provider
         self.encryptLib = encrypt_lib
@@ -47,6 +51,12 @@ class PokeAuthSession(object):
         session.headers = {
             'User-Agent': 'Niantic App',
         }
+        if globalProxy != False:
+            proxies = {
+                "http": globalProxy,
+                "https": globalProxy
+            }
+            session.proxies.update(proxies)
         session.verify = False
         return session
 
