@@ -1,8 +1,10 @@
 from pokedex import pokedex
-import inspect
+from util import ConstReflect
 
 
-class Items(dict):
+# Not quiet an enum
+class Items(ConstReflect):
+    """Items class for static item reference"""
 
     # Static Lookups
     UNKNOWN = 0
@@ -36,16 +38,11 @@ class Items(dict):
     POKEMON_STORAGE_UPGRADE = 1001
     ITEM_STORAGE_UPGRADE = 1002
 
-    def __init__(self):
-        super(dict, self).__init__(self)
-        attributes = inspect.getmembers(Items, lambda attr :not(inspect.isroutine(attr)))
-        for attr in attributes:
-            if attr[0].isupper():
-                self[attr[1]] = attr[0]
-
 items = Items()
 
+
 class Inventory(object):
+    """ Inventory class to hold response from inventory"""
 
     # Split from inventory since everything is bundled
     def __init__(self, items):
@@ -102,13 +99,16 @@ class Inventory(object):
             return 0
 
     def __str__(self):
+        def strip(proto):
+            return str(proto).replace("\n", "\n\t")
+
         s = "Inventory:"
 
-        s += "\n-- Stats: {0}".format(str(self.stats).replace("\n", "\n\t"))
+        s += "\n-- Stats: {0}".format(strip(self.stats))
 
         s += "\n-- Pokedex:"
         for pokemon in self.pokedex:
-            s += "\n\t{0}: {1}".format(pokemon, str(self.pokedex[pokemon]).replace("\n", "\n\t"))
+            s += "\n\t{0}: {1}".format(pokemon, strip(self.pokedex[pokemon]))
 
         s += "\n-- Candies:"
         for key in self.candies:
@@ -116,11 +116,11 @@ class Inventory(object):
 
         s += "\n-- Party:"
         for pokemon in self.party:
-            s += "\n\t{0}".format(str(pokemon).replace("\n", "\n\t"))
+            s += "\n\t{0}".format(strip(pokemon))
 
         s += "\n-- Eggs:"
         for egg in self.eggs:
-            s += "\n\t{0}".format(str(egg).replace("\n", "\n\t"))
+            s += "\n\t{0}".format(strip(egg))
 
         s += "\n-- Bag:"
         for key in self.bag:
@@ -128,6 +128,6 @@ class Inventory(object):
 
         s += "\n-- Incubators:"
         for incubator in self.incubators:
-            s += "\n\t{0}".format(str(incubator).replace("\n", "\n\t"))
+            s += "\n\t{0}".format(strip(incubator))
 
         return s

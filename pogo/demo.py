@@ -2,7 +2,6 @@
 import argparse
 import logging
 import time
-import sys
 from custom_exceptions import GeneralPogoException
 
 from api import PokeAuthSession
@@ -17,7 +16,10 @@ def setupLogger():
     logger.setLevel(logging.INFO)
     ch = logging.StreamHandler()
     ch.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('Line %(lineno)d,%(filename)s - %(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter(
+        'Line %(lineno)d,%(filename)s'
+        '- %(asctime)s - %(levelname)s - %(message)s'
+    )
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
@@ -87,9 +89,15 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
     # Start encounter
     encounter = session.encounterPokemon(pokemon)
 
+    # If party full
+    if encounter.POKEMON_INVENTORY_FULL:
+        logging.error("Can't catch! Party is full!")
+        return None
+
     # Grab needed data from proto
     chances = encounter.capture_probability.capture_probability
     balls = encounter.capture_probability.pokeball_type
+    balls = balls or [items.POKE_BALL, items.GREAT_BALL, items.ULTRA_BALL]
     bag = session.inventory.bag
 
     # Have we used a razz berry yet?
@@ -105,7 +113,9 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
 
         # Check for balls and see if we pass
         # wanted threshold
+        print(balls)
         for i, ball in enumerate(balls):
+            print(bag.get(ball, 0) > 0)
             if bag.get(ball, 0) > 0:
                 altBall = ball
                 if chances[i] > thresholdP:
@@ -176,16 +186,21 @@ def sortCloseForts(session):
     cells = session.getMapObjects()
     latitude, longitude, _ = session.getCoordinates()
     ordered_forts = []
+
+    def filterForts(fort):
+        return fort.type == 1 and\
+            fort.cooldown_complete_timestamp_ms < time.time()
+
     for cell in cells.map_cells:
-        for fort in cell.forts:
+        forts = filter(filterForts, cell.forts)
+        for fort in forts:
             dist = Location.getDistance(
                 latitude,
                 longitude,
                 fort.latitude,
                 fort.longitude
             )
-            if fort.type == 1 and fort.cooldown_complete_timestamp_ms < time.time():
-                ordered_forts.append({'distance': dist, 'fort': fort})
+            ordered_forts.append({'distance': dist, 'fort': fort})
 
     ordered_forts = sorted(ordered_forts, key=lambda k: k['distance'])
     return [instance['fort'] for instance in ordered_forts]
@@ -291,16 +306,16 @@ def cleanPokemon(session, thresholdCP=50):
             pokemon = pokemons.pop()
             logging.info("Releasing %s" % pokedex[pokemon.pokemon_id])
             session.releasePokemon(pokemon)
-            time.sleep(1)
+            time.sleep(3)
             candies += 1
 
         # evolve remainder
         for pokemon in pokemons:
             logging.info("Evolving %s" % pokedex[pokemon.pokemon_id])
             logging.info(session.evolvePokemon(pokemon))
-            time.sleep(1)
+            time.sleep(3)
             session.releasePokemon(pokemon)
-            time.sleep(1)
+            time.sleep(3)
 
 
 def cleanInventory(session):
@@ -335,7 +350,7 @@ def simpleBot(session):
     # Run the bot
     while True:
         forts = sortCloseForts(session)
-        cleanPokemon(session, thresholdCP=300)
+        cleanPokemon(session, thresholdCP=500)
         cleanInventory(session)
         try:
             for fort in forts:
@@ -362,6 +377,7 @@ def simpleBot(session):
 # Entry point
 # Start off authentication and demo
 if __name__ == '__main__':
+
     setupLogger()
     logging.debug('Logger set up')
 
@@ -373,12 +389,16 @@ if __name__ == '__main__':
     parser.add_argument("-e", "--encrypt_lib", help="Encryption Library")
     parser.add_argument("-g", "--geo_key", help="GEO API Secret")
     parser.add_argument("-l", "--location", help="Location")
+    parser.add_argument("-proxy", "--proxy", help="Full Path to Proxy")
     args = parser.parse_args()
 
     # Check service
     if args.auth not in ['ptc', 'google']:
-        logging.error('Invalid auth service {}'.format(args.auth))
-        sys.exit(-1)
+        raise GeneralPogoException('Invalid auth service {}'.format(args.auth))
+
+    # Set proxy
+    if args.proxy:
+        PokeAuthSession.setProxy(args.proxy)
 
     # Create PokoAuthObject
     poko_session = PokeAuthSession(
@@ -386,7 +406,7 @@ if __name__ == '__main__':
         args.password,
         args.auth,
         args.encrypt_lib,
-        geo_key=args.geo_key
+        geo_key=args.geo_key,
     )
 
     # Authenticate with a given location
@@ -415,18 +435,18 @@ if __name__ == '__main__':
             time.sleep(10)
 
             # Pokemon related
-            pokemon = findBestPokemon(session)
-            walkAndCatch(session, pokemon)
+            # pokemon = findBestPokemon(session)
+            # walkAndCatch(session, pokemon)
 
             # Goodnight light and the red balloon.
-            time.sleep(5)
+            # time.sleep(5)
 
             # Pokestop related
-            fort = findClosestFort(session)
-            walkAndSpin(session, fort)
+            # fort = findClosestFort(session)
+            # walkAndSpin(session, fort)
 
             # see simpleBot() for logical usecases
-            # simpleBot(session)
+            simpleBot(session)
 
     else:
         logging.critical('Session not created successfully')

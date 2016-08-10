@@ -10,14 +10,24 @@ from location import Location
 from gpsoauth import perform_master_login, perform_oauth
 
 # Callbacks and Constants
-API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
-LOGIN_URL = 'https://sso.pokemon.com/sso/login?service=https%3A%2F%2Fsso.pokemon.com%2Fsso%2Foauth2.0%2FcallbackAuthorize'
 LOGIN_OAUTH = 'https://sso.pokemon.com/sso/oauth2.0/accessToken'
-PTC_CLIENT_SECRET = 'w8ScCUXJQc6kXKw8FiOhd8Fixzht18Dq3PEVkUCP5ZPxtgyWsbTvWHFLm2wNY0JR'
-ANDROID_ID = '9774d56d682e549c'
-SERVICE = 'audience:server:client_id:848232511240-7so421jotr2609rmqakceuu1luuq0ptb.apps.googleusercontent.com'
-APP = 'com.nianticlabs.pokemongo'
+API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
 CLIENT_SIG = '321187995bc7cdc2b5fc91b11a96e2baa8602c62'
+APP = 'com.nianticlabs.pokemongo'
+ANDROID_ID = '9774d56d682e549c'
+LOGIN_URL = (
+    'https://sso.pokemon.com/sso/login'
+    '?service=https%3A%2F%2Fsso.pokemon.com'
+    '%2Fsso%2Foauth2.0%2FcallbackAuthorize'
+)
+PTC_CLIENT_SECRET = (
+    'w8ScCUXJQc6kXKw8FiOhd8Fixzht18Dq'
+    '3PEVkUCP5ZPxtgyWsbTvWHFLm2wNY0JR'
+)
+SERVICE = (
+    'audience:server:client_id:848232511240-7so421jotr'
+    '2609rmqakceuu1luuq0ptb.apps.googleusercontent.com'
+)
 
 RPC_ID = int(random.random() * 10 ** 12)
 
@@ -29,10 +39,14 @@ def getRPCId():
 
 
 class PokeAuthSession(object):
+
+    _proxies = {}
+
     def __init__(
         self, username, password,
         provider='google', encrypt_lib=None, geo_key=None
     ):
+
         self.session = self.createRequestsSession()
         self.provider = provider
         self.encryptLib = encrypt_lib
@@ -40,9 +54,15 @@ class PokeAuthSession(object):
         # User credentials
         self.username = username
         self.password = password
-
         self.access_token = ''
         self.geo_key = geo_key
+
+    @staticmethod
+    def setProxy(proxy):
+        PokeAuthSession._proxies = {
+            "http": proxy,
+            "https": proxy
+        }
 
     @staticmethod
     def createRequestsSession():
@@ -50,8 +70,19 @@ class PokeAuthSession(object):
         session.headers = {
             'User-Agent': 'Niantic App',
         }
+        if PokeAuthSession._proxies:
+            session.proxies.update(PokeAuthSession._proxies)
         session.verify = False
         return session
+
+    @staticmethod
+    def parseToken(response):
+        token = re.sub('&expires.*', '', response.content.decode('utf-8'))
+        return re.sub('.*access_token=', '', token)
+
+    @property
+    def proxies(self):
+        return self._proxies
 
     def createPogoSession(
         self, provider=None, locationLookup='', session=None,
@@ -76,7 +107,8 @@ class PokeAuthSession(object):
                 self.provider,
                 self.access_token,
                 location,
-                self.encryptLib
+                self.encryptLib,
+                old=session
             )
 
         # else something has gone wrong
@@ -124,7 +156,11 @@ class PokeAuthSession(object):
 
         ticket = None
         try:
-            ticket = re.sub('.*ticket=', '', authResponse.history[0].headers['Location'])
+            ticket = re.sub(
+                '.*ticket=',
+                '',
+                authResponse.history[0].headers['Location']
+            )
         except:
             logging.error(authResponse.json()['errors'][0])
             raise
@@ -137,8 +173,9 @@ class PokeAuthSession(object):
             'code': ticket,
         }
         r2 = instance.post(LOGIN_OAUTH, data=data1)
-        self.access_token = re.sub('&expires.*', '', r2.content.decode('utf-8'))
-        self.access_token = re.sub('.*access_token=', '', self.access_token)
+
+        # Parse and format token
+        self.access_token = self.parseToken(r2)
 
         return self.createPogoSession(
             provider='ptc',

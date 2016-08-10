@@ -1,12 +1,18 @@
 # Load Generated Protobuf
-from POGOProtos.Networking.Requests import Request_pb2
-from POGOProtos.Networking.Envelopes import Unknown6_pb2
-from POGOProtos.Networking.Envelopes import Signature_pb2
-from POGOProtos.Networking.Requests import RequestType_pb2
-from POGOProtos.Networking.Envelopes import ResponseEnvelope_pb2
-from POGOProtos.Networking.Envelopes import RequestEnvelope_pb2
-from POGOProtos.Networking.Requests.Messages import GetInventoryMessage_pb2
-from POGOProtos.Networking.Requests.Messages import DownloadSettingsMessage_pb2
+from POGOProtos.Networking.Envelopes import (
+    Unknown6_pb2 as Unknown6,
+    Signature_pb2 as Signature,
+    ResponseEnvelope_pb2 as ResponseEnvelope,
+    RequestEnvelope_pb2 as RequestEnvelope
+)
+from POGOProtos.Networking.Requests import (
+    RequestType_pb2 as RequestType,
+    Request_pb2 as Request
+)
+from POGOProtos.Networking.Requests.Messages import (
+    GetInventoryMessage_pb2 as GetInventoryMessage,
+    DownloadSettingsMessage_pb2 as DownloadSettingsMessage
+)
 
 # Load local
 import api
@@ -14,10 +20,12 @@ from state import State
 from inventory import Inventory
 
 # Exceptions
-from custom_exceptions import PogoServerException
-from custom_exceptions import PogoResponseException
-from custom_exceptions import PogoInventoryException
-from custom_exceptions import PogoRateException
+from custom_exceptions import (
+    PogoServerException,
+    PogoResponseException,
+    PogoInventoryException,
+    PogoRateException
+)
 from google.protobuf.message import DecodeError
 
 # Utils
@@ -36,6 +44,7 @@ API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
 
 
 class PogoSessionBare(object):
+    """ Core session class for creating requests"""
 
     def __init__(
         self, session, authProvider,
@@ -50,7 +59,7 @@ class PogoSessionBare(object):
             logging.info("Limited functionality. No location provided")
 
         # Set up Inventory
-        if old is None:
+        if old is not None:
             self._inventory = old.inventory
             self._state = old._state
 
@@ -89,8 +98,8 @@ class PogoSessionBare(object):
 
     def createApiEndpoint(self):
         payload = []
-        msg = Request_pb2.Request(
-            request_type=RequestType_pb2.GET_PLAYER
+        msg = Request.Request(
+            request_type=RequestType.GET_PLAYER
         )
         payload.append(msg)
         req = self.wrapInRequest(payload)
@@ -114,9 +123,9 @@ class PogoSessionBare(object):
         info = None
         signature = None
         if not self.authTicket:
-            info = RequestEnvelope_pb2.RequestEnvelope.AuthInfo(
+            info = RequestEnvelope.RequestEnvelope.AuthInfo(
                 provider=self.authProvider,
-                token=RequestEnvelope_pb2.RequestEnvelope.AuthInfo.JWT(
+                token=RequestEnvelope.RequestEnvelope.AuthInfo.JWT(
                     contents=self.accessToken,
                     unknown2=59
                 )
@@ -134,7 +143,7 @@ class PogoSessionBare(object):
             )
 
             # Build and hash signature
-            proto = Signature_pb2.Signature(
+            proto = Signature.Signature(
                 location_hash1=hashA,
                 location_hash2=hashB,
                 unknown22=os.urandom(32),
@@ -146,12 +155,12 @@ class PogoSessionBare(object):
             signature = hashSignature(proto, self._encryptLib)
 
         # Build Envelope
-        req = RequestEnvelope_pb2.RequestEnvelope(
+        req = RequestEnvelope.RequestEnvelope(
             status_code=2,
             request_id=api.getRPCId(),
-            unknown6=Unknown6_pb2.Unknown6(
+            unknown6=Unknown6.Unknown6(
                 request_type=6,
-                unknown2=Unknown6_pb2.Unknown6.Unknown2(
+                unknown2=Unknown6.Unknown6.Unknown2(
                     encrypted_signature=signature
                 )
             ),
@@ -175,7 +184,7 @@ class PogoSessionBare(object):
         rawResponse = self.session.post(url, data=req.SerializeToString())
 
         # Parse it out
-        res = ResponseEnvelope_pb2.ResponseEnvelope()
+        res = ResponseEnvelope.ResponseEnvelope()
         res.ParseFromString(rawResponse.content)
 
         # Update Auth ticket if it exists
@@ -223,27 +232,27 @@ class PogoSessionBare(object):
         data = [None, ] * 4
 
         # Create Egg request
-        data[0] = Request_pb2.Request(
-            request_type=RequestType_pb2.GET_HATCHED_EGGS
+        data[0] = Request.Request(
+            request_type=RequestType.GET_HATCHED_EGGS
         )
 
         # Create Inventory Request
-        data[1] = Request_pb2.Request(
-            request_type=RequestType_pb2.GET_INVENTORY,
-            request_message=GetInventoryMessage_pb2.GetInventoryMessage(
+        data[1] = Request.Request(
+            request_type=RequestType.GET_INVENTORY,
+            request_message=GetInventoryMessage.GetInventoryMessage(
                 last_timestamp_ms=0
             ).SerializeToString()
         )
 
         # Create Badge request
-        data[2] = Request_pb2.Request(
-            request_type=RequestType_pb2.CHECK_AWARDED_BADGES
+        data[2] = Request.Request(
+            request_type=RequestType.CHECK_AWARDED_BADGES
         )
 
         # Create Settings request
-        data[3] = Request_pb2.Request(
-            request_type=RequestType_pb2.DOWNLOAD_SETTINGS,
-            request_message=DownloadSettingsMessage_pb2.DownloadSettingsMessage(
+        data[3] = Request.Request(
+            request_type=RequestType.DOWNLOAD_SETTINGS,
+            request_message=DownloadSettingsMessage.DownloadSettingsMessage(
                 hash="4a2e9bc330dae60e7b74fc85b98868ab4700802e"
             ).SerializeToString()
         )
