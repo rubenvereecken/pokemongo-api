@@ -105,17 +105,17 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
 
         # Check for balls and see if we pass
         # wanted threshold
-        for i in range(len(balls)):
-            if balls[i] in bag and bag[balls[i]] > 0:
-                altBall = balls[i]
+        for i, ball in enumerate(balls):
+            if bag.get(ball, 0) > 0:
+                altBall = ball
                 if chances[i] > thresholdP:
-                    bestBall = balls[i]
+                    bestBall = ball
                     break
 
         # If we can't determine a ball, try a berry
         # or use a lower class ball
         if bestBall == items.UNKNOWN:
-            if not berried and items.RAZZ_BERRY in bag and bag[items.RAZZ_BERRY]:
+            if not berried and bag.get(items.RAZZ_BERRY, 0) > 0:
                 logging.info("Using a RAZZ_BERRY")
                 session.useItemCapture(items.RAZZ_BERRY, pokemon)
                 berried = True
