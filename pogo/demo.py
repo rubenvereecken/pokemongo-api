@@ -11,6 +11,7 @@ from location import Location
 from pokedex import pokedex
 from inventory import items
 
+useProxy = False
 
 def setupLogger():
     logger = logging.getLogger()
@@ -360,6 +361,7 @@ def simpleBot(session):
 # Entry point
 # Start off authentication and demo
 if __name__ == '__main__':
+    global useProxy
     setupLogger()
     logging.debug('Logger set up')
 
@@ -371,6 +373,7 @@ if __name__ == '__main__':
     parser.add_argument("-e", "--encrypt_lib", help="Encryption Library")
     parser.add_argument("-g", "--geo_key", help="GEO API Secret")
     parser.add_argument("-l", "--location", help="Location")
+    parser.add_argument("-proxy", "--proxy", help="Full Path to Proxy")
     args = parser.parse_args()
 
     # Check service
@@ -378,13 +381,20 @@ if __name__ == '__main__':
         logging.error('Invalid auth service {}'.format(args.auth))
         sys.exit(-1)
 
+    if args.proxy:
+        useProxy = args.proxy
+    else:
+        useProxy = False
+        
+
     # Create PokoAuthObject
     poko_session = PokeAuthSession(
         args.username,
         args.password,
         args.auth,
         args.encrypt_lib,
-        geo_key=args.geo_key
+        geo_key=args.geo_key,
+        proxy=useProxy
     )
 
     # Authenticate with a given location
