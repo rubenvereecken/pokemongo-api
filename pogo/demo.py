@@ -312,6 +312,7 @@ def cleanInventory(session):
     for toss in tossable:
         if toss in bag and bag[toss]:
             session.recycleItem(toss, bag[toss])
+            time.sleep(1)
 
     # Limit a certain type
     limited = {
@@ -323,6 +324,7 @@ def cleanInventory(session):
     for limit in limited:
         if limit in bag and bag[limit] > limited[limit]:
             session.recycleItem(limit, bag[limit] - limited[limit])
+            time.sleep(1)
 
 
 # Basic bot
@@ -423,8 +425,8 @@ if __name__ == '__main__':
             fort = findClosestFort(session)
             walkAndSpin(session, fort)
 
-        # see simpleBot() for logical usecases
-        # eg. simpleBot(session)
+            # see simpleBot() for logical usecases
+            # simpleBot(session)
 
     else:
         logging.critical('Session not created successfully')

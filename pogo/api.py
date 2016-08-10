@@ -29,7 +29,10 @@ def getRPCId():
 
 
 class PokeAuthSession(object):
-    def __init__(self, username, password, provider='google', encrypt_lib=None, geo_key=None):
+    def __init__(
+        self, username, password,
+        provider='google', encrypt_lib=None, geo_key=None
+    ):
         self.session = self.createRequestsSession()
         self.provider = provider
         self.encryptLib = encrypt_lib
@@ -50,7 +53,10 @@ class PokeAuthSession(object):
         session.verify = False
         return session
 
-    def createPogoSession(self, provider=None, locationLookup='', session=None, noop=False):
+    def createPogoSession(
+        self, provider=None, locationLookup='', session=None,
+        noop=False
+    ):
         if self.provider:
             self.provider = provider
 

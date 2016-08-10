@@ -37,7 +37,11 @@ API_URL = 'https://pgorelease.nianticlabs.com/plfe/rpc'
 
 class PogoSessionBare(object):
 
-    def __init__(self, session, authProvider, accessToken, location, encryptLib):
+    def __init__(
+        self, session, authProvider,
+        accessToken, location, encrypt_lib,
+        old=None
+    ):
         self.session = session
         self.authProvider = authProvider
         self.accessToken = accessToken
@@ -45,11 +49,18 @@ class PogoSessionBare(object):
         if self.location.noop:
             logging.info("Limited functionality. No location provided")
 
-        self._state = State()
-        self._start = getMs()
-        self._encryptLib = encryptLib
         # Set up Inventory
-        self._inventory = None
+        if old is None:
+            self._inventory = old.inventory
+            self._state = old._state
+
+        # Start fresh
+        else:
+            self._inventory = None
+            self._state = State()
+
+        self._start = getMs()
+        self._encryptLib = encrypt_lib
 
         self.authTicket = None
         self.endpoint = None
