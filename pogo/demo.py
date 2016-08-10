@@ -306,16 +306,16 @@ def cleanPokemon(session, thresholdCP=50):
             pokemon = pokemons.pop()
             logging.info("Releasing %s" % pokedex[pokemon.pokemon_id])
             session.releasePokemon(pokemon)
-            time.sleep(3)
+            time.sleep(1)
             candies += 1
 
         # evolve remainder
         for pokemon in pokemons:
             logging.info("Evolving %s" % pokedex[pokemon.pokemon_id])
             logging.info(session.evolvePokemon(pokemon))
-            time.sleep(3)
+            time.sleep(1)
             session.releasePokemon(pokemon)
-            time.sleep(3)
+            time.sleep(1)
 
 
 def cleanInventory(session):
@@ -350,7 +350,7 @@ def simpleBot(session):
     # Run the bot
     while True:
         forts = sortCloseForts(session)
-        cleanPokemon(session, thresholdCP=500)
+        cleanPokemon(session, thresholdCP=300)
         cleanInventory(session)
         try:
             for fort in forts:
@@ -435,18 +435,18 @@ if __name__ == '__main__':
             time.sleep(10)
 
             # Pokemon related
-            # pokemon = findBestPokemon(session)
-            # walkAndCatch(session, pokemon)
+            pokemon = findBestPokemon(session)
+            walkAndCatch(session, pokemon)
 
             # Goodnight light and the red balloon.
-            # time.sleep(5)
+            time.sleep(5)
 
             # Pokestop related
-            # fort = findClosestFort(session)
-            # walkAndSpin(session, fort)
+            fort = findClosestFort(session)
+            walkAndSpin(session, fort)
 
             # see simpleBot() for logical usecases
-            simpleBot(session)
+            # simpleBot(session)
 
     else:
         logging.critical('Session not created successfully')
