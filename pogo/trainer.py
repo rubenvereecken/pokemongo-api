@@ -32,7 +32,7 @@ class Trainer(object):
     def findBestPokemon(self):
         # Get Map details and print pokemon
         logging.info("Finding Nearby Pokemon:")
-        cells = self.session.getMapObjects()
+        cells = self.session.getMapObjects(bothDirections=False)
         closest = float("Inf")
         best = -1
         pokemonBest = None
@@ -80,7 +80,7 @@ class Trainer(object):
         encounter = self.session.encounterPokemon(pokemon)
 
         # If party full
-        if encounter.POKEMON_INVENTORY_FULL:
+        if encounter.status == encounter.POKEMON_INVENTORY_FULL:
             logging.error("Can't catch! Party is full!")
             return None
 
@@ -387,12 +387,12 @@ class Trainer(object):
             # Catch problems and reauthenticate
             except GeneralPogoException as e:
                 logging.critical('GeneralPogoException raised: %s', e)
-                self.session = self.session.reauthenticate()
+                self.session = self.auth.reauthenticate(self.session)
                 time.sleep(cooldown)
                 cooldown *= 2
 
             except Exception as e:
                 logging.critical('Exception raised: %s', e)
-                self.session = self.session.reauthenticate()
+                self.session = self.auth.reauthenticate(self.session)
                 time.sleep(cooldown)
                 cooldown *= 2

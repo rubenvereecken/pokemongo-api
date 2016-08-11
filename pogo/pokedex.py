@@ -301,7 +301,7 @@ class Pokedex(ConstReflect):
 
     def getRarityById(self, pokemonId):
         for rarity in self.rarity:
-            if pokemonId in rarity[rarity]:
+            if pokemonId in self._rarity[rarity]:
                 return rarity
         return 0
 

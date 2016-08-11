@@ -70,18 +70,18 @@ if __name__ == '__main__':
             time.sleep(10)
 
             # Pokemon related
-            pokemon = trainer.findBestPokemon()
-            trainer.walkAndCatch(pokemon)
+            # pokemon = trainer.findBestPokemon()
+            # trainer.walkAndCatch(pokemon)
 
             # Goodnight light and the red balloon.
             time.sleep(5)
 
             # Pokestop related
-            fort = trainer.findClosestFort()
-            trainer.walkAndSpin(fort)
+            # fort = trainer.findClosestFort()
+            # trainer.walkAndSpin(fort)
 
             # see simpleBot() for logical usecases
-            # e.g trainer.simpleBot()
+            trainer.simpleBot()
 
     else:
         logging.critical('Session not created successfully')
