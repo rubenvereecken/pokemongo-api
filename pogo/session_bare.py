@@ -1,15 +1,15 @@
 # Load Generated Protobuf
-from pogo.POGOProtos.Networking.Envelopes import (
+from POGOProtos.Networking.Envelopes import (
     Unknown6_pb2 as Unknown6,
     Signature_pb2 as Signature,
     ResponseEnvelope_pb2 as ResponseEnvelope,
     RequestEnvelope_pb2 as RequestEnvelope
 )
-from pogo.POGOProtos.Networking.Requests import (
+from POGOProtos.Networking.Requests import (
     RequestType_pb2 as RequestType,
     Request_pb2 as Request
 )
-from pogo.POGOProtos.Networking.Requests.Messages import (
+from POGOProtos.Networking.Requests.Messages import (
     GetInventoryMessage_pb2 as GetInventoryMessage,
     DownloadSettingsMessage_pb2 as DownloadSettingsMessage
 )
@@ -25,7 +25,7 @@ from pogo.custom_exceptions import (
     PogoInventoryException,
     PogoRateException
 )
-from google.protobuf.message import DecodeERROR_
+from google.protobuf.message import DecodeError
 
 # Utils
 from pogo.util import hashLocation, hashRequests, hashSignature, getMs
@@ -62,7 +62,7 @@ class PogoSessionBare(object):
         self._authSession = authSession
         self._location = location
         if self._location.noop:
-            logging.info("Limited functionality. No location provided")
+            logging.info('Limited functionality. No location provided')
 
         # Set up Inventory
         if old is not None:
@@ -76,6 +76,7 @@ class PogoSessionBare(object):
 
         self._start = getMs()
         self._authTicket = None
+        self._session = self._authSession.requestSession
         self._endpoint = self.formatEndpoint(self.createApiEndpoint())
 
     def __str__(self):
@@ -184,7 +185,7 @@ class PogoSessionBare(object):
         # If we haven't authenticated before
         info = None
         signature = None
-        if not self.authTicket:
+        if self.authTicket is None:
             info = RequestEnvelope.RequestEnvelope.AuthInfo(
                 provider=self.authProvider,
                 token=RequestEnvelope.RequestEnvelope.AuthInfo.JWT(
@@ -214,7 +215,7 @@ class PogoSessionBare(object):
                 request_hash=hashRequests(self.authTicket, payload)
             )
 
-            signature = hashSignature(proto, self._encryptLib)
+            signature = hashSignature(proto, self.encryptLib)
 
         # Build Envelope
         req = RequestEnvelope.RequestEnvelope(
@@ -243,7 +244,7 @@ class PogoSessionBare(object):
             url = self.endpoint
 
         # Send request
-        rawResponse = self.session.post(url, data=req.SerializeToString())
+        rawResponse = self._session.post(url, data=req.SerializeToString())
 
         # Parse it out
         res = ResponseEnvelope.ResponseEnvelope()
@@ -251,18 +252,19 @@ class PogoSessionBare(object):
 
         # Update Auth ticket if it exists
         if res.auth_ticket.start:
-            self.authTicket = res.auth_ticket
+            self._authTicket = res.auth_ticket
 
         return res
 
     def request(self, req, url=None):
         try:
             return self.requestOrThrow(req, url)
-        except DecodeERROR_ as e:
+        except DecodeError as e:
             raise PogoResponseException(ERROR_RESPONSE)
+            logging.error(e)
         except Exception as e:
-            logging.ERROR_(e)
             raise PogoServerException(ERROR_SERVER)
+            logging.error(e)
 
     def wrapAndRequest(self, payload, defaults=True):
         res = self.request(self.wrapInRequest(payload, defaults=defaults))
@@ -325,7 +327,7 @@ class PogoSessionBare(object):
     def parseDefault(self, res):
         l = len(res.returns)
         if l < 5:
-            logging.ERROR_(res)
+            logging.error(res)
             raise PogoResponseException(ERROR_PROTO)
 
         try:
@@ -334,7 +336,7 @@ class PogoSessionBare(object):
             self._state.badges.ParseFromString(res.returns[l - 2])
             self._state.settings.ParseFromString(res.returns[l - 1])
         except Exception as e:
-            logging.ERROR_(e)
+            logging.error(e)
             raise PogoResponseException(ERROR_RETURN)
 
         # Finally make inventory usable

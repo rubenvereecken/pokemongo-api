@@ -1,8 +1,7 @@
 from util import ConstReflect
-from enum import Enum
 
 
-class Rarity(Enum):
+class Rarity(ConstReflect):
     """Enums for pokemon rarity. sort of subjective."""
     CRITTER = 0
     COMMON = 1

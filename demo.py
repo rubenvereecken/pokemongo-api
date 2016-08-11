@@ -6,26 +6,7 @@ import time
 import pogo.util as util
 from pogo.api import PokeAuthSession
 from pogo.custom_exceptions import GeneralPogoException
-import pogo.Trainer as Trainer
-
-
-# Example functions
-# Get profile
-def getProfile(session):
-    logging.info("Printing Profile:")
-    profile = session.getProfile()
-    logging.info(profile)
-
-
-def setNickname(session):
-    pokemon = session.inventory.party[0]
-    session.nicknamePokemon(pokemon, "Testing")
-
-
-# Do Inventory stuff
-def checkInventory(session):
-    logging.info("Checking Inventory:")
-    logging.info(session.inventory)
+from pogo.trainer import Trainer
 
 
 # Entry point
@@ -100,7 +81,7 @@ if __name__ == '__main__':
             trainer.walkAndSpin(fort)
 
             # see simpleBot() for logical usecases
-            # simpleBot(session)
+            # e.g trainer.simpleBot()
 
     else:
         logging.critical('Session not created successfully')

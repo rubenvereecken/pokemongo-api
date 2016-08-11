@@ -2,5 +2,5 @@
 
 rm -rf pogo/proto
 cd ./proto/
-./compile.py -l python -o ../pogo/
+./compile.py -l python -o ../
 cd ../

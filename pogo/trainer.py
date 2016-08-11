@@ -17,6 +17,17 @@ class Trainer(object):
         self.auth = auth
         self.session = session
 
+    # Get profile
+    def getProfile(self):
+        logging.info("Printing Profile:")
+        profile = self.session.getProfile()
+        logging.info(profile)
+
+    # Do Inventory stuff
+    def checkInventory(self):
+        logging.info("Checking Inventory:")
+        logging.info(self.session.inventory)
+
     # Grab the nearest pokemon details
     def findBestPokemon(self):
         # Get Map details and print pokemon
@@ -64,9 +75,9 @@ class Trainer(object):
         return pokemonBest
 
     # Wrap both for ease
-    def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
+    def encounterAndCatch(self, pokemon, thresholdP=0.5, limit=5, delay=2):
         # Start encounter
-        encounter = session.encounterPokemon(pokemon)
+        encounter = self.session.encounterPokemon(pokemon)
 
         # If party full
         if encounter.POKEMON_INVENTORY_FULL:
@@ -77,7 +88,7 @@ class Trainer(object):
         chances = encounter.capture_probability.capture_probability
         balls = encounter.capture_probability.pokeball_type
         balls = balls or [items.POKE_BALL, items.GREAT_BALL, items.ULTRA_BALL]
-        bag = session.inventory.bag
+        bag = self.session.inventory.bag
 
         # Have we used a razz berry yet?
         berried = False
@@ -106,7 +117,7 @@ class Trainer(object):
             if bestBall == items.UNKNOWN:
                 if not berried and bag.get(items.RAZZ_BERRY, 0) > 0:
                     logging.info("Using a RAZZ_BERRY")
-                    session.useItemCapture(items.RAZZ_BERRY, pokemon)
+                    self.session.useItemCapture(items.RAZZ_BERRY, pokemon)
                     berried = True
                     time.sleep(delay)
                     continue
@@ -119,7 +130,7 @@ class Trainer(object):
 
             # Try to catch it!!
             logging.info("Using a %s" % items[bestBall])
-            attempt = session.catchPokemon(pokemon, bestBall)
+            attempt = self.session.catchPokemon(pokemon, bestBall)
             time.sleep(delay)
 
             # Success or run away
@@ -169,6 +180,7 @@ class Trainer(object):
             )
         )
 
+        # Approach at supplied rate
         steps = 1
         while dist > epsilon:
             logging.debug("%f m -> %f m away", closest - dist, closest)
@@ -235,7 +247,11 @@ class Trainer(object):
     def findClosestFort(self):
         # Find nearest fort (pokestop)
         logging.info("Finding Nearest Fort:")
-        return self.sortCloseForts()[0]
+        forts = self.sortCloseForts()
+        if forts:
+            return forts[0]
+        logging.info("No forts found..")
+        return None
 
     # Walk to fort and spin
     def walkAndSpin(self, fort):
@@ -300,9 +316,14 @@ class Trainer(object):
                 # Get rid of low CP, low evolve value
                 logging.info("Releasing %s" % pokedex[pokemon.pokemon_id])
                 self.session.releasePokemon(pokemon)
+                time.sleep(2)
 
         # Evolve those we want
         for evolve in evolables:
+            # if we don't have any candies of that type
+            # e.g. not caught that pokemon yet
+            if evolve not in self.session.inventory.candies:
+                continue
             candies = self.session.inventory.candies[evolve]
             pokemons = toEvolve[evolve]
             # release for optimal candies
@@ -325,11 +346,12 @@ class Trainer(object):
         logging.info("Cleaning out Inventory...")
         bag = self.session.inventory.bag
 
-        # Clear out all of a crtain type
+        # Clear out all of a certain type
         tossable = [items.POTION, items.SUPER_POTION, items.REVIVE]
         for toss in tossable:
             if toss in bag and bag[toss]:
                 self.session.recycleItem(toss, bag[toss])
+                time.sleep(1)
 
         # Limit a certain type
         limited = {
@@ -341,6 +363,7 @@ class Trainer(object):
         for limit in limited:
             if limit in bag and bag[limit] > limited[limit]:
                 self.session.recycleItem(limit, bag[limit] - limited[limit])
+                time.sleep(1)
 
     # Basic bot
     def simpleBot(self):
@@ -352,6 +375,7 @@ class Trainer(object):
             forts = self.sortCloseForts()
             self.cleanPokemon()
             self.cleanInventory()
+            time.sleep(1)
             try:
                 for fort in forts:
                     pokemon = self.findBestPokemon()

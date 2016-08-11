@@ -1,9 +1,9 @@
 # Load protobufs
-from pogo.POGOProtos.Networking.Requests import(
+from POGOProtos.Networking.Requests import(
     Request_pb2 as Request,
     RequestType_pb2 as RequestType
 )
-from pogo.POGOProtos.Networking.Requests.Messages import(
+from POGOProtos.Networking.Requests.Messages import(
     EncounterMessage_pb2 as EncounterMessage,
     FortSearchMessage_pb2 as FortSearchMessage,
     FortDetailsMessage_pb2 as FortDetailsMessage,
@@ -370,6 +370,7 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.incubator
 
+    # Set the name of a given pokemon
     def nicknamePokemon(self, pokemon, nickname):
         # Create request
         payload = [Request.Request(
