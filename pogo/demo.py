@@ -90,7 +90,7 @@ def encounterAndCatch(session, pokemon, thresholdP=0.5, limit=5, delay=2):
     encounter = session.encounterPokemon(pokemon)
 
     # If party full
-    if encounter.POKEMON_INVENTORY_FULL:
+    if encounter.status == encounter.POKEMON_INVENTORY_FULL:
         logging.error("Can't catch! Party is full!")
         return None
 
