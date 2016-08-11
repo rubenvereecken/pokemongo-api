@@ -195,7 +195,7 @@ class PogoSessionBare(object):
             )
 
         # Otherwise build signature
-        elif self.encryptLib:
+        elif self.encryptLib and not self.location.noop:
 
             # Generate hashes
             hashA, hashB = hashLocation(

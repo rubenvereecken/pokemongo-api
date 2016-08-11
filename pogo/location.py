@@ -47,7 +47,7 @@ class Location(object):
         ).id()
 
     @staticmethod
-    def Noop():
+    def noop():
         return Location(None, None, noop=True)
 
     def setLocation(self, search):
