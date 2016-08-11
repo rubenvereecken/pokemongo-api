@@ -54,6 +54,16 @@ ERROR_PROTO = 'Expected response not returned'
 ERROR_INVENTORY = 'Please initialize Inventory before access.'
 ERROR_RATE = 'Request frequency exceeds rate limit.'
 
+# Notices
+NO_ENCRYPTION_NOTICE = (
+    "NOTICE:\n"
+    "You have not specified a path for the Encryption Library\n"
+    "As such, your functionality will be limited- requests may\n"
+    "return blank or all together fail. To provide a library from\n"
+    "demo.py, specify the -e flag e.g. -e'encrpyt.dll'"
+)
+NO_LOCATION_NOTICE = "Limited functionality. No location provided"
+
 
 class PogoSessionBare(object):
     """ Core session class for creating requests"""
@@ -62,7 +72,7 @@ class PogoSessionBare(object):
         self._authSession = authSession
         self._location = location
         if self._location.noop:
-            logging.info('Limited functionality. No location provided')
+            logging.warning(NO_LOCATION_NOTICE)
 
         # Set up Inventory
         if old is not None:
@@ -78,6 +88,9 @@ class PogoSessionBare(object):
         self._authTicket = None
         self._session = self._authSession.requestSession
         self._endpoint = self.formatEndpoint(self.createApiEndpoint())
+
+        if self.encryptLib is None:
+            logging.warning(NO_ENCRYPTION_NOTICE)
 
     def __str__(self):
         s = 'Access Token: {0}\nEndpoint: {1}\nLocation: {2}'.format(
