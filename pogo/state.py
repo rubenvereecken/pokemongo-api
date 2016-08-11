@@ -1,4 +1,4 @@
-from Networking.Responses import (
+from POGOProtos.Networking.Responses import (
     CheckAwardedBadgesResponse_pb2 as CheckAwardedBadgesResponse,
     DownloadSettingsResponse_pb2 as DownloadSettingsResponse,
     GetInventoryResponse_pb2 as GetInventoryResponse,

@@ -29,6 +29,7 @@ import xxhash
 import ctypes
 import inspect
 import os
+import logging
 
 from binascii import unhexlify
 
@@ -45,6 +46,18 @@ class ConstReflect(dict):
         for attribute in attributes:
             if attribute[0].isupper():
                 self[attribute[1]] = attribute[0]
+
+
+def setupLogger():
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter(
+        'Line %(lineno)d,%(filename)s- %(asctime)s- %(levelname)s- %(message)s'
+    )
+    ch.setFormatter(formatter)
+    logger.addHandler(ch)
 
 
 def f2i(float):
