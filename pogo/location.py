@@ -38,6 +38,15 @@ class Location(object):
         return gpxpy.geo.haversine_distance(*coords)
 
     @staticmethod
+    def getLatLongIndex(latitude, longitude):
+        return CellId.from_lat_lng(
+            LatLng.from_degrees(
+                latitude,
+                longitude
+            )
+        ).id()
+
+    @staticmethod
     def Noop():
         return Location(None, None, noop=True)
 
@@ -57,7 +66,7 @@ class Location(object):
     def getCoordinates(self):
         return self.latitude, self.longitude, self.altitude
 
-    def getCells(self, radius=10):
+    def getCells(self, radius=10, bothDirections=True):
         origin = CellId.from_lat_lng(
             LatLng.from_degrees(
                 self.latitude,
@@ -70,12 +79,17 @@ class Location(object):
         right = origin.next()
         left = origin.prev()
 
+        # Double the radius if we're only walking one way
+        if not bothDirections:
+            radius *= 2
+
         # Search around provided radius
         for _ in range(radius):
             walk.append(right.id())
-            walk.append(left.id())
             right = right.next()
-            left = left.prev()
+            if bothDirections:
+                walk.append(left.id())
+                left = left.prev()
 
         # Return everything
         return sorted(walk)

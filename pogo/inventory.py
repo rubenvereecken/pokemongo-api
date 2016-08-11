@@ -99,16 +99,16 @@ class Inventory(object):
             return 0
 
     def __str__(self):
-        def strip(proto):
+        def clean(proto):
             return str(proto).replace("\n", "\n\t")
 
         s = "Inventory:"
 
-        s += "\n-- Stats: {0}".format(strip(self.stats))
+        s += "\n-- Stats: {0}".format(clean(self.stats))
 
         s += "\n-- Pokedex:"
         for pokemon in self.pokedex:
-            s += "\n\t{0}: {1}".format(pokemon, strip(self.pokedex[pokemon]))
+            s += "\n\t{0}: {1}".format(pokemon, clean(self.pokedex[pokemon]))
 
         s += "\n-- Candies:"
         for key in self.candies:
@@ -116,11 +116,11 @@ class Inventory(object):
 
         s += "\n-- Party:"
         for pokemon in self.party:
-            s += "\n\t{0}".format(strip(pokemon))
+            s += "\n\t{0}".format(clean(pokemon))
 
         s += "\n-- Eggs:"
         for egg in self.eggs:
-            s += "\n\t{0}".format(strip(egg))
+            s += "\n\t{0}".format(clean(egg))
 
         s += "\n-- Bag:"
         for key in self.bag:
@@ -128,6 +128,6 @@ class Inventory(object):
 
         s += "\n-- Incubators:"
         for incubator in self.incubators:
-            s += "\n\t{0}".format(strip(incubator))
+            s += "\n\t{0}".format(clean(incubator))
 
         return s

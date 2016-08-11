@@ -1,7 +1,8 @@
 from util import ConstReflect
+from enum import Enum
 
 
-class Rarity(object):
+class Rarity(Enum):
     """Enums for pokemon rarity. sort of subjective."""
     CRITTER = 0
     COMMON = 1
@@ -170,7 +171,7 @@ class Pokedex(ConstReflect):
     MEWTWO = 150
     MEW = 151
 
-    evolves = {
+    _evolves = {
         MISSINGNO: 0, BULBASAUR: 25, IVYSAUR: 100, VENUSAUR: 0,
         CHARMANDER: 25, CHARMELEON: 100, CHARIZARD: 0, SQUIRTLE: 25,
         WARTORTLE: 100, BLASTOISE: 0, CATERPIE: 12, METAPOD: 50,
@@ -204,7 +205,7 @@ class Pokedex(ConstReflect):
         DRAGONITE: 0, MEWTWO: 0, MEW: 0
     }
 
-    familes = {
+    _families = {
         BULBASAUR: BULBASAUR, IVYSAUR: BULBASAUR, VENUSAUR: BULBASAUR,
         CHARMANDER: CHARMANDER, CHARMELEON: CHARMANDER, CHARIZARD: CHARMANDER,
         SQUIRTLE: SQUIRTLE, WARTORTLE: SQUIRTLE, BLASTOISE: SQUIRTLE,
@@ -251,7 +252,7 @@ class Pokedex(ConstReflect):
         DRAGONAIR: DRATINI, DRAGONITE: DRATINI, MEWTWO: MEWTWO, MEW: MEW
     }
 
-    rarity = {
+    _rarity = {
         Rarity.MYTHIC: [MEW],
         Rarity.LEGENDARY: [
             ZAPDOS, MOLTRES, MEWTWO, ARTICUNO
@@ -308,6 +309,16 @@ class Pokedex(ConstReflect):
     def getRarityByName(self, name):
         return self.getRarityById(self[name])
 
+    @property
+    def rarity(self):
+        return self._rarity
 
-# Some reflection, based on uppercase consts.
+    @property
+    def families(self):
+        return self._families
+
+    @property
+    def evolves(self):
+        return self._evolves
+
 pokedex = Pokedex()

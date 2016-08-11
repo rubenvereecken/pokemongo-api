@@ -1,9 +1,9 @@
 # Load protobufs
-from POGOProtos.Networking.Requests import(
+from pogo.POGOProtos.Networking.Requests import(
     Request_pb2 as Request,
     RequestType_pb2 as RequestType
 )
-from POGOProtos.Networking.Requests.Messages import(
+from pogo.POGOProtos.Networking.Requests.Messages import(
     EncounterMessage_pb2 as EncounterMessage,
     FortSearchMessage_pb2 as FortSearchMessage,
     FortDetailsMessage_pb2 as FortDetailsMessage,
@@ -25,35 +25,12 @@ from POGOProtos.Networking.Requests.Messages import(
 )
 
 # Load Local
-from inventory import items
-from location import Location
-from session_bare import PogoSessionBare
-from custom_exceptions import GeneralPogoException
-
-# Load sys
-import logging
-import time
+from pogo.inventory import items
+from pogo.session_bare import PogoSessionBare
 
 
 class PogoSession(PogoSessionBare):
     """Session class with more robust calls"""
-
-    # Hooks for those bundled in default
-    def getEggs(self):
-        self.getProfile()
-        return self._state.eggs
-
-    def getInventory(self):
-        self.getProfile()
-        return self._inventory
-
-    def getBadges(self):
-        self.getProfile()
-        return self._state.badges
-
-    def getDownloadSettings(self):
-        self.getProfile()
-        return self._state.settings
 
     # Core api calls
     # Get profile
@@ -72,10 +49,27 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.profile
 
+    # Hooks for those bundled in default
+    def getEggs(self):
+        self.getProfile()
+        return self._state.eggs
+
+    def getInventory(self):
+        self.getProfile()
+        return self._inventory
+
+    def getBadges(self):
+        self.getProfile()
+        return self._state.badges
+
+    def getDownloadSettings(self):
+        self.getProfile()
+        return self._state.settings
+
     # Get Location
-    def getMapObjects(self, radius=10):
+    def getMapObjects(self, radius=10, bothDirections=True):
         # Work out location details
-        cells = self.location.getCells(radius)
+        cells = self.location.getCells(radius, bothDirections)
         latitude, longitude, _ = self.getCoordinates()
         timestamps = [0, ] * len(cells)
 
@@ -455,63 +449,3 @@ class PogoSession(PogoSessionBare):
 
         # Return everything
         return self._state.playerTeam
-
-    # These act as more logical functions.
-    # Might be better to break out seperately
-    # Walk over to position in meters
-    def walkTo(self, olatitude, olongitude, epsilon=10, step=7.5, delay=10):
-        if step >= epsilon:
-            raise GeneralPogoException("Walk may never converge")
-
-        if self.location.noop:
-            raise GeneralPogoException("Location not set")
-
-        # Calculate distance to position
-        latitude, longitude, _ = self.getCoordinates()
-        dist = closest = Location.getDistance(
-            latitude,
-            longitude,
-            olatitude,
-            olongitude
-        )
-
-        # Run walk
-        divisions = closest / step
-        dLat = (latitude - olatitude) / divisions
-        dLon = (longitude - olongitude) / divisions
-
-        logging.info(
-            "Walking %f meters. This will take ~%f seconds..." % (
-                dist,
-                dist / step
-            )
-        )
-
-        steps = 1
-        while dist > epsilon:
-            logging.debug("%f m -> %f m away", closest - dist, closest)
-            latitude -= dLat
-            longitude -= dLon
-            steps %= delay
-            if steps == 0:
-                self.setCoordinates(
-                    latitude,
-                    longitude
-                )
-            time.sleep(1)
-            dist = Location.getDistance(
-                latitude,
-                longitude,
-                olatitude,
-                olongitude
-            )
-            steps += 1
-
-        # Finalize walk
-        steps -= 1
-        if steps % delay > 0:
-            time.sleep(delay - steps)
-            self.setCoordinates(
-                latitude,
-                longitude
-            )
