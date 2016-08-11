@@ -14,8 +14,16 @@ class Trainer(object):
     """
 
     def __init__(self, auth, session):
-        self.auth = auth
-        self.session = session
+        self._auth = auth
+        self._session = session
+
+    @property
+    def auth(self):
+        return self._auth
+
+    @property
+    def session(self):
+        return self._session
 
     # Get profile
     def getProfile(self):
@@ -103,9 +111,7 @@ class Trainer(object):
 
             # Check for balls and see if we pass
             # wanted threshold
-            print(balls)
             for i, ball in enumerate(balls):
-                print(bag.get(ball, 0) > 0)
                 if bag.get(ball, 0) > 0:
                     altBall = ball
                     if chances[i] > thresholdP:
@@ -387,12 +393,12 @@ class Trainer(object):
             # Catch problems and reauthenticate
             except GeneralPogoException as e:
                 logging.critical('GeneralPogoException raised: %s', e)
-                self.session = self.auth.reauthenticate(self.session)
+                self._session = self.auth.reauthenticate(self.session)
                 time.sleep(cooldown)
                 cooldown *= 2
 
             except Exception as e:
                 logging.critical('Exception raised: %s', e)
-                self.session = self.auth.reauthenticate(self.session)
+                self._session = self.auth.reauthenticate(self.session)
                 time.sleep(cooldown)
                 cooldown *= 2
