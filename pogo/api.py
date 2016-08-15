@@ -88,7 +88,7 @@ class PokeAuthSession(object):
         # determine location
         location = None
         if noop:
-            location = Location.noop()
+            location = Location.Noop()
         elif session:
             location = session.location
         elif locationLookup:

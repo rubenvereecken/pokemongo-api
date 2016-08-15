@@ -37,7 +37,7 @@ from binascii import unhexlify
 class ConstReflect(dict):
 
     def __init__(self):
-        super(dict, self).__init__(self)
+        super(ConstReflect, self).__init__()
 
         def determineRoutine(attribute):
             return not(inspect.isroutine(attribute))
@@ -60,16 +60,16 @@ def setupLogger():
     logger.addHandler(ch)
 
 
-def f2i(float):
-    return struct.unpack('<Q', struct.pack('<d', float))[0]
+def f2i(f):
+    return struct.unpack('<Q', struct.pack('<d', f))[0]
 
 
-def f2h(float):
-    return hex(struct.unpack('<Q', struct.pack('<d', float))[0])
+def f2h(f):
+    return hex(struct.unpack('<Q', struct.pack('<d', f))[0])
 
 
-def h2f(hex):
-    return struct.unpack('<d', struct.pack('<Q', int(hex, 16)))[0]
+def h2f(h):
+    return struct.unpack('<d', struct.pack('<Q', int(h, 16)))[0]
 
 
 def d2h(f):

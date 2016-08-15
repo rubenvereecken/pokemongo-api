@@ -45,7 +45,7 @@ class Inventory(object):
     """ Inventory class to hold response from inventory"""
 
     # Split from inventory since everything is bundled
-    def __init__(self, items):
+    def __init__(self, inventory):
         # Reset inventory
         # Assuming sincetimestamp = 0
         # Otherwise have to associate time state,
@@ -57,7 +57,7 @@ class Inventory(object):
         self.party = []
         self.eggs = []
         self.bag = {}
-        for item in items:
+        for item in inventory:
             data = item.inventory_item_data
 
             if data.HasField("player_stats"):
