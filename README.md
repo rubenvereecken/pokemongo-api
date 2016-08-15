@@ -1,64 +1,84 @@
 # Pokemon Go API for Python
+[![Code Health](https://landscape.io/github/dmadisetti/pokemongo-api/master/landscape.svg?style=flat)](https://landscape.io/github/dmadisetti/pokemongo-api/master)
+## Why use this API?
+
+This is arguably one of the cleanest python API's out there. It is our hope that this codebase is easily understood and very readable. We actively stay away from reflection, because actively managed calls provide a nicer experience than digging through protobufs. Development is currently active, so feel free to contribute any requests or functionality you think is missing.
+
+*Important note*: `libencrypt.so` or `encrypt.dll` is needed in order for complete functionality. Minor calls such as getProfile will still work without this. We do not provide this library due to copyright issues. However, if you know where to look, you should be able to be able to find either the binaries or the source. 
 
 ## Installation
 
-We do not yet have this installable as a pip package,
-though some headway has been made.
-Clone this or use this however you like.
+Install this package via pip i.e
+`pip install git+git://github.com/rubenvereecken/pokemongo-api@master`
+Alternatively, clone this and use `pip install .`
 
-*Important note*: `libencrypt.so` or `encrypt.dll` is needed in order for this to work.
+To get newest, run `pip install git+git://github.com/rubenvereecken/pokemongo-api@master --upgrade`
+
+## Implementation
+
+Trainer is a general purpose class meant to encapsulate basic functons. We recommend that you inherit from this class to provide your specific usecase. We understand that `Trainer` is not as fully flushed out as it could be- it is meant to be a stub for building more complex logic. e.g.
+```
+class Map(Trainer):
+    """My beautiful map implementation"""
+
+    def fillWebSocketsForRealtimeStuffOrSomethingLikeThat(self):
+        """Fill websockets with profile data or something.
+        I don't know. The world is your oyster."""
+        profile = self.session.getProfile()
+        ...
+```
+
+or
+
+```
+class Bot(Trainer):
+    """Such bot, much cheat."""
+
+    def catchAllThePokemonOrSomething(self):
+        """Whatever it is botters do"""
+        ...
+```
+
+Feel free to also ignore trainer and call session functions directly.
 
 ## Features
 
 Our current implementaion covers most of the basics of gameplay. The following methods are availible:
 
-```
-# Get profile
-def getProfile(self):
 
-# Get Location
-def getMapObjects(self, radius=10):
+| Description                                      | function      |
+| ------------------                               |:-------------:|
+| Get Profile (Avatar, team etc..)                 | getProfile() |
+| Get Eggs                                         | getEggs() |
+| Get Inventory                                    | getInventory() |
+| Get Badges                                       | getBadges() |
+| Get Settings                                     | getDownloadSettings() |
+| Get Location                                     | getMapObjects(radius=10, bothDirections=True) |
+| Get Location                                     | getFortSearch(fort) |
+| Get details about fort (image, text etc..)       | getFortDetails(fort) |
+| Get encounter (akin to tapping a pokemon)        | encounterPokemon(pokemon) |
+| Upon Encounter, try and catch                    | catchPokemon(pokemon, pokeball=items.POKE_BALL, normalized_reticle_size=1.950, hit_pokemon=True, spin_modifier=0.850, normalized_hit_position=1.0)|
+| Use a razz berry or the like                     | useItemCapture(item_id, pokemon) |
+| Use a Potion (Hyper potion, super, etc..)        | useItemPotion(item_id, pokemon) |
+| Use a Revive (Max revive etc as well)            | useItemRevive(item_id, pokemon) |
+| Evolve Pokemon (check for candies first)         | evolvePokemon(pokemon) |
+| 'Transfers' a pokemon. Pr. Willow is probably eating them| releasePokemon(pokemon) |
+| Check for level up and apply                     | getLevelUp(newLevel) |
+| Use a lucky egg                                  | useXpBoost() |
+| Throw away items                                 | recycleItem(item_id, count) |
+| set an Egg into an incubator                     | setEgg(item, pokemon) |
+| Set the name of a given pokemon                  | nicknamePokemon(pokemon, nickname) |
+| Set Pokemon as favorite                          | setFavoritePokemon(pokemon, is_favorite) |
+| Upgrade a Pokemon's CP                           | upgradePokemon(pokemon) |
+| Choose player's team - `BLUE`,`RED`, or `YELLOW`.| setPlayerTeam(team) |
 
-# Spin a pokestop
-def getFortSearch(self, fort):
-
-# Get encounter
-def encounterPokemon(self, pokemon):
-
-# Upon Encounter, try and catch
-def catchPokemon(self, pokemon, pokeball=1):
-
-# Evolve Pokemon
-def evolvePokemon(self, pokemon):
-
-# Transfer Pokemon
-def releasePokemon(self, pokemon):
-
-# Throw away items
-def recycleItem(self, item_id, count):
-
-# set an Egg into an incubator
-def setEgg(self, item, pokemon):
-
-# Get Eggs
-def getEggs(self):
-
-# Get Inventory
-def getInventory(self):
-
-# Get Badges
-def getBadges(self):
-
-# Get Settings
-def getDownloadSettings(self):
-```
-Every method has been tested. Pull requests are encouraged.
+Every method has been tested locally. Automated units tests are needed. Pull requests are encouraged.
 
 ## Demo
 `demo.py` includes a demo of the API.
 
 ```
-➜  python demo.py -a "google" -u "email@gmail.com" -p "thepassword" -l "The Atlantic Ocean"
+➜  python demo.py -a "google" -u "email@gmail.com" -p "thepassword" -l "The Atlantic Ocean" -e"libencrypt.so"
 
 2016-07-17 16:26:59,947 - INFO - Creating Google session for email@gmail.com
 2016-07-17 16:26:59,953 - INFO - Starting new HTTPS connection (1): android.clients.google.com

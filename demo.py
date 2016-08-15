@@ -64,7 +64,7 @@ if __name__ == '__main__':
         trainer.checkInventory()
 
         # Things we need GPS for
-        if args.location:
+        if args.location and args.encrypt_lib:
             # We need a solid sleep to get over rate limting
             # Goodnight cow jumping over the moon.
             time.sleep(10)

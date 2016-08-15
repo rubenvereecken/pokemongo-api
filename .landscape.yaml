@@ -1,0 +1,14 @@
+doc-warnings: true
+test-warnings: false
+max-line-length: 120
+autodetect: true
+requirements:
+  - requirements.txt
+ignore-paths:
+  - proto
+  - POGOProtos
+ignore-patterns:
+  - ^.*_pb2\.py$
+python-targets:
+  - 2
+  - 3

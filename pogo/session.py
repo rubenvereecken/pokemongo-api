@@ -117,7 +117,7 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.fortSearch
 
-    # set an Egg into an incubator
+    # get details about fort (image, text etc..)
     def getFortDetails(self, fort):
 
         # Create request
@@ -139,7 +139,7 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.fortDetails
 
-    # Get encounter
+    # Get encounter (akin to tapping a pokemon)
     def encounterPokemon(self, pokemon):
 
         # Create request
@@ -213,7 +213,7 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.itemCapture
 
-    # Use a Potion
+    # Use a Potion (Hyper potion, super, etc..)
     def useItemPotion(self, item_id, pokemon):
 
         # Create Request
@@ -255,7 +255,7 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.itemRevive
 
-    # Evolve Pokemon
+    # Evolve Pokemon (check for candies first)
     def evolvePokemon(self, pokemon):
 
         payload = [Request.Request(
@@ -274,6 +274,8 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.evolve
 
+    # 'Transfers' a pokemon.
+    # We all secretly know Pr. Willow is probably eating them
     def releasePokemon(self, pokemon):
 
         payload = [Request.Request(
@@ -292,6 +294,7 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.release
 
+    # Check for level up and apply
     def getLevelUp(self, newLevel):
 
         payload = [Request.Request(
@@ -310,6 +313,7 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.levelUp
 
+    # Use a lucky egg
     def useXpBoost(self):
 
         payload = [Request.Request(
@@ -431,7 +435,7 @@ class PogoSession(PogoSessionBare):
         # Return everything
         return self._state.upgradePokemon
 
-    # Choose player's team: "BLUE","RED", or "YELLOW".
+    # Choose player's team- "BLUE","RED", or "YELLOW".
     def setPlayerTeam(self, team):
 
         # Create request

@@ -77,7 +77,7 @@ class PogoSessionBare(object):
         # Set up Inventory
         if old is not None:
             self._inventory = old.inventory
-            self._state = old._state
+            self._state = old.state
 
         # Start fresh
         else:
@@ -128,6 +128,10 @@ class PogoSessionBare(object):
     @property
     def authProvider(self):
         return self._authSession.provider
+
+    @property
+    def state(self):
+        return self._state
 
     # Properties for defaults
     # Check, so we don't have to start another request
@@ -273,11 +277,11 @@ class PogoSessionBare(object):
         try:
             return self.requestOrThrow(req, url)
         except DecodeError as e:
+            logging.error(e)
             raise PogoResponseException(ERROR_RESPONSE)
-            logging.error(e)
         except Exception as e:
-            raise PogoServerException(ERROR_SERVER)
             logging.error(e)
+            raise PogoServerException(ERROR_SERVER)
 
     def wrapAndRequest(self, payload, defaults=True):
         res = self.request(self.wrapInRequest(payload, defaults=defaults))

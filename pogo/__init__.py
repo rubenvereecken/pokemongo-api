@@ -1,1 +1,0 @@
-import POGOProtos as POGOProtos

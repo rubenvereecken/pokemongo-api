@@ -45,7 +45,8 @@ class Trainer(object):
         best = -1
         pokemonBest = None
         latitude, longitude, _ = self.session.getCoordinates()
-        logging.info("Current pos: %f, %f" % (latitude, longitude))
+        logging.info("Current pos: %f, %f", latitude, longitude)
+
         for cell in cells.map_cells:
             # Heap in pokemon protos where we have long + lat
             pokemons = [p for p in cell.wild_pokemons]
@@ -65,10 +66,11 @@ class Trainer(object):
                 )
 
                 # Log the pokemon found
-                logging.info("%s, %f meters away" % (
+                logging.info(
+                    "%s, %f meters away",
                     pokedex[pokemonId],
                     dist
-                ))
+                )
 
                 rarity = pokedex.getRarityById(pokemonId)
                 # Greedy for rarest
@@ -135,7 +137,7 @@ class Trainer(object):
                     bestBall = altBall
 
             # Try to catch it!!
-            logging.info("Using a %s" % items[bestBall])
+            logging.info("Using a %s", items[bestBall])
             attempt = self.session.catchPokemon(pokemon, bestBall)
             time.sleep(delay)
 
@@ -148,7 +150,7 @@ class Trainer(object):
                 if count == 0:
                     logging.info("Possible soft ban.")
                 else:
-                    logging.info("Pokemon fleed at %dth attempt" % (count + 1))
+                    logging.info("Pokemon fleed at %dth attempt", count + 1)
                 return attempt
 
             # Only try up to x attempts
@@ -180,10 +182,9 @@ class Trainer(object):
         dLon = (longitude - olongitude) / divisions
 
         logging.info(
-            "Walking %f meters. This will take ~%f seconds..." % (
-                dist,
-                dist / step
-            )
+            "Walking %f meters. This will take ~%f seconds...",
+            dist,
+            dist / step
         )
 
         # Approach at supplied rate
@@ -220,7 +221,7 @@ class Trainer(object):
     def walkAndCatch(self, pokemon):
         if pokemon:
             logging.info(
-                "Catching %s:" % pokedex[pokemon.pokemon_data.pokemon_id]
+                "Catching %s:", pokedex[pokemon.pokemon_data.pokemon_id]
             )
             self.walkTo(pokemon.latitude, pokemon.longitude, step=3.2)
             logging.info(self.encounterAndCatch(pokemon))
@@ -233,7 +234,6 @@ class Trainer(object):
         # Sort nearest forts (pokestop)
         logging.info("Sorting Nearest Forts:")
         cells = self.session.getMapObjects(bothDirections=False)
-        latitude, longitude, _ = self.session.getCoordinates()
         ordered_forts = []
         for cell in cells.map_cells:
             for fort in cell.forts:
@@ -254,7 +254,7 @@ class Trainer(object):
         # Find nearest fort (pokestop)
         logging.info("Finding Nearest Fort:")
         forts = self.sortCloseForts()
-        if forts:
+        if len(forts) > 0:
             return forts[0]
         logging.info("No forts found..")
         return None
@@ -264,7 +264,7 @@ class Trainer(object):
         # No fort, demo == over
         if fort:
             details = self.session.getFortDetails(fort)
-            logging.info("Spinning the Fort \"%s\":" % details.name)
+            logging.info("Spinning the Fort \"%s\":", details.name)
 
             # Walk over
             self.walkTo(fort.latitude, fort.longitude, step=3.2)
@@ -275,7 +275,7 @@ class Trainer(object):
     # Walk and spin everywhere
     def walkAndSpinMany(self, forts):
         for fort in forts:
-            self.walkAndSpin(self.session, fort)
+            self.walkAndSpin(fort)
 
     # A very brute force approach to evolving
     def evolveAllPokemon(self):
@@ -308,12 +308,11 @@ class Trainer(object):
         logging.info(eggs)
 
         # assign the best eggs to empty incubators
-        for i in xrange(min(len(incubators), len(eggs))):
+        for i in range(min(len(incubators), len(eggs))):
             incubator = incubators[i]
             egg = eggs[i]
-            logging.info("Adding egg '%s' to '%s'." % (egg.id, incubator.id))
+            logging.info("Adding egg '%s' to '%s'.", egg.id, incubator.id)
             self.session.setEgg(incubator, egg)
-
 
     # Understand this function before you run it.
     # Otherwise you may flush pokemon you wanted.
@@ -332,7 +331,7 @@ class Trainer(object):
                     continue
 
                 # Get rid of low CP, low evolve value
-                logging.info("Releasing %s" % pokedex[pokemon.pokemon_id])
+                logging.info("Releasing %s", pokedex[pokemon.pokemon_id])
                 self.session.releasePokemon(pokemon)
                 time.sleep(2)
 
@@ -347,14 +346,14 @@ class Trainer(object):
             # release for optimal candies
             while candies // pokedex.evolves[evolve] < len(pokemons):
                 pokemon = pokemons.pop()
-                logging.info("Releasing %s" % pokedex[pokemon.pokemon_id])
+                logging.info("Releasing %s", pokedex[pokemon.pokemon_id])
                 self.session.releasePokemon(pokemon)
                 time.sleep(1)
                 candies += 1
 
             # evolve remainder
             for pokemon in pokemons:
-                logging.info("Evolving %s" % pokedex[pokemon.pokemon_id])
+                logging.info("Evolving %s", pokedex[pokemon.pokemon_id])
                 logging.info(self.session.evolvePokemon(pokemon))
                 time.sleep(1)
                 self.session.releasePokemon(pokemon)
@@ -393,6 +392,7 @@ class Trainer(object):
             forts = self.sortCloseForts()
             self.cleanPokemon()
             self.cleanInventory()
+            self.setEggs()
             time.sleep(1)
             try:
                 for fort in forts:
