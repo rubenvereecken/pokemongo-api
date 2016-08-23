@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Data/Logs/CatchPokemonLogEntry.proto',
   package='POGOProtos.Data.Logs',
   syntax='proto3',
-  serialized_pb=_b('\n/POGOProtos/Data/Logs/CatchPokemonLogEntry.proto\x12\x14POGOProtos.Data.Logs\x1a POGOProtos/Enums/PokemonId.proto\"\xf7\x01\n\x14\x43\x61tchPokemonLogEntry\x12\x41\n\x06result\x18\x01 \x01(\x0e\x32\x31.POGOProtos.Data.Logs.CatchPokemonLogEntry.Result\x12/\n\npokemon_id\x18\x02 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12\x15\n\rcombat_points\x18\x03 \x01(\x05\x12\x17\n\x0fpokemon_data_id\x18\x04 \x01(\x04\";\n\x06Result\x12\t\n\x05UNSET\x10\x00\x12\x14\n\x10POKEMON_CAPTURED\x10\x01\x12\x10\n\x0cPOKEMON_FLED\x10\x02\x62\x06proto3')
+  serialized_pb=_b('\n/POGOProtos/Data/Logs/CatchPokemonLogEntry.proto\x12\x14POGOProtos.Data.Logs\x1a POGOProtos/Enums/PokemonId.proto\"\x8c\x02\n\x14\x43\x61tchPokemonLogEntry\x12\x41\n\x06result\x18\x01 \x01(\x0e\x32\x31.POGOProtos.Data.Logs.CatchPokemonLogEntry.Result\x12/\n\npokemon_id\x18\x02 \x01(\x0e\x32\x1b.POGOProtos.Enums.PokemonId\x12\x15\n\rcombat_points\x18\x03 \x01(\x05\x12\x17\n\x0fpokemon_data_id\x18\x04 \x01(\x06\"P\n\x06Result\x12\t\n\x05UNSET\x10\x00\x12\x14\n\x10POKEMON_CAPTURED\x10\x01\x12\x10\n\x0cPOKEMON_FLED\x10\x02\x12\x13\n\x0fPOKEMON_HATCHED\x10\x03\x62\x06proto3')
   ,
   dependencies=[POGOProtos_dot_Enums_dot_PokemonId__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -45,11 +45,15 @@ _CATCHPOKEMONLOGENTRY_RESULT = _descriptor.EnumDescriptor(
       name='POKEMON_FLED', index=2, number=2,
       options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='POKEMON_HATCHED', index=3, number=3,
+      options=None,
+      type=None),
   ],
   containing_type=None,
   options=None,
   serialized_start=296,
-  serialized_end=355,
+  serialized_end=376,
 )
 _sym_db.RegisterEnumDescriptor(_CATCHPOKEMONLOGENTRY_RESULT)
 
@@ -84,7 +88,7 @@ _CATCHPOKEMONLOGENTRY = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='pokemon_data_id', full_name='POGOProtos.Data.Logs.CatchPokemonLogEntry.pokemon_data_id', index=3,
-      number=4, type=4, cpp_type=4, label=1,
+      number=4, type=6, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -103,7 +107,7 @@ _CATCHPOKEMONLOGENTRY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=108,
-  serialized_end=355,
+  serialized_end=376,
 )
 
 _CATCHPOKEMONLOGENTRY.fields_by_name['result'].enum_type = _CATCHPOKEMONLOGENTRY_RESULT

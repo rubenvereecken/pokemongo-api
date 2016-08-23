@@ -1,6 +1,6 @@
 from geopy.geocoders import GoogleV3
 from s2sphere import CellId, LatLng
-from custom_exceptions import GeneralPogoException
+from pogo.custom_exceptions import GeneralPogoException
 import gpxpy.geo
 
 

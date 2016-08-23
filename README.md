@@ -1,5 +1,6 @@
 # Pokemon Go API for Python
 [![Code Health](https://landscape.io/github/dmadisetti/pokemongo-api/master/landscape.svg?style=flat)](https://landscape.io/github/dmadisetti/pokemongo-api/master)
+[![Build Status](https://travis-ci.org/dmadisetti/pokemongo-api.svg?branch=master)](https://travis-ci.org/dmadisetti/pokemongo-api)
 ## Why use this API?
 
 This is arguably one of the cleanest python API's out there. It is our hope that this codebase is easily understood and very readable. We actively stay away from reflection, because actively managed calls provide a nicer experience than digging through protobufs. Development is currently active, so feel free to contribute any requests or functionality you think is missing.
@@ -47,7 +48,7 @@ Our current implementaion covers most of the basics of gameplay. The following m
 
 
 | Description                                      | function      |
-| ------------------                               |:-------------:|
+| ------------------                               | -------------:|
 | Get Profile (Avatar, team etc..)                 | getProfile() |
 | Get Eggs                                         | getEggs() |
 | Get Inventory                                    | getInventory() |
@@ -62,7 +63,7 @@ Our current implementaion covers most of the basics of gameplay. The following m
 | Use a Potion (Hyper potion, super, etc..)        | useItemPotion(item_id, pokemon) |
 | Use a Revive (Max revive etc as well)            | useItemRevive(item_id, pokemon) |
 | Evolve Pokemon (check for candies first)         | evolvePokemon(pokemon) |
-| 'Transfers' a pokemon. Pr. Willow is probably eating them| releasePokemon(pokemon) |
+| 'Transfers' a pokemon.                           | releasePokemon(pokemon) |
 | Check for level up and apply                     | getLevelUp(newLevel) |
 | Use a lucky egg                                  | useXpBoost() |
 | Throw away items                                 | recycleItem(item_id, count) |
@@ -72,7 +73,7 @@ Our current implementaion covers most of the basics of gameplay. The following m
 | Upgrade a Pokemon's CP                           | upgradePokemon(pokemon) |
 | Choose player's team - `BLUE`,`RED`, or `YELLOW`.| setPlayerTeam(team) |
 
-Every method has been tested locally. Automated units tests are needed. Pull requests are encouraged.
+Every method has been tested locally. Automated units tests are needed, and are currently in the works. Pull requests are encouraged.
 
 ## Demo
 `demo.py` includes a demo of the API.
