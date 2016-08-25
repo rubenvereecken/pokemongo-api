@@ -13,14 +13,16 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
+from POGOProtos.Data import PlayerData_pb2 as POGOProtos_dot_Data_dot_PlayerData__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Responses/ClaimCodenameResponse.proto',
   package='POGOProtos.Networking.Responses',
   syntax='proto3',
-  serialized_pb=_b('\n;POGOProtos/Networking/Responses/ClaimCodenameResponse.proto\x12\x1fPOGOProtos.Networking.Responses\"\xb0\x02\n\x15\x43laimCodenameResponse\x12\x10\n\x08\x63odename\x18\x01 \x01(\t\x12\x14\n\x0cuser_message\x18\x02 \x01(\t\x12\x15\n\ris_assignable\x18\x03 \x01(\x08\x12M\n\x06status\x18\x04 \x01(\x0e\x32=.POGOProtos.Networking.Responses.ClaimCodenameResponse.Status\"\x88\x01\n\x06Status\x12\t\n\x05UNSET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x1a\n\x16\x43ODENAME_NOT_AVAILABLE\x10\x02\x12\x16\n\x12\x43ODENAME_NOT_VALID\x10\x03\x12\x11\n\rCURRENT_OWNER\x10\x04\x12\x1f\n\x1b\x43ODENAME_CHANGE_NOT_ALLOWED\x10\x05\x62\x06proto3')
-)
+  serialized_pb=_b('\n;POGOProtos/Networking/Responses/ClaimCodenameResponse.proto\x12\x1fPOGOProtos.Networking.Responses\x1a POGOProtos/Data/PlayerData.proto\"\xe5\x02\n\x15\x43laimCodenameResponse\x12\x10\n\x08\x63odename\x18\x01 \x01(\t\x12\x14\n\x0cuser_message\x18\x02 \x01(\t\x12\x15\n\ris_assignable\x18\x03 \x01(\x08\x12M\n\x06status\x18\x04 \x01(\x0e\x32=.POGOProtos.Networking.Responses.ClaimCodenameResponse.Status\x12\x33\n\x0eupdated_player\x18\x05 \x01(\x0b\x32\x1b.POGOProtos.Data.PlayerData\"\x88\x01\n\x06Status\x12\t\n\x05UNSET\x10\x00\x12\x0b\n\x07SUCCESS\x10\x01\x12\x1a\n\x16\x43ODENAME_NOT_AVAILABLE\x10\x02\x12\x16\n\x12\x43ODENAME_NOT_VALID\x10\x03\x12\x11\n\rCURRENT_OWNER\x10\x04\x12\x1f\n\x1b\x43ODENAME_CHANGE_NOT_ALLOWED\x10\x05\x62\x06proto3')
+  ,
+  dependencies=[POGOProtos_dot_Data_dot_PlayerData__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
@@ -58,8 +60,8 @@ _CLAIMCODENAMERESPONSE_STATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=265,
-  serialized_end=401,
+  serialized_start=352,
+  serialized_end=488,
 )
 _sym_db.RegisterEnumDescriptor(_CLAIMCODENAMERESPONSE_STATUS)
 
@@ -99,6 +101,13 @@ _CLAIMCODENAMERESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='updated_player', full_name='POGOProtos.Networking.Responses.ClaimCodenameResponse.updated_player', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -112,11 +121,12 @@ _CLAIMCODENAMERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=97,
-  serialized_end=401,
+  serialized_start=131,
+  serialized_end=488,
 )
 
 _CLAIMCODENAMERESPONSE.fields_by_name['status'].enum_type = _CLAIMCODENAMERESPONSE_STATUS
+_CLAIMCODENAMERESPONSE.fields_by_name['updated_player'].message_type = POGOProtos_dot_Data_dot_PlayerData__pb2._PLAYERDATA
 _CLAIMCODENAMERESPONSE_STATUS.containing_type = _CLAIMCODENAMERESPONSE
 DESCRIPTOR.message_types_by_name['ClaimCodenameResponse'] = _CLAIMCODENAMERESPONSE
 

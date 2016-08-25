@@ -1,4 +1,4 @@
-from util import ConstReflect
+from pogo.util import ConstReflect
 
 
 class Rarity(ConstReflect):

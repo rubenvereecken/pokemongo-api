@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='POGOProtos/Networking/Requests/Messages/GetGymDetailsMessage.proto',
   package='POGOProtos.Networking.Requests.Messages',
   syntax='proto3',
-  serialized_pb=_b('\nBPOGOProtos/Networking/Requests/Messages/GetGymDetailsMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"\x86\x01\n\x14GetGymDetailsMessage\x12\x0e\n\x06gym_id\x18\x01 \x01(\t\x12\x17\n\x0fplayer_latitude\x18\x02 \x01(\x01\x12\x18\n\x10player_longitude\x18\x03 \x01(\x01\x12\x14\n\x0cgym_latitude\x18\x04 \x01(\x01\x12\x15\n\rgym_longitude\x18\x05 \x01(\x01\x62\x06proto3')
+  serialized_pb=_b('\nBPOGOProtos/Networking/Requests/Messages/GetGymDetailsMessage.proto\x12\'POGOProtos.Networking.Requests.Messages\"\x9e\x01\n\x14GetGymDetailsMessage\x12\x0e\n\x06gym_id\x18\x01 \x01(\t\x12\x17\n\x0fplayer_latitude\x18\x02 \x01(\x01\x12\x18\n\x10player_longitude\x18\x03 \x01(\x01\x12\x14\n\x0cgym_latitude\x18\x04 \x01(\x01\x12\x15\n\rgym_longitude\x18\x05 \x01(\x01\x12\x16\n\x0e\x63lient_version\x18\x06 \x01(\tb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -68,6 +68,13 @@ _GETGYMDETAILSMESSAGE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='client_version', full_name='POGOProtos.Networking.Requests.Messages.GetGymDetailsMessage.client_version', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -81,7 +88,7 @@ _GETGYMDETAILSMESSAGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=112,
-  serialized_end=246,
+  serialized_end=270,
 )
 
 DESCRIPTOR.message_types_by_name['GetGymDetailsMessage'] = _GETGYMDETAILSMESSAGE

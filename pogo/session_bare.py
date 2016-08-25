@@ -226,10 +226,11 @@ class PogoSessionBare(object):
             proto = Signature.Signature(
                 location_hash1=hashA,
                 location_hash2=hashB,
-                unknown22=os.urandom(32),
+                session_hash=os.urandom(32),
                 timestamp=getMs(),
                 timestamp_since_start=getMs() - self._start,
-                request_hash=hashRequests(self.authTicket, payload)
+                request_hash=hashRequests(self.authTicket, payload),
+                unknown25 = -8537042734809897855
             )
 
             signature = hashSignature(proto, self.encryptLib)

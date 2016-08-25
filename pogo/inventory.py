@@ -1,5 +1,5 @@
-from pokedex import pokedex
-from util import ConstReflect
+from pogo.pokedex import pokedex
+from pogo.util import ConstReflect
 
 
 # Not quiet an enum
