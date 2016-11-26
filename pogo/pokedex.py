@@ -244,7 +244,7 @@ class Pokedex(ConstReflect):
         STARMIE: STARYU, MR_MIME: MR_MIME, SCYTHER: SCYTHER, JYNX: JYNX,
         ELECTABUZZ: ELECTABUZZ, MAGMAR: MAGMAR, PINSIR: PINSIR, TAUROS: TAUROS,
         MAGIKARP: MAGIKARP, GYARADOS: MAGIKARP, LAPRAS: LAPRAS, DITTO: DITTO,
-        EEVEE: EEVEE, VAPOREON: EEVEE, JOLTEON: JOLTEON, FLAREON: FLAREON,
+        EEVEE: EEVEE, VAPOREON: EEVEE, JOLTEON: EEVEE, FLAREON: EEVEE,
         PORYGON: PORYGON, OMANYTE: OMANYTE, OMASTAR: OMANYTE, KABUTO: KABUTO,
         KABUTOPS: KABUTO, AERODACTYL: AERODACTYL, SNORLAX: SNORLAX,
         ARTICUNO: ARTICUNO, ZAPDOS: ZAPDOS, MOLTRES: MOLTRES, DRATINI: DRATINI,
@@ -299,6 +299,87 @@ class Pokedex(ConstReflect):
         Rarity.CRITTER: [ZUBAT, PIDGEY, RATTATA]
     }
 
+    _candy_distance = {
+        BULBASAUR: 3,
+        CHARMANDER: 3,
+        SQUIRTLE: 3,
+        CATERPIE: 1,
+        WEEDLE: 1,
+        PIDGEY: 1,
+        RATTATA: 1,
+        SPEAROW: 1,
+        EKANS: 3,
+        PIKACHU: 1,
+        SANDSHREW: 3,
+        NIDORAN_FEMALE: 3,
+        NIDORAN_MALE: 3,
+        CLEFAIRY: 1,
+        VULPIX: 3,
+        JIGGLYPUFF: 1,
+        ZUBAT: 1,
+        ODDISH: 3,
+        PARAS: 3,
+        VENONAT: 3,
+        DIGLETT: 3,
+        MEOWTH: 3,
+        PSYDUCK: 3,
+        MANKEY: 3,
+        GROWLITHE: 3,
+        POLIWAG: 3,
+        ABRA: 3,
+        MACHOP: 3,
+        BELLSPROUT: 3,
+        TENTACOOL: 3,
+        GEODUDE: 1,
+        PONYTA: 3,
+        SLOWPOKE: 3,
+        MAGNEMITE: 3,
+        FARFETCHD: 3,
+        DODUO: 3,
+        SEEL: 3,
+        GRIMER: 3,
+        SHELLDER: 3,
+        GASTLY: 3,
+        ONIX: 5,
+        DROWZEE: 3,
+        KRABBY: 3,
+        VOLTORB: 3,
+        EXEGGCUTE: 3,
+        CUBONE: 3,
+        HITMONLEE: 5,
+        LICKITUNG: 3,
+        KOFFING: 3,
+        RHYHORN: 3,
+        CHANSEY: 5,
+        TANGELA: 3,
+        KANGASKHAN: 3,
+        HORSEA: 3,
+        GOLDEEN: 3,
+        STARYU: 3,
+        MR_MIME: 5,
+        SCYTHER: 5,
+        JYNX: 5,
+        ELECTABUZZ: 5,
+        MAGMAR: 5,
+        PINSIR: 5,
+        TAUROS: 3,
+        MAGIKARP: 1,
+        LAPRAS: 5,
+        DITTO: 3,
+        EEVEE: 5,
+        PORYGON: 3,
+        OMANYTE: 5,
+        KABUTO: 5,
+        AERODACTYL: 5,
+        SNORLAX: 5,
+        ARTICUNO: 5,
+        ZAPDOS: 5,
+        MOLTRES: 5,
+        DRATINI: 5,
+        MEWTWO: 5,
+        MEW: 5,
+    }
+
     def getRarityById(self, pokemonId):
         for rarity in self.rarity:
             if pokemonId in self._rarity[rarity]:
@@ -319,5 +400,9 @@ class Pokedex(ConstReflect):
     @property
     def evolves(self):
         return self._evolves
+
+    @property
+    def candy_distance(self):
+        return self._candy_distance
 
 pokedex = Pokedex()
